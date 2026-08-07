@@ -18,6 +18,10 @@
         {
           "discipline": "course",
           "valeur": "5 km"
+        },
+        {
+          "discipline": "velo",
+          "valeur": "1000000"
         }
       ],
       "detail": "Distance sprint — idéale pour une première course ou pour aller vite."
