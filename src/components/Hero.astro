@@ -1,0 +1,76 @@
+---
+import Button from './ui/Button.astro';
+import Countdown from './Countdown.astro';
+import PinesBand from './ui/PinesBand.astro';
+import { home, site } from '../lib/content';
+
+const { hero } = home;
+---
+
+<section id="top" class="relative -mt-18 overflow-hidden bg-shore pt-18">
+  <!-- halo lumineux, comme le dégradé du visuel de la trifonction -->
+  <div
+    class="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[64rem] -translate-x-1/2 rounded-full bg-white/70 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="shell relative flex min-h-[36rem] flex-col justify-center pt-14 pb-56 sm:pb-64 lg:min-h-[42rem] lg:pt-20 lg:pb-72">
+    <div class="mx-auto max-w-3xl text-center">
+      <p
+        class="inline-flex items-center gap-2 rounded-full border border-navy-800/15 bg-white/70 px-4 py-1.5 font-display text-sm font-semibold tracking-[0.16em] text-navy-700 uppercase"
+      >
+        <span class="h-1.5 w-1.5 rounded-full bg-ocean-500"></span>
+        {hero.surtitre}
+      </p>
+
+      <h1 class="mt-6 text-[2.6rem] leading-[0.95] sm:text-6xl lg:text-[4.6rem]">
+        {hero.titre}
+      </h1>
+
+      <svg
+        viewBox="0 0 200 14"
+        class="mx-auto mt-6 h-3.5 w-44 text-ocean-500"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+      >
+        <path d="M3 9c16-9 30-9 46 0s30 9 46 0 30-9 46 0 27 6 56 1" />
+      </svg>
+
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-navy-600 sm:text-xl">
+        {hero.accroche}
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <Button href={hero.cta_principal.lien} variante="secondaire" taille="lg">
+          {hero.cta_principal.libelle}
+        </Button>
+        <Button href={hero.cta_secondaire.lien} variante="clair" taille="lg">
+          {hero.cta_secondaire.libelle}
+        </Button>
+      </div>
+
+      <p class="mt-6 text-sm font-medium text-navy-500">
+        {site.affiliation} · {site.ville}
+      </p>
+    </div>
+
+    {
+      hero.compte_a_rebours.actif && (
+        <div class="mt-12 lg:mt-14">
+          <Countdown
+            libelle={hero.compte_a_rebours.libelle}
+            date={hero.compte_a_rebours.date}
+            lien={hero.compte_a_rebours.lien}
+          />
+        </div>
+      )
+    }
+  </div>
+
+  <!-- horizon : dunes + pins, raccord franc avec la section chiffres -->
+  <PinesBand class="absolute bottom-0 left-0 h-40 text-navy-800 sm:h-48 lg:h-56" />
+</section>

@@ -1,0 +1,20 @@
+# build
+dist/
+.astro/
+
+# deps (gérées dans le conteneur)
+node_modules/
+
+# env
+.env
+.env.production
+
+# os / éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs
+*.log
+npm-debug.log*

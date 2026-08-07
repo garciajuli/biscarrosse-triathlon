@@ -1,0 +1,70 @@
+---
+import SectionHeader from './ui/SectionHeader.astro';
+import DisciplineIcon from './ui/DisciplineIcon.astro';
+import { epreuves, dateLongue } from '../lib/content';
+import type { Discipline, Epreuve } from '../types';
+
+const iconesParType: Record<Epreuve['discipline'], Discipline[]> = {
+  triathlon: ['natation', 'velo', 'course'],
+  swimrun: ['natation', 'course'],
+};
+---
+
+<section id="epreuves" class="scroll-mt-24 bg-white py-20 sm:py-24 lg:py-28">
+  <div class="shell">
+    <SectionHeader
+      eyebrow="Nos épreuves"
+      titre="Deux rendez-vous à Biscarrosse"
+      intro="Le club n’organise pas que des entraînements : chaque saison, on trace deux parcours entre lac et pins et on vous attend au départ."
+      class="reveal"
+    />
+
+    <div class="mt-14 grid gap-8 lg:grid-cols-2">
+      {
+        epreuves.map((e, i) => {
+          const dateFmt = e.date ? dateLongue(new Date(e.date)) : null;
+          return (
+            <a
+              href={`/${e.slug}`}
+              class="group reveal flex flex-col rounded-card border border-navy-100 bg-foam-50 p-8 shadow-soft transition duration-200 hover:-translate-y-1 hover:border-ocean-200 hover:shadow-lift sm:p-10"
+              style={`transition-delay:${i * 100}ms`}
+            >
+              <div class="flex items-center gap-2.5 text-ocean-500" aria-hidden="true">
+                {iconesParType[e.discipline].map((d) => (
+                  <span class="flex h-11 w-11 items-center justify-center rounded-full bg-white ring-1 ring-navy-100">
+                    <DisciplineIcon discipline={d} class="h-5 w-5" />
+                  </span>
+                ))}
+              </div>
+
+              {dateFmt && (
+                <p class="mt-7 font-display text-sm font-semibold tracking-[0.16em] text-ocean-600 uppercase">
+                  {dateFmt}
+                </p>
+              )}
+
+              <h3 class="mt-2 text-3xl text-navy-900 lg:text-[2.1rem]">{e.nom}</h3>
+
+              <p class="mt-4 leading-relaxed text-navy-500">{e.accroche}</p>
+
+              <div class="mt-6 flex flex-wrap gap-2">
+                {e.formats.map((f) => (
+                  <span class="rounded-full bg-white px-3.5 py-1.5 font-display text-sm font-semibold tracking-wide text-navy-700 uppercase ring-1 ring-navy-100">
+                    {f.nom}
+                  </span>
+                ))}
+              </div>
+
+              <span class="mt-8 inline-flex items-center gap-2 font-display text-sm font-semibold tracking-wider text-navy-900 uppercase">
+                Découvrir l’épreuve
+                <svg viewBox="0 0 16 16" class="h-4 w-4 text-ocean-500 transition-transform group-hover:translate-x-1" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2.5 8h10M9 4.5 12.5 8 9 11.5" />
+                </svg>
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

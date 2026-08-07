@@ -1,0 +1,118 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site, home } from '../lib/content';
+
+interface Props {
+  titre?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  titre = home.seo.titre,
+  description = home.seo.description,
+  image = home.seo.image,
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+
+const canonique = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com');
+const imageAbsolue = new URL(image, Astro.site ?? 'https://example.com');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsClub',
+  name: site.nom,
+  alternateName: site.nom_court,
+  description: home.seo.description,
+  sport: 'Triathlon',
+  url: canonique.origin,
+  email: site.email,
+  telephone: site.telephone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.adresse.lignes.slice(0, -1).join(', '),
+    addressLocality: 'Biscarrosse',
+    postalCode: '40600',
+    addressRegion: 'Nouvelle-Aquitaine',
+    addressCountry: 'FR',
+  },
+  sameAs: site.reseaux.map((r) => r.url).filter(Boolean),
+};
+---
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{titre}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonique.href} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.nom} />
+    <meta property="og:title" content={titre} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonique.href} />
+    <meta property="og:image" content={imageAbsolue.href} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta name="theme-color" content="#16294b" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script is:inline set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
+
+    <!-- retire `no-js` au plus tôt : évite un flash sur les blocs animés -->
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+    </script>
+  </head>
+
+  <body>
+    <a
+      href="#contenu"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-navy-800 focus:px-5 focus:py-2.5 focus:font-display focus:font-semibold focus:tracking-wider focus:text-white focus:uppercase"
+    >
+      Aller au contenu
+    </a>
+
+    <Header />
+
+    <main id="contenu">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      // Apparition douce des blocs au défilement (dégradation propre sans JS)
+      const cibles = document.querySelectorAll<HTMLElement>('.reveal');
+
+      if (!('IntersectionObserver' in window)) {
+        cibles.forEach((c) => c.classList.add('is-visible'));
+      } else {
+        const observateur = new IntersectionObserver(
+          (entrees) => {
+            for (const entree of entrees) {
+              if (!entree.isIntersecting) continue;
+              entree.target.classList.add('is-visible');
+              observateur.unobserve(entree.target);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+        );
+        cibles.forEach((c) => observateur.observe(c));
+      }
+    </script>
+  </body>
+</html>

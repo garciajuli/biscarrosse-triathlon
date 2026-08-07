@@ -1,0 +1,141 @@
+{
+  "seo": {
+    "titre": "Biscarrosse Olympique Triathlon — Club de triathlon dans les Landes",
+    "description": "Natation, vélo, course à pied entre lac et forêt de pins. Le club de triathlon de Biscarrosse accueille débutants, jeunes et compétiteurs, du loisir au format Ironman.",
+    "image": "/uploads/og-biscarrosse-triathlon.svg"
+  },
+  "hero": {
+    "surtitre": "Saison 2026 · 2027",
+    "titre": "Nager, rouler, courir entre lac et pins",
+    "accroche": "Un club familial au cœur des Landes. Du premier tri découverte au format longue distance, on s'entraîne ensemble, encadrés, toute l'année à Biscarrosse.",
+    "cta_principal": { "libelle": "Le triathlon", "lien": "/triathlon" },
+    "cta_secondaire": { "libelle": "Le swimrun", "lien": "/swimrun" },
+    "compte_a_rebours": {
+      "actif": true,
+      "libelle": "Triathlon de Biscarrosse",
+      "date": "2026-09-20T09:00:00+02:00",
+      "lien": "#agenda"
+    }
+  },
+  "chiffres": [
+    { "valeur": "180", "libelle": "licenciés", "detail": "dont 55 jeunes" },
+    { "valeur": "12", "libelle": "séances / semaine", "detail": "3 disciplines encadrées" },
+    { "valeur": "4", "libelle": "entraîneurs diplômés", "detail": "BF5 & BNSSA" },
+    { "valeur": "1978", "libelle": "année de création", "detail": "au bord du lac" }
+  ],
+  "apropos": {
+    "eyebrow": "Le club",
+    "titre": "Le triathlon, version landaise",
+    "paragraphes": [
+      "Biscarrosse Olympique Triathlon, c'est un terrain de jeu que peu de clubs peuvent offrir : le lac pour la natation en eau libre dès le printemps, 300 km de pistes cyclables sous les pins pour le vélo, et le sable de la dune pour les séances qui font mal aux mollets.",
+      "Ici, personne ne reste seul sur le bord de la route. Les groupes sont constitués par niveau, les séances sont écrites par nos entraîneurs, et le dimanche matin la sortie longue finit toujours par un café."
+    ],
+    "points": [
+      {
+        "titre": "Tous les niveaux",
+        "texte": "Groupes découverte, loisir et compétition. On sait accueillir quelqu'un qui n'a jamais nagé en ligne d'eau."
+      },
+      {
+        "titre": "École de triathlon",
+        "texte": "Une section jeunes de 8 à 19 ans, labellisée, avec aquathlons et compétitions départementales."
+      },
+      {
+        "titre": "Encadrement diplômé",
+        "texte": "Quatre entraîneurs fédéraux, des plans de séance progressifs et un suivi individuel sur objectif."
+      },
+      {
+        "titre": "Esprit club",
+        "texte": "Trifonction aux couleurs des pins, week-ends de stage, courses en équipe et repas de fin de saison."
+      }
+    ],
+    "image": "/uploads/photo-club.svg",
+    "image_alt": "Groupe de triathlètes du club à l'entraînement au bord du lac de Biscarrosse",
+    "citation": {
+      "texte": "On est venus pour s'entraîner, on est restés pour les gens.",
+      "auteur": "Marie, licenciée depuis 2019"
+    }
+  },
+  "entrainements": {
+    "eyebrow": "Entraînements",
+    "titre": "Les créneaux de la semaine",
+    "intro": "Douze séances hebdomadaires réparties sur les trois disciplines, plus le renforcement. Tu choisis selon ton objectif et ta disponibilité — aucune obligation de tout faire.",
+    "note": "Les créneaux évoluent entre la saison hivernale et la saison estivale (natation en eau libre au lac dès mai). Le planning à jour est envoyé aux licenciés chaque mois."
+  },
+  "actualites": {
+    "eyebrow": "Actualités",
+    "titre": "La vie du club",
+    "intro": "Résultats, coulisses, infos pratiques : ce qui bouge à Biscarrosse."
+  },
+  "agenda": {
+    "eyebrow": "Agenda",
+    "titre": "Les prochains rendez-vous",
+    "intro": "Compétitions visées par le club, rendez-vous internes et stages de la saison."
+  },
+  "rejoindre": {
+    "eyebrow": "Adhésion",
+    "titre": "Venir essayer, puis s'inscrire",
+    "intro": "Trois séances d'essai gratuites avant de décider. Il suffit d'un maillot, d'une paire de baskets et d'un vélo en état de marche — on prête le reste.",
+    "etapes": [
+      {
+        "titre": "1. Écris-nous",
+        "texte": "Un mail avec ton âge, ton niveau et les disciplines qui t'intéressent. On te propose le créneau adapté."
+      },
+      {
+        "titre": "2. Trois séances d'essai",
+        "texte": "Tu viens t'entraîner avec le groupe, gratuitement et sans licence, pour voir si le courant passe."
+      },
+      {
+        "titre": "3. Adhésion en ligne",
+        "texte": "Formulaire FFTri, certificat médical ou attestation santé, et paiement en une à trois fois."
+      }
+    ],
+    "tarifs": [
+      {
+        "categorie": "Jeunes (8-19 ans)",
+        "prix": "180 €",
+        "detail": "Licence FFTri incluse, 3 séances / semaine, école de triathlon.",
+        "mise_en_avant": false
+      },
+      {
+        "categorie": "Adulte loisir & compétition",
+        "prix": "230 €",
+        "detail": "Licence FFTri incluse, accès à tous les créneaux et aux stages.",
+        "mise_en_avant": true
+      },
+      {
+        "categorie": "Adhésion sans licence",
+        "prix": "120 €",
+        "detail": "Entraînements uniquement, sans participation aux compétitions FFTri.",
+        "mise_en_avant": false
+      }
+    ],
+    "note": "Coupons sport, Pass'Sport et chèques vacances acceptés. Tarif dégressif à partir du 2ᵉ membre d'une même famille.",
+    "cta_principal": { "libelle": "Demander un essai", "lien": "mailto:contact@biscarrosse-triathlon.fr?subject=Demande%20de%20s%C3%A9ance%20d%27essai" },
+    "cta_secondaire": { "libelle": "Nous appeler", "lien": "tel:+33612345678" }
+  },
+  "benevoles": {
+    "actif": true,
+    "eyebrow": "Bénévoles",
+    "titre": "Vivre le triathlon de l'intérieur",
+    "texte": "Signaleur sur le parcours vélo, chronométrage, ravitaillement, montage des barrières : sans bénévoles, pas de course. Une matinée donnée, une ambiance qu'on ne trouve pas dans les gradins.",
+    "cta": { "libelle": "Devenir bénévole", "lien": "mailto:contact@biscarrosse-triathlon.fr?subject=B%C3%A9n%C3%A9volat" }
+  },
+  "galerie": {
+    "eyebrow": "En images",
+    "titre": "Le club en images",
+    "images": [
+      { "src": "/uploads/galerie-1.svg", "alt": "Départ de natation dans le lac de Biscarrosse au lever du jour" },
+      { "src": "/uploads/galerie-2.svg", "alt": "Peloton du club sur une piste cyclable sous les pins" },
+      { "src": "/uploads/galerie-3.svg", "alt": "Séance de course à pied sur la plage" },
+      { "src": "/uploads/galerie-4.svg", "alt": "Parc à vélos avant le départ d'un triathlon" },
+      { "src": "/uploads/galerie-5.svg", "alt": "Jeunes de l'école de triathlon lors d'un aquathlon" },
+      { "src": "/uploads/galerie-6.svg", "alt": "Podium d'une compétition régionale" }
+    ]
+  },
+  "partenaires": {
+    "eyebrow": "Partenaires",
+    "titre": "Ils soutiennent le club",
+    "intro": "Équipement, logistique, subventions : nos partenaires rendent possibles les stages, la trifonction et l'école de triathlon.",
+    "cta": { "libelle": "Devenir partenaire", "lien": "mailto:contact@biscarrosse-triathlon.fr?subject=Partenariat" }
+  }
+}

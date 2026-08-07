@@ -1,0 +1,25 @@
+---
+/**
+ * Espace rédaction (Decap CMS).
+ *
+ * Page Astro plutôt que fichier statique dans public/, pour que /admin/ réponde
+ * aussi bien avec le serveur de dev qu'en production.
+ * La configuration des écrans d'édition est dans public/admin/config.yml.
+ *
+ * Si le club utilise Pages CMS, ce fichier et public/admin/ peuvent être supprimés.
+ */
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Espace rédaction — BO Triathlon</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <script is:inline src="https://unpkg.com/decap-cms@^3.6.0/dist/decap-cms.js"></script>
+  </body>
+</html>

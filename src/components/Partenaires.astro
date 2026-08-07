@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeader from './ui/SectionHeader.astro';
+import Button from './ui/Button.astro';
+import { home } from '../lib/content';
+
+const partenaires = (await getCollection('partenaires')).sort((a, b) => a.data.ordre - b.data.ordre);
+const principaux = partenaires.filter((p) => p.data.niveau === 'principal');
+const autres = partenaires.filter((p) => p.data.niveau !== 'principal');
+
+const { partenaires: bloc } = home;
+---
+
+<section id="partenaires" class="scroll-mt-24 bg-foam-50 py-20 sm:py-24 lg:py-28">
+  <div class="shell">
+    <SectionHeader eyebrow={bloc.eyebrow} titre={bloc.titre} intro={bloc.intro} centre class="reveal" />
+
+    {
+      principaux.length > 0 && (
+        <>
+          <p class="reveal mt-14 text-center font-display text-sm font-semibold tracking-[0.18em] text-navy-400 uppercase">
+            Partenaires principaux
+          </p>
+          <ul class="mt-6 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-2">
+            {principaux.map((p, i) => (
+              <li class="reveal" style={`transition-delay:${i * 80}ms`}>
+                <a
+                  href={p.data.url || undefined}
+                  target={p.data.url ? '_blank' : undefined}
+                  rel={p.data.url ? 'noopener noreferrer' : undefined}
+                  class="flex h-32 items-center justify-center rounded-card border border-navy-100 bg-white p-8 shadow-soft transition duration-300 hover:-translate-y-0.5 hover:shadow-lift sm:h-40"
+                >
+                  {p.data.logo ? (
+                    <img
+                      src={p.data.logo}
+                      alt={p.data.nom}
+                      width="320"
+                      height="120"
+                      loading="lazy"
+                      decoding="async"
+                      class="max-h-16 w-auto object-contain sm:max-h-20"
+                    />
+                  ) : (
+                    <span class="font-display text-xl font-semibold tracking-wide text-navy-800 uppercase">{p.data.nom}</span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    {
+      autres.length > 0 && (
+        <>
+          <p class="reveal mt-14 text-center font-display text-sm font-semibold tracking-[0.18em] text-navy-400 uppercase">
+            Institutions & soutiens
+          </p>
+          <ul class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5">
+            {autres.map((p, i) => (
+              <li class="reveal" style={`transition-delay:${i * 60}ms`}>
+                <a
+                  href={p.data.url || undefined}
+                  target={p.data.url ? '_blank' : undefined}
+                  rel={p.data.url ? 'noopener noreferrer' : undefined}
+                  class="flex h-24 items-center justify-center rounded-2xl border border-navy-100/70 bg-white/70 p-5 transition duration-300 hover:bg-white hover:shadow-soft"
+                >
+                  {p.data.logo ? (
+                    <img
+                      src={p.data.logo}
+                      alt={p.data.nom}
+                      width="240"
+                      height="90"
+                      loading="lazy"
+                      decoding="async"
+                      class="max-h-12 w-auto object-contain opacity-75 transition-opacity duration-300 hover:opacity-100"
+                    />
+                  ) : (
+                    <span class="text-center text-sm font-semibold text-navy-600">{p.data.nom}</span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    <div class="reveal mt-14 text-center">
+      <Button href={bloc.cta.lien} variante="secondaire" taille="lg">{bloc.cta.libelle}</Button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://biscarrosse-triathlon.fr/sitemap-index.xml

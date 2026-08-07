@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EpreuveDetail from '../components/EpreuveDetail.astro';
+import { triathlon } from '../lib/content';
+---
+
+<BaseLayout titre={triathlon.seo.titre} description={triathlon.seo.description} image={triathlon.seo.image}>
+  <EpreuveDetail epreuve={triathlon} />
+</BaseLayout>

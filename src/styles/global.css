@@ -1,0 +1,164 @@
+@import 'tailwindcss';
+
+/* Fonts auto-hébergées (RGPD-friendly : aucune requête vers Google Fonts) */
+@import '@fontsource-variable/inter';
+@import '@fontsource/barlow-condensed/500.css';
+@import '@fontsource/barlow-condensed/600.css';
+@import '@fontsource/barlow-condensed/700.css';
+
+/* ------------------------------------------------------------------
+   Design tokens — palette relevée sur la trifonction du club
+   marine profond / bleu océan / bleu ciel bandeau / blanc / sable
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Barlow Condensed', 'Inter Variable', ui-sans-serif, sans-serif;
+
+  /* marine du corps de la trifonction */
+  --color-navy-50: #eef3f9;
+  --color-navy-100: #d8e3f0;
+  --color-navy-200: #b0c4dc;
+  --color-navy-300: #7f9dc1;
+  --color-navy-400: #50719c;
+  --color-navy-500: #2f5079;
+  --color-navy-600: #1f3c61;
+  --color-navy-700: #18304f;
+  --color-navy-800: #16294b; /* couleur signature */
+  --color-navy-900: #101f3a;
+  --color-navy-950: #0a1428;
+
+  /* bleu océan / bandeau bleu ciel */
+  --color-ocean-100: #e2f0fa;
+  --color-ocean-200: #bfdff4;
+  --color-ocean-300: #8cc4e9;
+  --color-ocean-400: #5ba4d8; /* bandeau de la trifonction */
+  --color-ocean-500: #3d86be;
+  --color-ocean-600: #2f6d9f;
+  --color-ocean-700: #275781;
+
+  /* écume / fonds clairs (dégradé du visuel) */
+  --color-foam-50: #f6fafd;
+  --color-foam-100: #e7f1f9;
+  --color-foam-200: #cfe3f2;
+
+  /* sable des dunes — accent chaud, à doser */
+  --color-sand-200: #f2e7d1;
+  --color-sand-300: #e2d0a8;
+  --color-sand-500: #bda36c;
+
+  --radius-card: 1.25rem;
+
+  --shadow-soft: 0 1px 2px rgb(16 31 58 / 0.04), 0 12px 32px -12px rgb(16 31 58 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(16 31 58 / 0.06), 0 24px 48px -20px rgb(16 31 58 / 0.28);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* compense le header collant lors d'un saut d'ancre */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-navy-800 antialiased;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-semibold uppercase tracking-tight text-navy-900;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    @apply bg-ocean-400/30 text-navy-900;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ocean-500;
+  }
+
+  /* images CMS : jamais de débordement */
+  img {
+    @apply max-w-full;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilitaires maison
+------------------------------------------------------------------- */
+
+/* largeur de contenu unique pour tout le site */
+@utility shell {
+  @apply mx-auto w-full max-w-[76rem] px-5 sm:px-8;
+}
+
+/* petit label en capitales au-dessus des titres de section */
+@utility eyebrow {
+  @apply font-display text-sm font-semibold uppercase tracking-[0.18em] text-ocean-600;
+}
+
+/* dégradé marine -> océan des grands blocs sombres */
+@utility bg-deep {
+  background-image: linear-gradient(160deg, var(--color-navy-950) 0%, var(--color-navy-800) 45%, var(--color-navy-600) 100%);
+}
+
+/* dégradé clair du haut de page (repris du visuel de la trifonction) */
+@utility bg-shore {
+  background-image: linear-gradient(180deg, #ffffff 0%, var(--color-foam-100) 55%, var(--color-ocean-200) 100%);
+}
+
+/* liseré bleu ciel : le bandeau de la trifonction */
+@utility rule-band {
+  @apply block h-1 w-16 rounded-full bg-ocean-400;
+}
+
+/* apparition au scroll (progressive enhancement : visible si pas de JS) */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    transform 0.7s var(--ease-out-soft);
+}
+
+@layer utilities {
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* si JS indisponible, on n'attend pas l'observer */
+  .no-js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

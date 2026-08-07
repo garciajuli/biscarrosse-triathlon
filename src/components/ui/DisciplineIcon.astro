@@ -1,0 +1,69 @@
+---
+interface Props {
+  discipline: 'natation' | 'velo' | 'course' | 'renforcement' | 'multi';
+  class?: string;
+}
+const { discipline, class: className = 'h-6 w-6' } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 24 24"
+  class={className}
+  aria-hidden="true"
+  focusable="false"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  {
+    discipline === 'natation' && (
+      <>
+        <path d="M2 8.5c2.6-2.6 4.7-2.6 7.3 0 2.6 2.6 4.7 2.6 7.3 0 1.9-1.9 3.5-2.4 5.4-1.5" />
+        <path d="M2 14c2.6-2.6 4.7-2.6 7.3 0 2.6 2.6 4.7 2.6 7.3 0 1.9-1.9 3.5-2.4 5.4-1.5" />
+        <path d="M2 19.5c2.6-2.6 4.7-2.6 7.3 0 2.6 2.6 4.7 2.6 7.3 0 1.9-1.9 3.5-2.4 5.4-1.5" />
+      </>
+    )
+  }
+  {
+    discipline === 'velo' && (
+      <>
+        <circle cx="5.5" cy="17.5" r="3.5" />
+        <circle cx="18.5" cy="17.5" r="3.5" />
+        <path d="M12 17.5V14l-3-3 4-3 2 3h2.5" />
+        <circle cx="15.5" cy="5" r="1.2" />
+      </>
+    )
+  }
+  {
+    discipline === 'course' && (
+      <>
+        <circle cx="12.5" cy="4.5" r="1.6" />
+        <path d="M11 8 8 10.8l3.4 1.8-1 4.4" />
+        <path d="M11.4 12.6 15 14l1.6 4.2" />
+        <path d="M8 10.8 4.4 11.6" />
+        <path d="M10.4 17 7.4 20.4" />
+      </>
+    )
+  }
+  {
+    discipline === 'renforcement' && (
+      <>
+        <path d="M2.5 10v4" />
+        <rect x="4.5" y="7.5" width="3.2" height="9" rx="1.2" />
+        <path d="M7.7 12h8.6" />
+        <rect x="16.3" y="7.5" width="3.2" height="9" rx="1.2" />
+        <path d="M21.5 10v4" />
+      </>
+    )
+  }
+  {
+    discipline === 'multi' && (
+      <>
+        <circle cx="12" cy="12" r="8.5" />
+        <circle cx="12" cy="12" r="3.2" />
+      </>
+    )
+  }
+</svg>

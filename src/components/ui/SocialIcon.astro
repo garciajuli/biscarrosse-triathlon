@@ -1,0 +1,52 @@
+---
+/**
+ * Icône réseau social, choisie d'après le nom saisi dans le CMS.
+ * Un nom inconnu retombe sur une icône « lien » : rien ne casse.
+ */
+interface Props {
+  nom: string;
+  class?: string;
+}
+const { nom, class: className = 'h-5 w-5' } = Astro.props;
+const cle = nom.trim().toLowerCase();
+---
+
+{
+  cle === 'strava' ? (
+    <svg viewBox="0 0 24 24" class={className} aria-hidden="true" fill="currentColor">
+      <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-8.947l2.836 5.583h4.172L10.463 0 5.811 9.412h4.207" />
+    </svg>
+  ) : (
+    <svg
+      viewBox="0 0 24 24"
+      class={className}
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      {cle === 'facebook' && <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />}
+      {cle === 'instagram' && (
+        <>
+          <rect x="2" y="2" width="20" height="20" rx="5.5" />
+          <circle cx="12" cy="12" r="4" />
+          <path d="M17.5 6.6h.01" />
+        </>
+      )}
+      {cle === 'youtube' && (
+        <>
+          <path d="M2.5 12a19 19 0 0 1 .4-4 2.5 2.5 0 0 1 1.8-1.8C6.3 5.8 12 5.8 12 5.8s5.7 0 7.3.4A2.5 2.5 0 0 1 21.1 8a19 19 0 0 1 0 8 2.5 2.5 0 0 1-1.8 1.8c-1.6.4-7.3.4-7.3.4s-5.7 0-7.3-.4A2.5 2.5 0 0 1 2.9 16a19 19 0 0 1-.4-4Z" />
+          <path d="m10 9 5 3-5 3z" />
+        </>
+      )}
+      {['facebook', 'instagram', 'youtube', 'strava'].includes(cle) === false && (
+        <>
+          <path d="M10 13.5a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" />
+          <path d="M14 10.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />
+        </>
+      )}
+    </svg>
+  )
+}

@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/content';
+
+/**
+ * Obligatoire pour un site d'association (LCEN art. 6-III).
+ * ⚠️ Les champs entre crochets doivent être complétés par le bureau du club.
+ */
+---
+
+<BaseLayout titre={`Mentions légales — ${site.nom}`} noindex>
+  <section class="-mt-18 bg-deep pt-18 text-white">
+    <div class="shell max-w-3xl py-16 sm:py-20">
+      <h1 class="text-4xl sm:text-5xl">Mentions légales</h1>
+      <p class="mt-4 text-navy-100">Informations légales relatives au site {site.nom}.</p>
+    </div>
+  </section>
+
+  <div class="shell max-w-3xl py-16 sm:py-20">
+    <div class="space-y-10 leading-relaxed text-navy-600">
+      <section>
+        <h2 class="text-2xl">Éditeur du site</h2>
+        <p class="mt-3">
+          {site.nom}, association loi 1901 déclarée en préfecture des Landes.<br />
+          Siège social : {site.adresse.lignes.join(', ')}.<br />
+          Numéro RNA / SIRET : <mark class="bg-sand-200 px-1">[à compléter]</mark><br />
+          Représentant légal : <mark class="bg-sand-200 px-1">[président·e du club]</mark><br />
+          Courriel : <a class="text-ocean-600 underline underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl">Hébergement</h2>
+        <p class="mt-3">
+          Le site est hébergé par <mark class="bg-sand-200 px-1">[nom de l'hébergeur]</mark>,
+          <mark class="bg-sand-200 px-1">[adresse de l'hébergeur]</mark>.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl">Propriété intellectuelle</h2>
+        <p class="mt-3">
+          L'ensemble des contenus (textes, photographies, logos) est la propriété du club ou de ses partenaires, sauf
+          mention contraire. Toute reproduction sans autorisation est interdite. Les photographies de licenciés sont
+          publiées avec leur accord ; toute demande de retrait peut être adressée par courriel.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl">Données personnelles</h2>
+        <p class="mt-3">
+          Ce site ne dépose aucun cookie de mesure d'audience ni de publicité, et n'utilise pas de service tiers de
+          suivi. Les polices de caractères sont hébergées localement : aucune requête n'est émise vers un serveur
+          externe lors de la consultation.
+        </p>
+        <p class="mt-3">
+          Les données transmises par courriel (identité, coordonnées) sont utilisées uniquement pour la gestion des
+          adhésions et de la vie associative, conservées le temps de l'adhésion, et ne sont jamais cédées. Vous pouvez
+          demander leur accès, rectification ou suppression à l'adresse
+          <a class="text-ocean-600 underline underline-offset-4" href={`mailto:${site.email}`}>{site.email}</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl">Crédits</h2>
+        <p class="mt-3">
+          Conception et développement du site : <mark class="bg-sand-200 px-1">[à compléter]</mark>.<br />
+          Photographies : <mark class="bg-sand-200 px-1">[à compléter]</mark>.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

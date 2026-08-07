@@ -1,0 +1,37 @@
+{
+  "slug": "swimrun",
+  "discipline": "swimrun",
+  "nom": "Swimrun du lac et des pins",
+  "edition": "Édition 2026",
+  "accroche": "Le swimrun débarque à Biscarrosse : on enchaîne natation en eau libre et course à pied, sans transition, entre le lac de Navarrosse et les sentiers de la forêt. Combinaison sur le dos, baskets aux pieds — un format nature, engagé et convivial.",
+  "date": "2026-06-21",
+  "heure": null,
+  "lieu": "Camping de Navarrosse, Biscarrosse",
+  "formats": [
+    {
+      "nom": "Format S",
+      "distances": [],
+      "detail": "Format court, pour découvrir le swimrun. Distances communiquées prochainement.",
+      "prix": null
+    },
+    {
+      "nom": "Format M",
+      "distances": [],
+      "detail": "Format long, pour les habitués de l'eau libre. Distances communiquées prochainement.",
+      "prix": null
+    }
+  ],
+  "parcours": null,
+  "materiel": null,
+  "tarifs": null,
+  "lien_inscription": null,
+  "retrait_dossards": null,
+  "ravitaillements": null,
+  "conditions": null,
+  "contact": null,
+  "seo": {
+    "titre": "Swimrun du lac et des pins — Biscarrosse | BO Triathlon",
+    "description": "Le Swimrun du lac et des pins, le 21 juin 2026 au camping de Navarrosse : natation et course en alternance entre lac et forêt de pins. Formats S et M.",
+    "image": "/uploads/og-biscarrosse-triathlon.svg"
+  }
+}

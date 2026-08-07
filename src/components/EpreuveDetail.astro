@@ -1,0 +1,250 @@
+---
+import SectionHeader from './ui/SectionHeader.astro';
+import DisciplineIcon from './ui/DisciplineIcon.astro';
+import Button from './ui/Button.astro';
+import Countdown from './Countdown.astro';
+import { site, epreuves, dateLongue, estAVenir } from '../lib/content';
+import type { Discipline, Epreuve } from '../types';
+
+interface Props {
+  epreuve: Epreuve;
+}
+const { epreuve } = Astro.props;
+
+/* Icônes de discipline selon le type d'épreuve. */
+const iconesParType: Record<Epreuve['discipline'], Discipline[]> = {
+  triathlon: ['natation', 'velo', 'course'],
+  swimrun: ['natation', 'course'],
+};
+const icones = iconesParType[epreuve.discipline];
+const labelDiscipline = epreuve.discipline === 'swimrun' ? 'Swimrun' : 'Triathlon';
+
+/* Dates : format long FR + compte à rebours si l'épreuve est à venir. */
+const dateObj = epreuve.date ? new Date(epreuve.date) : null;
+const dateFmt = dateObj ? dateLongue(dateObj) : null;
+const aVenir = estAVenir(epreuve.date);
+const dateCompteur = epreuve.date ? `${epreuve.date}T${epreuve.heure ?? '09:00'}:00+02:00` : null;
+
+const contact = epreuve.contact ?? site.email;
+const sujetContact = encodeURIComponent(`${epreuve.nom} — renseignements`);
+const lienContact = `mailto:${contact}?subject=${sujetContact}`;
+
+/* Infos pratiques : chaque valeur nulle s'affiche « À venir ». */
+const infosPratiques = [
+  { titre: 'Date', valeur: dateFmt },
+  { titre: 'Lieu de départ', valeur: epreuve.lieu },
+  { titre: 'Parcours', valeur: epreuve.parcours },
+  epreuve.discipline === 'swimrun' ? { titre: 'Matériel obligatoire', valeur: epreuve.materiel } : null,
+  { titre: 'Tarifs', valeur: epreuve.tarifs },
+  { titre: 'Retrait des dossards', valeur: epreuve.retrait_dossards },
+  { titre: 'Ravitaillements', valeur: epreuve.ravitaillements },
+  { titre: 'Conditions de participation', valeur: epreuve.conditions },
+].filter((x): x is { titre: string; valeur: string | null } => x !== null);
+
+/* Lien vers l'autre épreuve (renvoi en bas de page). */
+const autre = epreuves.find((e) => e.slug !== epreuve.slug);
+---
+
+<!-- ===== En-tête de l'épreuve ===== -->
+<section class="relative -mt-18 overflow-hidden bg-deep pt-18 text-white">
+  <div
+    class="pointer-events-none absolute -top-32 -right-24 h-[30rem] w-[30rem] rounded-full bg-ocean-500/20 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="shell relative grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
+    <div>
+      <p
+        class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/8 px-4 py-1.5 font-display text-sm font-semibold tracking-[0.16em] text-ocean-200 uppercase"
+      >
+        <span class="flex items-center gap-1.5" aria-hidden="true">
+          {icones.map((d) => <DisciplineIcon discipline={d} class="h-4 w-4" />)}
+        </span>
+        {labelDiscipline}
+      </p>
+
+      <h1 class="mt-6 text-[2.7rem] leading-[0.95] text-white sm:text-6xl lg:text-[4.2rem]">
+        {epreuve.nom}
+      </h1>
+
+      {epreuve.edition && <p class="mt-3 font-display text-lg font-medium tracking-wide text-ocean-200 uppercase">{epreuve.edition}</p>}
+
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-navy-100">{epreuve.accroche}</p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3 text-sm">
+        {
+          dateFmt && (
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/8 px-4 py-2 font-medium ring-1 ring-white/12">
+              <svg viewBox="0 0 16 16" class="h-4 w-4 text-ocean-300" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2.5" y="3" width="11" height="11" rx="2" />
+                <path d="M2.5 6.5h11M5.5 1.5v3M10.5 1.5v3" />
+              </svg>
+              {dateFmt}
+            </span>
+          )
+        }
+        {
+          epreuve.lieu && (
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/8 px-4 py-2 font-medium ring-1 ring-white/12">
+              <svg viewBox="0 0 16 16" class="h-4 w-4 text-ocean-300" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 14.5s5-4.2 5-8A5 5 0 0 0 3 6.5c0 3.8 5 8 5 8Z" />
+                <circle cx="8" cy="6.4" r="1.8" />
+              </svg>
+              {epreuve.lieu}
+            </span>
+          )
+        }
+      </div>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        {
+          epreuve.lien_inscription ? (
+            <Button href={epreuve.lien_inscription} variante="primaire" taille="lg" externe>
+              S'inscrire
+            </Button>
+          ) : (
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-7 py-3.5 font-display text-base font-semibold tracking-wider text-navy-100 uppercase ring-1 ring-white/15">
+              Inscriptions à venir
+            </span>
+          )
+        }
+        <Button href={lienContact} variante="fantome" taille="lg">Poser une question</Button>
+      </div>
+    </div>
+
+    {
+      aVenir && dateCompteur && (
+        <div class="lg:justify-self-end">
+          <Countdown libelle={epreuve.nom} date={dateCompteur} />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<!-- ===== Formats & distances ===== -->
+<section class="scroll-mt-24 bg-white py-20 sm:py-24 lg:py-28">
+  <div class="shell">
+    <SectionHeader
+      eyebrow="Au programme"
+      titre="Formats & distances"
+      intro={epreuve.discipline === 'triathlon'
+        ? 'Deux formats pour tous les niveaux : on peut viser le chrono ou simplement vivre l’expérience.'
+        : 'Deux formats de swimrun, à parcourir en enchaînant nage et course.'}
+      class="reveal"
+    />
+
+    {
+      epreuve.formats.length === 0 ? (
+        <p class="mt-12 text-lg text-navy-500">Les formats seront communiqués prochainement.</p>
+      ) : (
+        <div class="mt-14 grid gap-8 sm:grid-cols-2">
+          {epreuve.formats.map((f, i) => (
+            <article
+              class="reveal flex flex-col rounded-card border border-navy-100 bg-foam-50 p-7 shadow-soft sm:p-8"
+              style={`transition-delay:${i * 90}ms`}
+            >
+              <h3 class="text-2xl text-navy-900">{f.nom}</h3>
+
+              {f.distances.length > 0 ? (
+                <ul class="mt-6 space-y-3">
+                  {f.distances.map((d) => (
+                    <li class="flex items-center gap-3">
+                      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-ocean-500 ring-1 ring-navy-100">
+                        <DisciplineIcon discipline={d.discipline} class="h-5 w-5" />
+                      </span>
+                      <span class="font-display text-xl font-semibold tabular-nums text-navy-900">{d.valeur}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-navy-400 ring-1 ring-navy-100">
+                  Distances à venir
+                </p>
+              )}
+
+              {f.detail && <p class="mt-6 leading-relaxed text-navy-500">{f.detail}</p>}
+
+              {f.prix && (
+                <p class="mt-6 border-t border-navy-100 pt-4 font-display text-lg font-semibold text-navy-900">
+                  {f.prix}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<!-- ===== Infos pratiques ===== -->
+<section class="scroll-mt-24 bg-foam-100 py-20 sm:py-24 lg:py-28">
+  <div class="shell">
+    <SectionHeader
+      eyebrow="Infos pratiques"
+      titre="Tout savoir avant le départ"
+      intro="Les informations se précisent au fil des semaines. Les mentions « À venir » seront complétées d’ici l’ouverture des inscriptions."
+      class="reveal"
+    />
+
+    <dl class="reveal mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      {
+        infosPratiques.map((info) => (
+          <div class="border-t border-navy-200/60 pt-4">
+            <dt class="font-display text-sm font-semibold tracking-[0.16em] text-ocean-600 uppercase">{info.titre}</dt>
+            <dd class="mt-2 leading-relaxed text-navy-700">
+              {info.valeur ? (
+                info.valeur
+              ) : (
+                <span class="inline-flex items-center gap-1.5 text-navy-400 italic">
+                  <span class="h-1.5 w-1.5 rounded-full bg-sand-500" aria-hidden="true" />À venir
+                </span>
+              )}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<!-- ===== Appel à l'action ===== -->
+<section class="bg-navy-900 py-16 text-white sm:py-20">
+  <div class="shell flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl text-white sm:text-4xl">Envie d’être sur la ligne de départ&nbsp;?</h2>
+      <p class="mt-4 text-lg leading-relaxed text-navy-100">
+        Inscriptions, bénévolat, questions sur le parcours : écris-nous, on te répond dans la semaine.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      {epreuve.lien_inscription && (
+        <Button href={epreuve.lien_inscription} variante="primaire" externe>S'inscrire</Button>
+      )}
+      <Button href={lienContact} variante={epreuve.lien_inscription ? 'fantome' : 'primaire'}>Nous écrire</Button>
+    </div>
+  </div>
+
+  {
+    autre && (
+      <div class="shell mt-12 border-t border-white/10 pt-8">
+        <a
+          href={`/${autre.slug}`}
+          class="group inline-flex items-center gap-3 font-display text-lg font-semibold tracking-wide text-ocean-200 uppercase transition-colors hover:text-white"
+        >
+          <span class="flex items-center gap-1.5 text-ocean-300" aria-hidden="true">
+            {iconesParType[autre.discipline].map((d) => (
+              <DisciplineIcon discipline={d} class="h-5 w-5" />
+            ))}
+          </span>
+          Découvrir aussi&nbsp;: {autre.nom}
+          <svg viewBox="0 0 16 16" class="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2.5 8h10M9 4.5 12.5 8 9 11.5" />
+          </svg>
+        </a>
+      </div>
+    )
+  }
+</section>

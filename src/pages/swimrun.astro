@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EpreuveDetail from '../components/EpreuveDetail.astro';
+import { swimrun } from '../lib/content';
+---
+
+<BaseLayout titre={swimrun.seo.titre} description={swimrun.seo.description} image={swimrun.seo.image}>
+  <EpreuveDetail epreuve={swimrun} />
+</BaseLayout>

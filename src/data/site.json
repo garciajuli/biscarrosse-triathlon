@@ -1,0 +1,31 @@
+{
+  "nom": "Biscarrosse Olympique Triathlon",
+  "nom_court": "BO Triathlon",
+  "baseline": "Club de triathlon — Biscarrosse, Landes",
+  "ville": "Biscarrosse (40)",
+  "affiliation": "Club affilié à la Fédération Française de Triathlon",
+  "email": "contact@biscarrosse-triathlon.fr",
+  "telephone": "06 12 34 56 78",
+  "adresse": {
+    "lignes": ["Complexe sportif de Biscarrosse", "Avenue du Pont Neuf", "40600 Biscarrosse"],
+    "lien_maps": "https://www.openstreetmap.org/search?query=Biscarrosse"
+  },
+  "reseaux": [
+    { "nom": "Facebook", "url": "https://www.facebook.com/" },
+    { "nom": "Instagram", "url": "https://www.instagram.com/" },
+    { "nom": "Strava", "url": "https://www.strava.com/" }
+  ],
+  "nav": [
+    { "libelle": "Le club", "lien": "/#le-club" },
+    { "libelle": "Triathlon", "lien": "/triathlon" },
+    { "libelle": "Swimrun", "lien": "/swimrun" },
+    { "libelle": "Agenda", "lien": "/#agenda" },
+    { "libelle": "Contact", "lien": "/#contact" }
+  ],
+  "annonce": {
+    "actif": true,
+    "texte": "Triathlon de Biscarrosse — 20 septembre 2026.",
+    "libelle_lien": "Voir l'épreuve",
+    "lien": "/triathlon"
+  }
+}

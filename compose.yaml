@@ -1,0 +1,64 @@
+name: bo-triathlon
+
+# Tout le toolchain Node vit dans le conteneur.
+# node_modules est dans un volume nommé -> rien n'est installé sur la machine hôte.
+x-node: &node
+  image: node:22-alpine
+  working_dir: /app
+  environment:
+    ASTRO_TELEMETRY_DISABLED: "1"
+    NPM_CONFIG_FUND: "false"
+    NPM_CONFIG_AUDIT: "false"
+  volumes:
+    - .:/app
+    - node_modules:/app/node_modules
+
+services:
+  # docker compose up dev  -> http://localhost:4321
+  dev:
+    <<: *node
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "4321:4321"
+    tty: true
+
+  # docker compose up -d cms  -> proxy d'édition locale pour /admin (port 8081)
+  # Permet de tester le CMS sans dépôt GitHub : les modifications sont écrites
+  # directement dans src/data et src/content.
+  cms:
+    <<: *node
+    command: sh -c "npm install && npx decap-server"
+    ports:
+      - "8081:8081"
+    tty: true
+
+  # docker compose run --rm build  -> génère ./dist
+  build:
+    <<: *node
+    command: sh -c "npm install && npm run build"
+    profiles: ["tools"]
+
+  # docker compose run --rm check  -> typecheck Astro/TS
+  check:
+    <<: *node
+    command: sh -c "npm install && npm run check"
+    profiles: ["tools"]
+
+  # docker compose run --rm --service-ports preview  -> sert ./dist
+  preview:
+    <<: *node
+    command: sh -c "npm run preview -- --host 0.0.0.0 --port 4321"
+    ports:
+      - "4321:4321"
+    profiles: ["tools"]
+
+  # docker compose run --rm shell  -> shell dans le conteneur (npm add …)
+  shell:
+    <<: *node
+    command: sh
+    tty: true
+    stdin_open: true
+    profiles: ["tools"]
+
+volumes:
+  node_modules:

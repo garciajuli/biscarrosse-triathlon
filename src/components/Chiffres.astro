@@ -1,0 +1,23 @@
+---
+import { home } from '../lib/content';
+const { chiffres } = home;
+---
+
+<!-- Raccord direct avec la silhouette de pins du héros (même marine). -->
+<section class="bg-navy-800 text-white" aria-label="Le club en chiffres">
+  <div class="shell py-12 lg:py-14">
+    <dl class="grid grid-cols-2 gap-y-10 sm:gap-x-8 lg:grid-cols-4">
+      {
+        chiffres.map((c, i) => (
+          <div class={`reveal px-1 lg:px-6 ${i > 0 ? 'lg:border-l lg:border-white/12' : ''}`} style={`transition-delay:${i * 70}ms`}>
+            <dd class="font-display text-4xl leading-none font-semibold tabular-nums text-ocean-300 lg:text-5xl">
+              {c.valeur}
+            </dd>
+            <dt class="mt-2 font-display text-lg font-medium tracking-wide text-white uppercase">{c.libelle}</dt>
+            <p class="mt-1 text-sm text-navy-200">{c.detail}</p>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

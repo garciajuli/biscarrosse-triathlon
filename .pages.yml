@@ -1,0 +1,366 @@
+# Pages CMS — https://pagescms.org/docs
+# Interface d'édition hébergée : on se connecte sur app.pagescms.org avec son
+# compte GitHub, chaque enregistrement = un commit. Aucun serveur à maintenir.
+
+media:
+  input: public/uploads
+  output: /uploads
+  extensions: [jpg, jpeg, png, webp, avif, svg, pdf]
+
+content:
+  # ---------------------------------------------------------------- ACCUEIL
+  - name: accueil
+    label: Page d'accueil
+    type: file
+    path: src/data/home.json
+    icon: home
+    fields:
+      - name: seo
+        label: Référencement & partage
+        type: object
+        fields:
+          - { name: titre, label: Titre de l'onglet, type: string }
+          - { name: description, label: Description (Google, réseaux), type: text }
+          - { name: image, label: Image de partage (1200×630), type: image }
+
+      - name: hero
+        label: Bandeau d'accueil
+        type: object
+        fields:
+          - { name: surtitre, label: Surtitre (ex. Saison 2026-2027), type: string }
+          - { name: titre, label: Grand titre, type: string }
+          - { name: accroche, label: Accroche, type: text }
+          - name: cta_principal
+            label: Bouton principal
+            type: object
+            fields:
+              - { name: libelle, label: Libellé, type: string }
+              - { name: lien, label: Lien, type: string }
+          - name: cta_secondaire
+            label: Bouton secondaire
+            type: object
+            fields:
+              - { name: libelle, label: Libellé, type: string }
+              - { name: lien, label: Lien, type: string }
+          - name: compte_a_rebours
+            label: Compte à rebours
+            type: object
+            fields:
+              - { name: actif, label: Afficher le compte à rebours, type: boolean }
+              - { name: libelle, label: Nom de l'événement, type: string }
+              - name: date
+                label: Date et heure de départ
+                type: date
+                options: { time: true, format: "yyyy-MM-dd'T'HH:mm:ssxxx" }
+              - { name: lien, label: Lien (ex. #agenda), type: string }
+
+      - name: chiffres
+        label: Chiffres clés
+        type: object
+        list: { min: 2, max: 4 }
+        fields:
+          - { name: valeur, label: Chiffre, type: string }
+          - { name: libelle, label: Libellé, type: string }
+          - { name: detail, label: Précision, type: string }
+
+      - name: apropos
+        label: Section « Le club »
+        type: object
+        fields:
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - { name: paragraphes, label: Paragraphes, type: text, list: true }
+          - name: points
+            label: Points forts
+            type: object
+            list: true
+            fields:
+              - { name: titre, label: Titre, type: string }
+              - { name: texte, label: Texte, type: text }
+          - { name: image, label: Photo, type: image }
+          - { name: image_alt, label: Description de la photo (accessibilité), type: string }
+          - name: citation
+            label: Citation
+            type: object
+            fields:
+              - { name: texte, label: Citation, type: text }
+              - { name: auteur, label: Auteur, type: string }
+
+      - name: entrainements
+        label: Section « Entraînements »
+        type: object
+        fields:
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - { name: intro, label: Introduction, type: text }
+          - { name: note, label: Note de bas de section, type: text }
+
+      - name: actualites
+        label: Section « Actualités »
+        type: object
+        fields:
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - { name: intro, label: Introduction, type: text }
+
+      - name: agenda
+        label: Section « Agenda »
+        type: object
+        fields:
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - { name: intro, label: Introduction, type: text }
+
+      - name: rejoindre
+        label: Section « Adhésion »
+        type: object
+        fields:
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - { name: intro, label: Introduction, type: text }
+          - name: etapes
+            label: Étapes
+            type: object
+            list: true
+            fields:
+              - { name: titre, label: Titre, type: string }
+              - { name: texte, label: Texte, type: text }
+          - name: tarifs
+            label: Tarifs
+            type: object
+            list: true
+            fields:
+              - { name: categorie, label: Catégorie, type: string }
+              - { name: prix, label: Prix, type: string }
+              - { name: detail, label: Détail, type: text }
+              - { name: mise_en_avant, label: Mettre en avant, type: boolean }
+          - { name: note, label: Note (moyens de paiement…), type: text }
+          - name: cta_principal
+            label: Bouton principal
+            type: object
+            fields:
+              - { name: libelle, label: Libellé, type: string }
+              - { name: lien, label: Lien, type: string }
+          - name: cta_secondaire
+            label: Bouton secondaire
+            type: object
+            fields:
+              - { name: libelle, label: Libellé, type: string }
+              - { name: lien, label: Lien, type: string }
+
+      - name: benevoles
+        label: Section « Bénévoles »
+        type: object
+        fields:
+          - { name: actif, label: Afficher la section, type: boolean }
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - { name: texte, label: Texte, type: text }
+          - name: cta
+            label: Bouton
+            type: object
+            fields:
+              - { name: libelle, label: Libellé, type: string }
+              - { name: lien, label: Lien, type: string }
+
+      - name: galerie
+        label: Section « Galerie »
+        type: object
+        fields:
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - name: images
+            label: Photos
+            type: object
+            list: true
+            fields:
+              - { name: src, label: Photo, type: image }
+              - { name: alt, label: Description (accessibilité), type: string }
+
+      - name: partenaires
+        label: Section « Partenaires »
+        type: object
+        fields:
+          - { name: eyebrow, label: Petit titre, type: string }
+          - { name: titre, label: Titre, type: string }
+          - { name: intro, label: Introduction, type: text }
+          - name: cta
+            label: Bouton
+            type: object
+            fields:
+              - { name: libelle, label: Libellé, type: string }
+              - { name: lien, label: Lien, type: string }
+
+  # ------------------------------------------------------------- ACTUALITÉS
+  - name: actualites
+    label: Actualités
+    type: collection
+    path: src/content/actualites
+    filename: '{year}-{month}-{day}-{fields.titre}.md'
+    icon: newspaper
+    view:
+      fields: [titre, categorie, date, epingle]
+      primary: titre
+      sort: [date, titre]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: titre, label: Titre, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - name: categorie
+        label: Catégorie
+        type: select
+        default: Vie du club
+        options:
+          values: [Vie du club, Résultats, Compétition, Entraînement, Partenaires]
+      - { name: resume, label: Résumé (affiché sur la page d'accueil), type: text, required: true }
+      - { name: image, label: Image, type: image }
+      - { name: image_alt, label: Description de l'image (accessibilité), type: string }
+      - { name: epingle, label: Épingler en premier, type: boolean, default: false }
+      - { name: brouillon, label: Brouillon (non publié), type: boolean, default: false }
+      - { name: body, label: Contenu, type: rich-text }
+
+  # ----------------------------------------------------------------- AGENDA
+  - name: agenda
+    label: Agenda
+    type: collection
+    path: src/content/agenda
+    filename: '{year}-{month}-{day}-{fields.titre}.md'
+    icon: calendar
+    view:
+      fields: [titre, date, type, lieu]
+      primary: titre
+      sort: [date, titre]
+      default:
+        sort: date
+        order: asc
+    fields:
+      - { name: titre, label: Titre, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
+      - { name: date_fin, label: Date de fin (si plusieurs jours), type: date, options: { format: yyyy-MM-dd } }
+      - { name: lieu, label: Lieu, type: string, required: true }
+      - name: type
+        label: Type
+        type: select
+        default: Compétition
+        options:
+          values: [Compétition, Club, Stage, Bénévoles]
+      - name: disciplines
+        label: Disciplines
+        type: select
+        options:
+          multiple: true
+          values: [natation, velo, course]
+      - { name: format, label: Format (distances, relais…), type: string }
+      - { name: resume, label: Résumé, type: text }
+      - { name: lien_inscription, label: Lien d'inscription, type: string }
+      - { name: brouillon, label: Brouillon (non publié), type: boolean, default: false }
+
+  # --------------------------------------------------- GROUPES / CRÉNEAUX
+  - name: groupes
+    label: Groupes d'entraînement
+    type: collection
+    path: src/content/groupes
+    filename: '{fields.titre}.md'
+    icon: users
+    view:
+      fields: [titre, discipline, ordre]
+      primary: titre
+      sort: [ordre, titre]
+      default:
+        sort: ordre
+        order: asc
+    fields:
+      - { name: titre, label: Titre, type: string, required: true }
+      - name: discipline
+        label: Discipline (choisit l'icône)
+        type: select
+        default: multi
+        options:
+          values: [natation, velo, course, renforcement, multi]
+      - { name: ordre, label: Ordre d'affichage, type: number, default: 99 }
+      - { name: resume, label: Description, type: text, required: true }
+      - { name: encadrant, label: Encadrement, type: string }
+      - name: creneaux
+        label: Créneaux
+        type: object
+        list: true
+        fields:
+          - { name: jour, label: Jour, type: string }
+          - { name: horaire, label: Horaire, type: string }
+          - { name: lieu, label: Lieu, type: string }
+          - { name: groupe, label: Groupe / niveau, type: string }
+
+  # ------------------------------------------------------------ PARTENAIRES
+  - name: partenaires
+    label: Partenaires
+    type: collection
+    path: src/content/partenaires
+    filename: '{fields.nom}.md'
+    icon: handshake
+    view:
+      fields: [nom, niveau, ordre]
+      primary: nom
+      sort: [ordre, nom]
+      default:
+        sort: ordre
+        order: asc
+    fields:
+      - { name: nom, label: Nom, type: string, required: true }
+      - { name: url, label: Site web, type: string }
+      - { name: logo, label: Logo (laisser vide pour afficher le nom), type: image }
+      - name: niveau
+        label: Niveau
+        type: select
+        default: soutien
+        options:
+          values: [principal, officiel, soutien]
+      - { name: ordre, label: Ordre d'affichage, type: number, default: 99 }
+
+  # --------------------------------------------------------------- RÉGLAGES
+  - name: reglages
+    label: Réglages du site
+    type: file
+    path: src/data/site.json
+    icon: settings
+    fields:
+      - { name: nom, label: Nom du club, type: string }
+      - { name: nom_court, label: Nom court, type: string }
+      - { name: baseline, label: Baseline, type: string }
+      - { name: ville, label: Ville, type: string }
+      - { name: affiliation, label: Affiliation, type: string }
+      - { name: email, label: Courriel, type: string }
+      - { name: telephone, label: Téléphone, type: string }
+      - name: adresse
+        label: Adresse
+        type: object
+        fields:
+          - { name: lignes, label: Lignes d'adresse, type: string, list: true }
+          - { name: lien_maps, label: Lien vers une carte, type: string }
+      - name: reseaux
+        label: Réseaux sociaux
+        type: object
+        list: true
+        fields:
+          - name: nom
+            label: Réseau
+            type: select
+            options:
+              values: [Facebook, Instagram, Strava, YouTube]
+          - { name: url, label: Lien, type: string }
+      - name: nav
+        label: Menu de navigation
+        type: object
+        list: true
+        fields:
+          - { name: libelle, label: Libellé, type: string }
+          - { name: lien, label: Lien (ancre ou URL), type: string }
+      - name: annonce
+        label: Bandeau d'annonce
+        type: object
+        fields:
+          - { name: actif, label: Afficher le bandeau, type: boolean }
+          - { name: texte, label: Texte, type: string }
+          - { name: libelle_lien, label: Libellé du lien, type: string }
+          - { name: lien, label: Lien, type: string }

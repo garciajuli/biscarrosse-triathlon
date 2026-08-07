@@ -1,0 +1,72 @@
+---
+import SectionHeader from './ui/SectionHeader.astro';
+import { home } from '../lib/content';
+
+const { apropos } = home;
+---
+
+<section id="le-club" class="scroll-mt-24 bg-white py-20 sm:py-24 lg:py-28">
+  <div class="shell grid items-start gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+    <div class="reveal">
+      <SectionHeader eyebrow={apropos.eyebrow} titre={apropos.titre} />
+
+      <div class="mt-7 space-y-5 text-lg leading-relaxed text-navy-500">
+        {apropos.paragraphes.map((p) => <p>{p}</p>)}
+      </div>
+
+      <ul class="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
+        {
+          apropos.points.map((point) => (
+            <li>
+              <h3 class="flex items-center gap-2.5 text-lg text-navy-900">
+                <svg
+                  viewBox="0 0 20 20"
+                  class="h-5 w-5 shrink-0 text-ocean-500"
+                  aria-hidden="true"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m3.5 10.5 4 4 9-9" />
+                </svg>
+                {point.titre}
+              </h3>
+              <p class="mt-1.5 text-navy-500">{point.texte}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <figure class="reveal relative lg:pt-4" style="transition-delay:120ms">
+      <!-- cadre décalé bleu ciel : rappel du bandeau de la trifonction -->
+      <div class="absolute -top-3 -right-3 bottom-6 left-6 rounded-card bg-ocean-200/70" aria-hidden="true"></div>
+
+      <img
+        src={apropos.image}
+        alt={apropos.image_alt}
+        width="1200"
+        height="1500"
+        loading="lazy"
+        decoding="async"
+        class="relative aspect-[4/5] w-full rounded-card object-cover shadow-lift"
+      />
+
+      <figcaption
+        class="relative z-10 mx-4 -mt-14 rounded-card border border-navy-100 bg-white p-6 shadow-soft sm:mx-8"
+      >
+        <svg viewBox="0 0 24 24" class="h-6 w-6 text-ocean-300" aria-hidden="true" fill="currentColor">
+          <path
+            d="M9.6 5.5c-3 1.6-4.9 4.3-4.9 7.6 0 3.3 1.8 5.4 4.4 5.4 2 0 3.5-1.4 3.5-3.3 0-1.8-1.3-3.1-3-3.1-.4 0-.8.1-1 .2.3-1.7 1.6-3.4 3.4-4.4l-2.4-2.4Zm9.1 0c-3 1.6-4.9 4.3-4.9 7.6 0 3.3 1.8 5.4 4.4 5.4 2 0 3.5-1.4 3.5-3.3 0-1.8-1.3-3.1-3-3.1-.4 0-.8.1-1 .2.3-1.7 1.6-3.4 3.4-4.4l-2.4-2.4Z"
+          ></path>
+        </svg>
+        <blockquote class="mt-2 font-display text-xl leading-snug font-medium text-navy-800 italic">
+          {apropos.citation.texte}
+        </blockquote>
+        <p class="mt-2.5 text-sm font-medium tracking-wide text-navy-400 uppercase">{apropos.citation.auteur}</p>
+      </figcaption>
+    </figure>
+  </div>
+</section>

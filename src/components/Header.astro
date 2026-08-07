@@ -1,0 +1,163 @@
+---
+import Logo from './ui/Logo.astro';
+import { site } from '../lib/content';
+
+const { annonce, nav, nom } = site;
+---
+
+{
+  annonce.actif && (
+    <div class="relative z-50 bg-ocean-400 text-navy-900">
+      <div class="shell flex flex-wrap items-center justify-center gap-x-3 gap-y-1 py-2 text-center text-sm font-medium">
+        <span>{annonce.texte}</span>
+        {annonce.lien && (
+          <a class="font-display font-semibold uppercase tracking-wider underline decoration-2 underline-offset-4 hover:no-underline" href={annonce.lien}>
+            {annonce.libelle_lien}
+          </a>
+        )}
+      </div>
+    </div>
+  )
+}
+
+<nav id="nav" class="sticky top-0 z-40 h-18 text-white transition-colors duration-300" aria-label="Navigation principale">
+  <div class="shell flex h-18 items-center justify-between gap-6">
+    <a href="/" class="shrink-0 rounded-sm py-1 transition-opacity hover:opacity-80" aria-label={`${nom} — accueil`}>
+      <Logo />
+    </a>
+
+    <ul class="hidden items-center gap-1 lg:flex">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.lien}
+              class="lien rounded-full px-3.5 py-2 font-display text-[0.95rem] font-medium uppercase tracking-wider transition-colors"
+            >
+              {item.libelle}
+            </a>
+          </li>
+        ))
+      }
+      <li class="ml-2">
+        <a
+          href="/#contact"
+          class="inline-flex items-center rounded-full bg-ocean-400 px-5 py-2.5 font-display text-sm font-semibold uppercase tracking-wider text-navy-900 transition hover:bg-ocean-300"
+        >
+          Nous rejoindre
+        </a>
+      </li>
+    </ul>
+
+    <button
+      id="burger"
+      type="button"
+      class="lien -mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors lg:hidden"
+      aria-expanded="false"
+      aria-controls="menu-mobile"
+      aria-label="Ouvrir le menu"
+    >
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path class="ligne-1" d="M3.5 7h17" />
+        <path class="ligne-2" d="M3.5 12h17" />
+        <path class="ligne-3" d="M3.5 17h17" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="menu-mobile" class="hidden border-t border-navy-100 bg-white shadow-lift lg:hidden">
+    <ul class="shell flex flex-col py-3">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.lien}
+              class="block border-b border-navy-50 py-3.5 font-display text-lg font-medium uppercase tracking-wide text-navy-800 last:border-0"
+            >
+              {item.libelle}
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-4 pb-2">
+        <a
+          href="/#contact"
+          class="flex items-center justify-center rounded-full bg-navy-800 px-5 py-3 font-display font-semibold uppercase tracking-wider text-white"
+        >
+          Nous rejoindre
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  /* Par défaut le nav flotte au-dessus du héros sombre : aucun fond.
+     Le héros remonte sous le nav via -mt-18 (cf. Hero.astro). */
+  /* survol qui fonctionne aussi bien sur fond sombre que sur fond blanc */
+  #nav .lien:hover {
+    background-color: color-mix(in oklab, currentColor 12%, transparent);
+  }
+
+  #nav.is-stuck {
+    background-color: rgb(255 255 255 / 0.94);
+    backdrop-filter: blur(10px);
+    color: var(--color-navy-800);
+    box-shadow:
+      0 1px 0 rgb(16 41 75 / 0.08),
+      0 12px 28px -18px rgb(16 41 75 / 0.45);
+  }
+
+  /* menu mobile ouvert : le nav doit être opaque même en haut de page */
+  #nav.menu-ouvert {
+    background-color: rgb(255 255 255 / 0.98);
+    color: var(--color-navy-800);
+  }
+
+  #burger[aria-expanded='true'] .ligne-1 {
+    transform: translateY(5px) rotate(45deg);
+  }
+  #burger[aria-expanded='true'] .ligne-2 {
+    opacity: 0;
+  }
+  #burger[aria-expanded='true'] .ligne-3 {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+  #burger svg path {
+    transform-origin: center;
+    transition:
+      transform 0.25s var(--ease-out-soft),
+      opacity 0.15s linear;
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('nav')!;
+  const burger = document.getElementById('burger')!;
+  const menu = document.getElementById('menu-mobile')!;
+
+  // Fond opaque dès qu'on quitte le haut de page
+  const majFond = () => nav.classList.toggle('is-stuck', window.scrollY > 16);
+  majFond();
+  window.addEventListener('scroll', majFond, { passive: true });
+
+  const fermer = () => {
+    menu.classList.add('hidden');
+    nav.classList.remove('menu-ouvert');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Ouvrir le menu');
+  };
+
+  burger.addEventListener('click', () => {
+    const ouvert = burger.getAttribute('aria-expanded') === 'true';
+    if (ouvert) return fermer();
+    menu.classList.remove('hidden');
+    nav.classList.add('menu-ouvert');
+    burger.setAttribute('aria-expanded', 'true');
+    burger.setAttribute('aria-label', 'Fermer le menu');
+  });
+
+  // Un clic sur une ancre referme le menu
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', fermer));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && fermer());
+</script>

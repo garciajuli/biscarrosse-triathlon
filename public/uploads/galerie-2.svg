@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="SORTIE VELO">
+  <defs>
+    <linearGradient id="ciel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6FAFD"/><stop offset=".5" stop-color="#B9DAF0"/><stop offset="1" stop-color="#5BA4D8"/>
+    </linearGradient>
+    <linearGradient id="eau" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3D86BE"/><stop offset="1" stop-color="#1F3C61"/>
+    </linearGradient>
+    <symbol id="pin" viewBox="-30 -130 60 130">
+      <path d="M-3.2 0C-1.2-34-5.2-58-1.6-90L2.4-90C5-58 3-34 5.2 0Z"/>
+      <ellipse cx="0" cy="-96" rx="27" ry="9.5"/><ellipse cx="-16" cy="-105" rx="17" ry="7.5"/>
+      <ellipse cx="17" cy="-108" rx="15" ry="7"/><ellipse cx="1" cy="-114" rx="12" ry="6"/>
+    </symbol>
+  </defs>
+  <rect width="1200" height="900" fill="url(#ciel)"/>
+  <circle cx="960" cy="180" r="100" fill="#fff" opacity=".5"/>
+  <path d="M0 520 h1200 v380 H0Z" fill="url(#eau)"/>
+  <g fill="#fff" opacity=".22">
+    <rect x="100" y="560" width="240" height="5" rx="2.5"/>
+    <rect x="600" y="615" width="300" height="5" rx="2.5"/>
+    <rect x="300" y="670" width="200" height="5" rx="2.5"/>
+  </g>
+  <g fill="#16294B" opacity=".38">
+    <use href="#pin" x="85" y="390" width="60" height="130"/>
+    <use href="#pin" x="300" y="420" width="46" height="100"/>
+    <use href="#pin" x="800" y="408" width="52" height="112"/>
+  </g>
+  <g fill="#16294B">
+    <use href="#pin" x="150" y="352" width="84" height="182"/>
+    <use href="#pin" x="400" y="394" width="64" height="140"/>
+    <use href="#pin" x="960" y="370" width="76" height="164"/>
+  </g>
+  <g font-family="'Barlow Condensed','Helvetica Neue',Arial,sans-serif">
+    <rect x="34" y="808" width="1132" height="58" rx="29" fill="#0A1428" opacity=".72"/>
+    <text x="64" y="847" fill="#FFFFFF" font-size="26" letter-spacing="2.4">PHOTO À REMPLACER — SORTIE VELO</text>
+  </g>
+</svg>

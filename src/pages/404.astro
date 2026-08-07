@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import PinesBand from '../components/ui/PinesBand.astro';
+import { site } from '../lib/content';
+---
+
+<BaseLayout titre={`Page introuvable — ${site.nom}`} noindex>
+  <section class="relative -mt-18 overflow-hidden bg-shore pt-18">
+    <div class="shell flex min-h-[32rem] flex-col items-center justify-center pt-16 pb-52 text-center sm:pb-60">
+      <p class="font-display text-7xl leading-none font-semibold text-ocean-500 sm:text-8xl">404</p>
+      <h1 class="mt-4 text-3xl sm:text-4xl">Cette page a crevé dans la descente</h1>
+      <p class="mt-4 max-w-lg text-lg text-navy-500">
+        Le lien est peut-être ancien, ou la page a changé de nom. On te ramène au parc à vélos.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href="/" variante="secondaire" taille="lg">Retour à l'accueil</Button>
+        <Button href="/#contact" variante="clair" taille="lg">Nous signaler le problème</Button>
+      </div>
+    </div>
+    <PinesBand class="absolute bottom-0 left-0 h-40 text-navy-800 sm:h-48" />
+  </section>
+</BaseLayout>

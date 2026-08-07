@@ -1,0 +1,86 @@
+---
+import SectionHeader from './ui/SectionHeader.astro';
+import Button from './ui/Button.astro';
+import { home } from '../lib/content';
+
+const { rejoindre } = home;
+---
+
+<section id="rejoindre" class="scroll-mt-24 bg-white py-20 sm:py-24 lg:py-28">
+  <div class="shell">
+    <SectionHeader
+      eyebrow={rejoindre.eyebrow}
+      titre={rejoindre.titre}
+      intro={rejoindre.intro}
+      centre
+      class="reveal"
+    />
+
+    <!-- les 3 étapes -->
+    <ol class="mt-14 grid gap-8 sm:grid-cols-3 lg:gap-10">
+      {
+        rejoindre.etapes.map((etape, i) => (
+          <li class="reveal relative" style={`transition-delay:${i * 90}ms`}>
+            <span
+              class="font-display text-5xl leading-none font-semibold text-foam-200 lg:text-6xl"
+              aria-hidden="true"
+            >
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-2 text-xl">{etape.titre}</h3>
+            <p class="mt-2 leading-relaxed text-navy-500">{etape.texte}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- tarifs -->
+    <div class="mt-16 grid items-stretch gap-6 lg:grid-cols-3">
+      {
+        rejoindre.tarifs.map((tarif, i) => (
+          <div
+            class={`reveal flex flex-col rounded-card p-7 sm:p-8 ${
+              tarif.mise_en_avant
+                ? 'bg-navy-800 text-white shadow-lift ring-2 ring-ocean-400'
+                : 'border border-navy-100 bg-foam-50 shadow-soft'
+            }`}
+            style={`transition-delay:${i * 90}ms`}
+          >
+            {tarif.mise_en_avant && (
+              <span class="mb-4 self-start rounded-full bg-ocean-400 px-3 py-1 font-display text-xs font-semibold tracking-wider text-navy-900 uppercase">
+                Le plus choisi
+              </span>
+            )}
+
+            <h3 class={`text-xl ${tarif.mise_en_avant ? 'text-white' : ''}`}>{tarif.categorie}</h3>
+
+            <p
+              class={`mt-3 font-display text-4xl font-semibold tabular-nums ${tarif.mise_en_avant ? 'text-ocean-300' : 'text-navy-900'}`}
+            >
+              {tarif.prix}
+              <span class={`ml-1 text-base font-medium ${tarif.mise_en_avant ? 'text-navy-200' : 'text-navy-400'}`}>
+                / saison
+              </span>
+            </p>
+
+            <p class={`mt-4 leading-relaxed ${tarif.mise_en_avant ? 'text-navy-100' : 'text-navy-500'}`}>
+              {tarif.detail}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="reveal mt-12 flex flex-col items-center gap-6 text-center">
+      <p class="max-w-2xl text-sm text-navy-500">{rejoindre.note}</p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <Button href={rejoindre.cta_principal.lien} variante="primaire" taille="lg">
+          {rejoindre.cta_principal.libelle}
+        </Button>
+        <Button href={rejoindre.cta_secondaire.lien} variante="secondaire" taille="lg">
+          {rejoindre.cta_secondaire.libelle}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

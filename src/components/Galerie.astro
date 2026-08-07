@@ -1,0 +1,44 @@
+---
+import SectionHeader from './ui/SectionHeader.astro';
+import { home } from '../lib/content';
+
+const { galerie } = home;
+
+// rythme de la mosaïque : la 1ʳᵉ et la 4ᵉ image occupent deux colonnes
+const large = (i: number) => i % 3 === 0;
+---
+
+<section id="galerie" class="scroll-mt-24 bg-white pt-20 pb-20 sm:pt-24 sm:pb-24 lg:pt-28 lg:pb-28">
+  <div class="shell">
+    <SectionHeader eyebrow={galerie.eyebrow} titre={galerie.titre} class="reveal" />
+
+    <div class="mt-12 grid auto-rows-[13rem] grid-cols-2 gap-3 sm:auto-rows-[15rem] lg:grid-cols-4 lg:gap-4">
+      {
+        galerie.images.map((img, i) => (
+          <figure
+            class={`reveal group relative overflow-hidden rounded-2xl bg-foam-100 ${large(i) ? 'lg:col-span-2' : ''}`}
+            style={`transition-delay:${i * 60}ms`}
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              width="1200"
+              height="900"
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <div
+              class="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/55 via-navy-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              aria-hidden="true"
+            >
+            </div>
+            <figcaption class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 text-sm font-medium text-white opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              {img.alt}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

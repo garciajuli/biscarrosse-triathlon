@@ -1,0 +1,43 @@
+---
+interface Props {
+  href: string;
+  variante?: 'primaire' | 'secondaire' | 'fantome' | 'clair';
+  taille?: 'md' | 'lg';
+  class?: string;
+  externe?: boolean;
+}
+const { href, variante = 'primaire', taille = 'md', class: className = '', externe } = Astro.props;
+
+const base =
+  'group inline-flex items-center justify-center gap-2 rounded-full font-display font-semibold uppercase tracking-wider transition duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2';
+
+const variantes: Record<string, string> = {
+  primaire: 'bg-ocean-400 text-navy-900 shadow-soft hover:bg-ocean-300 hover:shadow-lift focus-visible:outline-ocean-400',
+  secondaire: 'bg-navy-800 text-white shadow-soft hover:bg-navy-700 hover:shadow-lift focus-visible:outline-navy-800',
+  fantome: 'border border-white/35 text-white hover:border-white hover:bg-white/10 focus-visible:outline-white',
+  clair: 'bg-white text-navy-800 shadow-soft hover:bg-foam-100 hover:shadow-lift focus-visible:outline-white',
+};
+
+const tailles: Record<string, string> = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+};
+
+const attrsExternes = externe ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a href={href} class={`${base} ${variantes[variante]} ${tailles[taille]} ${className}`} {...attrsExternes}>
+  <slot />
+  <svg
+    viewBox="0 0 16 16"
+    class="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
+    aria-hidden="true"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M2.5 8h10M9 4.5 12.5 8 9 11.5" />
+  </svg>
+</a>

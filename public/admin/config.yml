@@ -1,0 +1,382 @@
+# Decap CMS — https://decapcms.org/docs
+# ⚠️ Nécessite un fournisseur OAuth (cf. README, section « Decap »).
+#    Alternative sans aucune infra : Pages CMS (fichier .pages.yml).
+
+backend:
+  name: github
+  repo: ORGANISATION/DEPOT # ⚠️ à remplacer par owner/repo GitHub
+  branch: main
+  # Proxy OAuth à déployer (Cloudflare Worker, Vercel…) :
+  # base_url: https://oauth.mon-domaine.fr
+
+# Édition en local sans GitHub : `docker compose up -d cms` lance le proxy
+# decap-server (port 8081), et /admin écrit directement dans les fichiers.
+# Ignoré dès que le site n'est plus servi depuis localhost.
+local_backend: true
+
+locale: fr
+site_url: https://biscarrosse-triathlon.fr
+display_url: https://biscarrosse-triathlon.fr
+logo_url: /favicon.svg
+
+media_folder: public/uploads
+public_folder: /uploads
+
+# Publication directe (adapté à un bureau de club). Décommenter pour faire
+# passer chaque modification par une Pull Request à valider sur GitHub —
+# incompatible avec l'édition locale ci-dessus.
+# publish_mode: editorial_workflow
+
+collections:
+  # ------------------------------------------------------------------ PAGES
+  - name: pages
+    label: Pages
+    files:
+      - name: accueil
+        label: Page d'accueil
+        file: src/data/home.json
+        description: Tous les textes de la page d'accueil, section par section.
+        fields:
+          - label: Référencement & partage
+            name: seo
+            widget: object
+            fields:
+              - { label: Titre de l'onglet, name: titre, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: Image de partage (1200×630), name: image, widget: image }
+
+          - label: Bandeau d'accueil
+            name: hero
+            widget: object
+            fields:
+              - { label: Surtitre, name: surtitre, widget: string }
+              - { label: Grand titre, name: titre, widget: string }
+              - { label: Accroche, name: accroche, widget: text }
+              - label: Bouton principal
+                name: cta_principal
+                widget: object
+                fields:
+                  - { label: Libellé, name: libelle, widget: string }
+                  - { label: Lien, name: lien, widget: string }
+              - label: Bouton secondaire
+                name: cta_secondaire
+                widget: object
+                fields:
+                  - { label: Libellé, name: libelle, widget: string }
+                  - { label: Lien, name: lien, widget: string }
+              - label: Compte à rebours
+                name: compte_a_rebours
+                widget: object
+                fields:
+                  - { label: Afficher, name: actif, widget: boolean }
+                  - { label: Nom de l'événement, name: libelle, widget: string }
+                  - label: Date et heure
+                    name: date
+                    widget: datetime
+                    format: YYYY-MM-DDTHH:mm:ssZ
+                    date_format: DD/MM/YYYY
+                    time_format: HH:mm
+                  - { label: Lien, name: lien, widget: string }
+
+          - label: Chiffres clés
+            name: chiffres
+            widget: list
+            min: 2
+            max: 4
+            fields:
+              - { label: Chiffre, name: valeur, widget: string }
+              - { label: Libellé, name: libelle, widget: string }
+              - { label: Précision, name: detail, widget: string }
+
+          - label: Section « Le club »
+            name: apropos
+            widget: object
+            fields:
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - label: Paragraphes
+                name: paragraphes
+                widget: list
+                field: { label: Paragraphe, name: texte, widget: text }
+              - label: Points forts
+                name: points
+                widget: list
+                fields:
+                  - { label: Titre, name: titre, widget: string }
+                  - { label: Texte, name: texte, widget: text }
+              - { label: Photo, name: image, widget: image }
+              - { label: Description de la photo, name: image_alt, widget: string }
+              - label: Citation
+                name: citation
+                widget: object
+                fields:
+                  - { label: Citation, name: texte, widget: text }
+                  - { label: Auteur, name: auteur, widget: string }
+
+          - label: Section « Entraînements »
+            name: entrainements
+            widget: object
+            fields:
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - { label: Introduction, name: intro, widget: text }
+              - { label: Note de bas de section, name: note, widget: text }
+
+          - label: Section « Actualités »
+            name: actualites
+            widget: object
+            fields:
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - { label: Introduction, name: intro, widget: text }
+
+          - label: Section « Agenda »
+            name: agenda
+            widget: object
+            fields:
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - { label: Introduction, name: intro, widget: text }
+
+          - label: Section « Adhésion »
+            name: rejoindre
+            widget: object
+            fields:
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - { label: Introduction, name: intro, widget: text }
+              - label: Étapes
+                name: etapes
+                widget: list
+                fields:
+                  - { label: Titre, name: titre, widget: string }
+                  - { label: Texte, name: texte, widget: text }
+              - label: Tarifs
+                name: tarifs
+                widget: list
+                fields:
+                  - { label: Catégorie, name: categorie, widget: string }
+                  - { label: Prix, name: prix, widget: string }
+                  - { label: Détail, name: detail, widget: text }
+                  - { label: Mettre en avant, name: mise_en_avant, widget: boolean, default: false }
+              - { label: Note, name: note, widget: text }
+              - label: Bouton principal
+                name: cta_principal
+                widget: object
+                fields:
+                  - { label: Libellé, name: libelle, widget: string }
+                  - { label: Lien, name: lien, widget: string }
+              - label: Bouton secondaire
+                name: cta_secondaire
+                widget: object
+                fields:
+                  - { label: Libellé, name: libelle, widget: string }
+                  - { label: Lien, name: lien, widget: string }
+
+          - label: Section « Bénévoles »
+            name: benevoles
+            widget: object
+            fields:
+              - { label: Afficher la section, name: actif, widget: boolean }
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - { label: Texte, name: texte, widget: text }
+              - label: Bouton
+                name: cta
+                widget: object
+                fields:
+                  - { label: Libellé, name: libelle, widget: string }
+                  - { label: Lien, name: lien, widget: string }
+
+          - label: Section « Galerie »
+            name: galerie
+            widget: object
+            fields:
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - label: Photos
+                name: images
+                widget: list
+                fields:
+                  - { label: Photo, name: src, widget: image }
+                  - { label: Description, name: alt, widget: string }
+
+          - label: Section « Partenaires »
+            name: partenaires
+            widget: object
+            fields:
+              - { label: Petit titre, name: eyebrow, widget: string }
+              - { label: Titre, name: titre, widget: string }
+              - { label: Introduction, name: intro, widget: text }
+              - label: Bouton
+                name: cta
+                widget: object
+                fields:
+                  - { label: Libellé, name: libelle, widget: string }
+                  - { label: Lien, name: lien, widget: string }
+
+      - name: reglages
+        label: Réglages du site
+        file: src/data/site.json
+        description: Coordonnées, réseaux sociaux, menu et bandeau d'annonce.
+        fields:
+          - { label: Nom du club, name: nom, widget: string }
+          - { label: Nom court, name: nom_court, widget: string }
+          - { label: Baseline, name: baseline, widget: string }
+          - { label: Ville, name: ville, widget: string }
+          - { label: Affiliation, name: affiliation, widget: string }
+          - { label: Courriel, name: email, widget: string }
+          - { label: Téléphone, name: telephone, widget: string }
+          - label: Adresse
+            name: adresse
+            widget: object
+            fields:
+              - label: Lignes d'adresse
+                name: lignes
+                widget: list
+                field: { label: Ligne, name: ligne, widget: string }
+              - { label: Lien vers une carte, name: lien_maps, widget: string }
+          - label: Réseaux sociaux
+            name: reseaux
+            widget: list
+            fields:
+              - label: Réseau
+                name: nom
+                widget: select
+                options: [Facebook, Instagram, Strava, YouTube]
+              - { label: Lien, name: url, widget: string }
+          - label: Menu de navigation
+            name: nav
+            widget: list
+            fields:
+              - { label: Libellé, name: libelle, widget: string }
+              - { label: Lien, name: lien, widget: string }
+          - label: Bandeau d'annonce
+            name: annonce
+            widget: object
+            fields:
+              - { label: Afficher, name: actif, widget: boolean }
+              - { label: Texte, name: texte, widget: string }
+              - { label: Libellé du lien, name: libelle_lien, widget: string }
+              - { label: Lien, name: lien, widget: string }
+
+  # ------------------------------------------------------------- ACTUALITÉS
+  - name: actualites
+    label: Actualités
+    label_singular: une actualité
+    folder: src/content/actualites
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    identifier_field: titre
+    summary: '{{titre}} — {{categorie}}'
+    sortable_fields: [date, titre]
+    view_filters:
+      - { label: Publiées, field: brouillon, pattern: false }
+      - { label: Brouillons, field: brouillon, pattern: true }
+    fields:
+      - { label: Titre, name: titre, widget: string }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: DD/MM/YYYY, time_format: false }
+      - label: Catégorie
+        name: categorie
+        widget: select
+        default: Vie du club
+        options: [Vie du club, Résultats, Compétition, Entraînement, Partenaires]
+      - { label: Résumé, name: resume, widget: text, hint: Affiché sur la page d'accueil }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: Description de l'image, name: image_alt, widget: string, required: false }
+      - { label: Épingler en premier, name: epingle, widget: boolean, default: false }
+      - { label: Brouillon, name: brouillon, widget: boolean, default: false }
+      - { label: Contenu, name: body, widget: markdown }
+
+  # ----------------------------------------------------------------- AGENDA
+  - name: agenda
+    label: Agenda
+    label_singular: un événement
+    folder: src/content/agenda
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    identifier_field: titre
+    summary: '{{titre}} — {{lieu}}'
+    sortable_fields: [date, titre]
+    fields:
+      - { label: Titre, name: titre, widget: string }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: DD/MM/YYYY, time_format: false }
+      - label: Date de fin
+        name: date_fin
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: DD/MM/YYYY
+        time_format: false
+        required: false
+        hint: À remplir seulement si l'événement dure plusieurs jours
+      - { label: Lieu, name: lieu, widget: string }
+      - label: Type
+        name: type
+        widget: select
+        default: Compétition
+        options: [Compétition, Club, Stage, Bénévoles]
+      - label: Disciplines
+        name: disciplines
+        widget: select
+        multiple: true
+        required: false
+        options: [natation, velo, course]
+      - { label: Format, name: format, widget: string, required: false }
+      - { label: Résumé, name: resume, widget: text, required: false }
+      - { label: Lien d'inscription, name: lien_inscription, widget: string, required: false }
+      - { label: Brouillon, name: brouillon, widget: boolean, default: false }
+
+  # ---------------------------------------------------- GROUPES / CRÉNEAUX
+  - name: groupes
+    label: Groupes d'entraînement
+    label_singular: un groupe
+    folder: src/content/groupes
+    create: true
+    slug: '{{slug}}'
+    identifier_field: titre
+    summary: '{{titre}} ({{discipline}})'
+    sortable_fields: [ordre, titre]
+    fields:
+      - { label: Titre, name: titre, widget: string }
+      - label: Discipline
+        name: discipline
+        widget: select
+        default: multi
+        options: [natation, velo, course, renforcement, multi]
+        hint: Détermine l'icône affichée
+      - { label: Ordre d'affichage, name: ordre, widget: number, default: 99, value_type: int }
+      - { label: Description, name: resume, widget: text }
+      - { label: Encadrement, name: encadrant, widget: string, required: false }
+      - label: Créneaux
+        name: creneaux
+        widget: list
+        fields:
+          - { label: Jour, name: jour, widget: string }
+          - { label: Horaire, name: horaire, widget: string }
+          - { label: Lieu, name: lieu, widget: string }
+          - { label: Groupe / niveau, name: groupe, widget: string, required: false }
+
+  # ------------------------------------------------------------ PARTENAIRES
+  - name: partenaires
+    label: Partenaires
+    label_singular: un partenaire
+    folder: src/content/partenaires
+    create: true
+    slug: '{{slug}}'
+    identifier_field: nom
+    summary: '{{nom}} ({{niveau}})'
+    sortable_fields: [ordre, nom]
+    fields:
+      - { label: Nom, name: nom, widget: string }
+      - { label: Site web, name: url, widget: string, required: false }
+      - label: Logo
+        name: logo
+        widget: image
+        required: false
+        hint: Laisser vide pour afficher le nom en typographie du club
+      - label: Niveau
+        name: niveau
+        widget: select
+        default: soutien
+        options: [principal, officiel, soutien]
+      - { label: Ordre d'affichage, name: ordre, widget: number, default: 99, value_type: int }

@@ -1,0 +1,34 @@
+---
+/**
+ * Reprise du bloc-marque de la trifonction : nom en capitales condensées,
+ * vague, puis « Triathlon » en italique. Hérite de currentColor.
+ */
+interface Props {
+  class?: string;
+  taille?: 'sm' | 'md';
+}
+const { class: className = '', taille = 'md' } = Astro.props;
+
+const nom = taille === 'md' ? 'text-[1.05rem] sm:text-xl' : 'text-[0.9rem]';
+const sous = taille === 'md' ? 'text-[0.95rem] sm:text-lg' : 'text-[0.8rem]';
+---
+
+<span class={`flex flex-col leading-none ${className}`}>
+  <span class={`font-display font-semibold uppercase tracking-[0.055em] ${nom}`}>
+    Biscarrosse Olympique
+  </span>
+  <span class="mt-0.5 flex items-center gap-1.5">
+    <svg
+      viewBox="0 0 62 12"
+      class="h-2.5 w-[3.1rem] shrink-0"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+    >
+      <path d="M1 7.6c6-5.2 11-5.2 16 0s10 5.2 16 0 11-5.2 16 0 8 3.2 12 .4" opacity=".95" />
+    </svg>
+    <span class={`font-serif italic ${sous}`}>Triathlon</span>
+  </span>
+</span>

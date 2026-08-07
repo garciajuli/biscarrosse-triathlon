@@ -1,0 +1,96 @@
+---
+interface Props {
+  libelle: string;
+  date: string;
+  lien?: string;
+}
+const { libelle, date, lien } = Astro.props;
+
+const cible = new Date(date);
+const valide = !Number.isNaN(cible.getTime());
+
+/* Valeurs calculées au build : correctes au déploiement, puis rafraîchies
+   chaque seconde par le script. Un visiteur sans JS voit une valeur plausible. */
+const restant = valide ? Math.max(0, cible.getTime() - Date.now()) : 0;
+const s = Math.floor(restant / 1000);
+const initial = [
+  { cle: 'jours', valeur: Math.floor(s / 86400), label: 'jours' },
+  { cle: 'heures', valeur: Math.floor((s % 86400) / 3600), label: 'heures' },
+  { cle: 'minutes', valeur: Math.floor((s % 3600) / 60), label: 'min' },
+  { cle: 'secondes', valeur: s % 60, label: 'sec' },
+];
+---
+
+{
+  valide && (
+    <div
+      class="compteur mx-auto w-full max-w-xl rounded-card border border-white/70 bg-white/85 p-5 shadow-lift backdrop-blur-sm sm:p-6"
+      data-cible={cible.toISOString()}
+    >
+      <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <p class="font-display text-sm font-semibold uppercase tracking-[0.16em] text-ocean-600">Prochain rendez-vous</p>
+        {lien && (
+          <a href={lien} class="text-sm font-medium text-navy-500 underline decoration-ocean-300 decoration-2 underline-offset-4 hover:text-navy-800">
+            Tout l'agenda
+          </a>
+        )}
+      </div>
+
+      <p class="mt-1.5 font-display text-xl font-semibold uppercase tracking-tight text-navy-900 sm:text-2xl">{libelle}</p>
+
+      <div class="mt-4 grid grid-cols-4 gap-2 sm:gap-3" role="timer" aria-live="off">
+        {initial.map((u) => (
+          <div class="rounded-xl bg-foam-100 py-3 text-center">
+            <span
+              class="block font-display text-2xl leading-none font-semibold tabular-nums text-navy-900 sm:text-3xl"
+              data-unite={u.cle}
+            >
+              {String(u.valeur).padStart(2, '0')}
+            </span>
+            <span class="mt-1 block text-[0.7rem] font-medium tracking-wider text-navy-400 uppercase">{u.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-3 hidden text-center text-sm font-medium text-ocean-600 data-[visible]:block" data-message>
+        C'est aujourd'hui — bon courage à tous&nbsp;!
+      </p>
+    </div>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('.compteur').forEach((bloc) => {
+    const cible = new Date(bloc.dataset.cible!).getTime();
+    const unites = bloc.querySelectorAll<HTMLElement>('[data-unite]');
+    const message = bloc.querySelector<HTMLElement>('[data-message]');
+    if (!unites.length) return;
+
+    const ecrire = (el: HTMLElement | undefined, n: number) => {
+      if (el) el.textContent = String(n).padStart(2, '0');
+    };
+
+    // déclaré avant `tic` : la date peut déjà être passée au premier appel
+    let minuteur: ReturnType<typeof setInterval> | undefined;
+
+    const tic = () => {
+      const restant = cible - Date.now();
+
+      if (restant <= 0) {
+        unites.forEach((u) => (u.textContent = '00'));
+        message?.setAttribute('data-visible', '');
+        if (minuteur) clearInterval(minuteur);
+        return;
+      }
+
+      const s = Math.floor(restant / 1000);
+      ecrire(bloc.querySelector<HTMLElement>('[data-unite="jours"]') ?? undefined, Math.floor(s / 86400));
+      ecrire(bloc.querySelector<HTMLElement>('[data-unite="heures"]') ?? undefined, Math.floor((s % 86400) / 3600));
+      ecrire(bloc.querySelector<HTMLElement>('[data-unite="minutes"]') ?? undefined, Math.floor((s % 3600) / 60));
+      ecrire(bloc.querySelector<HTMLElement>('[data-unite="secondes"]') ?? undefined, s % 60);
+    };
+
+    tic();
+    minuteur = setInterval(tic, 1000);
+  });
+</script>
