@@ -52,7 +52,7 @@ content:
                 label: Date et heure de départ
                 type: date
                 options: { time: true, format: "yyyy-MM-dd'T'HH:mm:ssxxx" }
-              - { name: lien, label: Lien (ex. #agenda), type: string }
+              - { name: lien, label: "Lien (ex. #agenda)", type: string }
 
       - name: chiffres
         label: Chiffres clés
