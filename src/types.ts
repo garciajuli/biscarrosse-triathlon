@@ -97,48 +97,9 @@ export interface Home {
     image_alt: string;
     citation: { texte: string; auteur: string };
   };
-  entrainements: {
-    eyebrow: string;
-    titre: string;
-    intro: string;
-    note: string;
-  };
-  actualites: {
-    eyebrow: string;
-    titre: string;
-    intro: string;
-  };
   agenda: {
     eyebrow: string;
     titre: string;
     intro: string;
-  };
-  rejoindre: {
-    eyebrow: string;
-    titre: string;
-    intro: string;
-    etapes: { titre: string; texte: string }[];
-    tarifs: { categorie: string; prix: string; detail: string; mise_en_avant: boolean }[];
-    note: string;
-    cta_principal: Lien;
-    cta_secondaire: Lien;
-  };
-  benevoles: {
-    actif: boolean;
-    eyebrow: string;
-    titre: string;
-    texte: string;
-    cta: Lien;
-  };
-  galerie: {
-    eyebrow: string;
-    titre: string;
-    images: { src: string; alt: string }[];
-  };
-  partenaires: {
-    eyebrow: string;
-    titre: string;
-    intro: string;
-    cta: Lien;
   };
 }
