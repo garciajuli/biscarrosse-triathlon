@@ -2,7 +2,7 @@
   "nom": "Triathlon de Biscarrosse TEST JULIEN",
   "edition": "Édition 2026",
   "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied au bord du lac. PLusieurs formats au programme.",
-  "date": "2026-09-20",
+  "date": "2026-09-21",
   "formats": [
     {
       "nom": "Format S",
@@ -18,10 +18,6 @@
         {
           "discipline": "course",
           "valeur": "5 km"
-        },
-        {
-          "discipline": "velo",
-          "valeur": "1000000"
         }
       ],
       "detail": "Distance sprint — idéale pour une première course ou pour aller vite."
