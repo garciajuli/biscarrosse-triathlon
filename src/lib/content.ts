@@ -8,10 +8,13 @@ import type { Epreuve, Home, Site } from '../types';
 export const site = siteJson as Site;
 export const home = homeJson as Home;
 
-/* Les JSON d'épreuves contiennent des unions littérales (discipline…) et des
-   `null` : le passage par `unknown` évite un faux positif de `astro check`. */
-export const triathlon = triathlonJson as unknown as Epreuve;
-export const swimrun = swimrunJson as unknown as Epreuve;
+/* `slug` et `discipline` sont structurels (URL, icônes) : on les injecte ici
+   plutôt que dans les JSON, pour qu'ils ne soient pas éditables — ni effaçables —
+   depuis Pages CMS, qui ne réécrit que les champs déclarés dans .pages.yml.
+   Le passage par `unknown` évite un faux positif de `astro check` (unions
+   littérales + `null` dans le JSON). */
+export const triathlon = { slug: 'triathlon', discipline: 'triathlon', ...triathlonJson } as unknown as Epreuve;
+export const swimrun = { slug: 'swimrun', discipline: 'swimrun', ...swimrunJson } as unknown as Epreuve;
 
 /** Ordre d'affichage des épreuves sur la page d'accueil. */
 export const epreuves: Epreuve[] = [triathlon, swimrun];

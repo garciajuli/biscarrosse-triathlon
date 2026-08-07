@@ -191,6 +191,99 @@ content:
               - { name: libelle, label: Libellé, type: string }
               - { name: lien, label: Lien, type: string }
 
+  # -------------------------------------------------------------- TRIATHLON
+  - name: triathlon
+    label: Triathlon de Biscarrosse
+    type: file
+    path: src/data/triathlon.json
+    icon: bike
+    fields:
+      - { name: nom, label: Nom de l'épreuve, type: string }
+      - { name: edition, label: Édition (ex. Édition 2026), type: string }
+      - { name: accroche, label: Accroche, type: text }
+      - { name: date, label: Date, type: date, options: { format: yyyy-MM-dd } }
+      - { name: heure, label: Heure de départ (ex. 9h00), type: string }
+      - { name: lieu, label: Lieu / départ, type: string }
+      - name: formats
+        label: Formats et distances
+        type: object
+        list: true
+        fields:
+          - { name: nom, label: Nom du format (ex. Format S), type: string }
+          - name: distances
+            label: Distances par discipline
+            type: object
+            list: true
+            fields:
+              - name: discipline
+                label: Discipline
+                type: select
+                options: { values: [natation, velo, course] }
+              - { name: valeur, label: Distance (ex. 750 m), type: string }
+          - { name: detail, label: Détail du format, type: text }
+          - { name: prix, label: Tarif (ex. 35 €), type: string }
+      - { name: parcours, label: Parcours, type: text }
+      - { name: tarifs, label: Tarifs d'inscription, type: text }
+      - { name: lien_inscription, label: Lien d'inscription, type: string }
+      - { name: retrait_dossards, label: Retrait des dossards, type: text }
+      - { name: ravitaillements, label: Ravitaillements, type: text }
+      - { name: conditions, label: Conditions de participation, type: text }
+      - { name: contact, label: Contact spécifique (vide = e-mail du club), type: string }
+      - name: seo
+        label: Référencement et partage
+        type: object
+        fields:
+          - { name: titre, label: Titre de l'onglet, type: string }
+          - { name: description, label: "Description (Google, réseaux)", type: text }
+          - { name: image, label: Image de partage (1200×630), type: image }
+
+  # ---------------------------------------------------------------- SWIMRUN
+  - name: swimrun
+    label: Swimrun du lac et des pins
+    type: file
+    path: src/data/swimrun.json
+    icon: waves
+    fields:
+      - { name: nom, label: Nom de l'épreuve, type: string }
+      - { name: edition, label: Édition (ex. Édition 2026), type: string }
+      - { name: accroche, label: Accroche, type: text }
+      - { name: date, label: Date, type: date, options: { format: yyyy-MM-dd } }
+      - { name: heure, label: Heure de départ (ex. 9h00), type: string }
+      - { name: lieu, label: Lieu / départ, type: string }
+      - name: formats
+        label: Formats et distances
+        type: object
+        list: true
+        fields:
+          - { name: nom, label: Nom du format (ex. Format S), type: string }
+          - name: distances
+            label: Distances par discipline
+            type: object
+            list: true
+            fields:
+              - name: discipline
+                label: Discipline
+                type: select
+                options: { values: [natation, velo, course] }
+              - { name: valeur, label: Distance (ex. 750 m), type: string }
+          - { name: detail, label: Détail du format, type: text }
+          - { name: prix, label: Tarif (ex. 35 €), type: string }
+      - { name: parcours, label: Parcours, type: text }
+      - { name: materiel, label: Matériel obligatoire, type: text }
+      - { name: tarifs, label: Tarifs d'inscription, type: text }
+      - { name: lien_inscription, label: Lien d'inscription, type: string }
+      - { name: retrait_dossards, label: Retrait des dossards, type: text }
+      - { name: ravitaillements, label: Ravitaillements, type: text }
+      - { name: conditions, label: Conditions de participation, type: text }
+      - { name: contact, label: Contact spécifique (vide = e-mail du club), type: string }
+      - name: seo
+        label: Référencement et partage
+        type: object
+        fields:
+          - { name: titre, label: Titre de l'onglet, type: string }
+          - { name: description, label: "Description (Google, réseaux)", type: text }
+          - { name: image, label: Image de partage (1200×630), type: image }
+
   # ------------------------------------------------------------- ACTUALITÉS
   - name: actualites
     label: Actualités
