@@ -1,39 +1,46 @@
 {
   "nom": "Triathlon de Biscarrosse",
   "edition": "Édition 2026",
-  "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied face à la dune. Deux formats au programme, ouverts aux licenciés comme aux non-licenciés.",
+  "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied au bord du lac. PLusieurs formats au programme.",
   "date": "2026-09-20",
-  "heure": null,
-  "lieu": null,
   "formats": [
     {
       "nom": "Format S",
       "distances": [
-        { "discipline": "natation", "valeur": "750 m" },
-        { "discipline": "velo", "valeur": "20 km" },
-        { "discipline": "course", "valeur": "5 km" }
+        {
+          "discipline": "natation",
+          "valeur": "750 m"
+        },
+        {
+          "discipline": "velo",
+          "valeur": "20 km"
+        },
+        {
+          "discipline": "course",
+          "valeur": "5 km"
+        }
       ],
-      "detail": "Distance sprint — idéale pour une première course ou pour aller vite.",
-      "prix": null
+      "detail": "Distance sprint — idéale pour une première course ou pour aller vite."
     },
     {
       "nom": "Format M",
       "distances": [
-        { "discipline": "natation", "valeur": "1,5 km" },
-        { "discipline": "velo", "valeur": "40 km" },
-        { "discipline": "course", "valeur": "10 km" }
+        {
+          "discipline": "natation",
+          "valeur": "1,5 km"
+        },
+        {
+          "discipline": "velo",
+          "valeur": "40 km"
+        },
+        {
+          "discipline": "course",
+          "valeur": "10 km"
+        }
       ],
-      "detail": "Distance olympique — pour les triathlètes qui veulent en découdre.",
-      "prix": null
+      "detail": "Distance olympique — pour les triathlètes qui veulent en découdre."
     }
   ],
-  "parcours": null,
-  "tarifs": null,
-  "lien_inscription": null,
-  "retrait_dossards": null,
-  "ravitaillements": null,
-  "conditions": null,
-  "contact": null,
   "seo": {
     "titre": "Triathlon de Biscarrosse — 20 septembre 2026 | BO Triathlon",
     "description": "Le Triathlon de Biscarrosse, le 20 septembre 2026 : formats S et M entre lac et forêt de pins. Parcours, tarifs et inscriptions.",
