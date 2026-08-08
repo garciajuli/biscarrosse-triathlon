@@ -14,12 +14,12 @@
       "actif": true,
       "libelle": "Triathlon de Biscarrosse",
       "date": "2026-09-20T09:00:00+02:00",
-      "lien": "#agenda"
+      "lien": "/triathlon"
     }
   },
   "chiffres": [
-    { "valeur": "180", "libelle": "licenciés", "detail": "dont 55 jeunes" },
-    { "valeur": "12", "libelle": "séances / semaine", "detail": "3 disciplines encadrées" },
+    { "valeur": "70", "libelle": "licenciés", "detail": "dont 2 jeunes" },
+    { "valeur": "5", "libelle": "séances / semaine", "detail": "3 disciplines encadrées" },
     { "valeur": "4", "libelle": "entraîneurs diplômés", "detail": "BF5 & BNSSA" },
     { "valeur": "1978", "libelle": "année de création", "detail": "au bord du lac" }
   ],
@@ -30,34 +30,8 @@
       "Biscarrosse Olympique Triathlon, c'est un terrain de jeu que peu de clubs peuvent offrir : le lac pour la natation en eau libre dès le printemps, 300 km de pistes cyclables sous les pins pour le vélo, et le sable de la dune pour les séances qui font mal aux mollets.",
       "Ici, personne ne reste seul sur le bord de la route. Les groupes sont constitués par niveau, les séances sont écrites par nos entraîneurs, et le dimanche matin la sortie longue finit toujours par un café."
     ],
-    "points": [
-      {
-        "titre": "Tous les niveaux",
-        "texte": "Groupes découverte, loisir et compétition. On sait accueillir quelqu'un qui n'a jamais nagé en ligne d'eau."
-      },
-      {
-        "titre": "École de triathlon",
-        "texte": "Une section jeunes de 8 à 19 ans, labellisée, avec aquathlons et compétitions départementales."
-      },
-      {
-        "titre": "Encadrement diplômé",
-        "texte": "Quatre entraîneurs fédéraux, des plans de séance progressifs et un suivi individuel sur objectif."
-      },
-      {
-        "titre": "Esprit club",
-        "texte": "Trifonction aux couleurs des pins, week-ends de stage, courses en équipe et repas de fin de saison."
-      }
-    ],
+
     "image": "/uploads/photo-club.svg",
-    "image_alt": "Groupe de triathlètes du club à l'entraînement au bord du lac de Biscarrosse",
-    "citation": {
-      "texte": "On est venus pour s'entraîner, on est restés pour les gens.",
-      "auteur": "Marie, licenciée depuis 2019"
-    }
-  },
-  "agenda": {
-    "eyebrow": "Agenda",
-    "titre": "Les prochains rendez-vous",
-    "intro": "Compétitions visées par le club, rendez-vous internes et stages de la saison."
+    "image_alt": "Groupe de triathlètes du club à l'entraînement au bord du lac de Biscarrosse"
   }
 }

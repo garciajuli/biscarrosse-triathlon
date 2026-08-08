@@ -39,6 +39,8 @@ export interface Epreuve {
   materiel?: string | null;
   tarifs?: string | null;
   lien_inscription?: string | null;
+  /** Lien vers le règlement (PDF). */
+  reglement?: string | null;
   retrait_dossards?: string | null;
   ravitaillements?: string | null;
   conditions?: string | null;
@@ -96,10 +98,5 @@ export interface Home {
     image: string;
     image_alt: string;
     citation: { texte: string; auteur: string };
-  };
-  agenda: {
-    eyebrow: string;
-    titre: string;
-    intro: string;
   };
 }

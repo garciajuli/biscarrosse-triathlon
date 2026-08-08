@@ -52,7 +52,7 @@ content:
                 label: Date et heure de départ
                 type: date
                 options: { time: true, format: "yyyy-MM-dd'T'HH:mm:ssxxx" }
-              - { name: lien, label: "Lien (ex. #agenda)", type: string }
+              - { name: lien, label: "Lien (ex. /triathlon)", type: string }
 
       - name: chiffres
         label: Chiffres clés
@@ -85,14 +85,6 @@ content:
             fields:
               - { name: texte, label: Citation, type: text }
               - { name: auteur, label: Auteur, type: string }
-
-      - name: agenda
-        label: Section « Agenda »
-        type: object
-        fields:
-          - { name: eyebrow, label: Petit titre, type: string }
-          - { name: titre, label: Titre, type: string }
-          - { name: intro, label: Introduction, type: text }
 
   # -------------------------------------------------------------- TRIATHLON
   - name: triathlon
@@ -128,6 +120,7 @@ content:
       - { name: parcours, label: Parcours, type: text }
       - { name: tarifs, label: Tarifs d'inscription, type: text }
       - { name: lien_inscription, label: Lien d'inscription, type: string }
+      - { name: reglement, label: "Règlement (lien PDF)", type: string }
       - { name: retrait_dossards, label: Retrait des dossards, type: text }
       - { name: ravitaillements, label: Ravitaillements, type: text }
       - { name: conditions, label: Conditions de participation, type: text }
@@ -175,6 +168,7 @@ content:
       - { name: materiel, label: Matériel obligatoire, type: text }
       - { name: tarifs, label: Tarifs d'inscription, type: text }
       - { name: lien_inscription, label: Lien d'inscription, type: string }
+      - { name: reglement, label: "Règlement (lien PDF)", type: string }
       - { name: retrait_dossards, label: Retrait des dossards, type: text }
       - { name: ravitaillements, label: Ravitaillements, type: text }
       - { name: conditions, label: Conditions de participation, type: text }
@@ -186,42 +180,6 @@ content:
           - { name: titre, label: Titre de l'onglet, type: string }
           - { name: description, label: "Description (Google, réseaux)", type: text }
           - { name: image, label: Image de partage (1200×630), type: image }
-
-  # ----------------------------------------------------------------- AGENDA
-  - name: agenda
-    label: Agenda
-    type: collection
-    path: src/content/agenda
-    filename: '{year}-{month}-{day}-{fields.titre}.md'
-    icon: calendar
-    view:
-      fields: [titre, date, type, lieu]
-      primary: titre
-      sort: [date, titre]
-      default:
-        sort: date
-        order: asc
-    fields:
-      - { name: titre, label: Titre, type: string, required: true }
-      - { name: date, label: Date, type: date, required: true, options: { format: yyyy-MM-dd } }
-      - { name: date_fin, label: Date de fin (si plusieurs jours), type: date, options: { format: yyyy-MM-dd } }
-      - { name: lieu, label: Lieu, type: string, required: true }
-      - name: type
-        label: Type
-        type: select
-        default: Compétition
-        options:
-          values: [Compétition, Club, Stage, Bénévoles]
-      - name: disciplines
-        label: Disciplines
-        type: select
-        options:
-          multiple: true
-          values: [natation, velo, course]
-      - { name: format, label: Format (distances, relais…), type: string }
-      - { name: resume, label: Résumé, type: text }
-      - { name: lien_inscription, label: Lien d'inscription, type: string }
-      - { name: brouillon, label: Brouillon (non publié), type: boolean, default: false }
 
   # --------------------------------------------------------------- RÉGLAGES
   - name: reglages

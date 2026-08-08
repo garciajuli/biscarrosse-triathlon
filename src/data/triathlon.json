@@ -1,49 +1,44 @@
 {
-  "nom": "Triathlon de Biscarrosse TEST JULIEN",
+  "nom": "Triathlon de Biscarrosse",
   "edition": "Édition 2026",
-  "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied au bord du lac. PLusieurs formats au programme.",
-  "date": "2026-09-21",
+  "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied au bord du lac. Plusieurs formats au programme, des courses jeunes au format olympique.",
+  "date": "2026-09-20",
+  "lien_inscription": "https://www.tiptiptop.top/com/articles.php?Page=24",
+  "reglement": "https://www.tiptiptop.top/UserFiles/Site/File/reglement/reglement_triathlon_biscarrosse_2025.pdf",
   "formats": [
-    {
-      "nom": "Format S",
-      "distances": [
-        {
-          "discipline": "natation",
-          "valeur": "750 m"
-        },
-        {
-          "discipline": "velo",
-          "valeur": "20 km"
-        },
-        {
-          "discipline": "course",
-          "valeur": "5 km"
-        }
-      ],
-      "detail": "Distance sprint — idéale pour une première course ou pour aller vite."
-    },
     {
       "nom": "Format M",
       "distances": [
-        {
-          "discipline": "natation",
-          "valeur": "1,5 km"
-        },
-        {
-          "discipline": "velo",
-          "valeur": "40 km"
-        },
-        {
-          "discipline": "course",
-          "valeur": "10 km"
-        }
+        { "discipline": "natation", "valeur": "1,5 km" },
+        { "discipline": "velo", "valeur": "40 km" },
+        { "discipline": "course", "valeur": "10 km" }
       ],
-      "detail": "Distance olympique — pour les triathlètes qui veulent en découdre."
+      "detail": "Distance olympique — nés en 2008 et avant.",
+      "prix": "62,60 € (+5 € à partir du 15 août)"
+    },
+    {
+      "nom": "Format XS",
+      "distances": [],
+      "detail": "Format découverte — nés en 2014 et avant.",
+      "prix": "31,60 € (+5 € à partir du 15 août)"
+    },
+    {
+      "nom": "Triathlon 10-13 ans",
+      "distances": [],
+      "detail": "École de triathlon — nés de 2013 à 2016.",
+      "prix": "2,50 €"
+    },
+    {
+      "nom": "Triathlon 6-9 ans",
+      "distances": [],
+      "detail": "École de triathlon — nés de 2017 à 2020.",
+      "prix": "2,50 €"
     }
   ],
+  "conditions": "Licenciés FFTRI : licence de la saison en cours. Non-licenciés : questionnaire de santé (un Pass Journée FFTRI est ajouté automatiquement à l'inscription). Mineurs : autorisation parentale. Étrangers : Pass Licencié ITU. Clôture des inscriptions en ligne le 17 septembre 2026 à 12h00.",
   "seo": {
     "titre": "Triathlon de Biscarrosse — 20 septembre 2026 | BO Triathlon",
-    "description": "Le Triathlon de Biscarrosse, le 20 septembre 2026 : formats S et M entre lac et forêt de pins. Parcours, tarifs et inscriptions.",
+    "description": "Le Triathlon de Biscarrosse, le 20 septembre 2026 : formats XS et M plus courses jeunes, entre lac et forêt de pins. Inscriptions en ligne.",
     "image": "/uploads/og-biscarrosse-triathlon.svg"
   }
 }

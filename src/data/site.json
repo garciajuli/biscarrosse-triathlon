@@ -11,15 +11,12 @@
     "lien_maps": "https://www.openstreetmap.org/search?query=Biscarrosse"
   },
   "reseaux": [
-    { "nom": "Facebook", "url": "https://www.facebook.com/" },
-    { "nom": "Instagram", "url": "https://www.instagram.com/" },
-    { "nom": "Strava", "url": "https://www.strava.com/" }
+    { "nom": "Instagram", "url": "https://www.instagram.com/botri_bisca/" }
   ],
   "nav": [
     { "libelle": "Le club", "lien": "/#le-club" },
     { "libelle": "Triathlon", "lien": "/triathlon" },
     { "libelle": "Swimrun", "lien": "/swimrun" },
-    { "libelle": "Agenda", "lien": "/#agenda" },
     { "libelle": "Contact", "lien": "/#contact" }
   ],
   "annonce": {

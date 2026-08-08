@@ -29,6 +29,9 @@ const contact = epreuve.contact ?? site.email;
 const sujetContact = encodeURIComponent(`${epreuve.nom} — renseignements`);
 const lienContact = `mailto:${contact}?subject=${sujetContact}`;
 
+/* « Poser une question » renvoie vers l'Instagram du club (repli mail si absent). */
+const instagram = site.reseaux.find((r) => r.nom === 'Instagram')?.url;
+
 /* Infos pratiques : chaque valeur nulle s'affiche « À venir ». */
 const infosPratiques = [
   { titre: 'Date', valeur: dateFmt },
@@ -109,7 +112,12 @@ const autre = epreuves.find((e) => e.slug !== epreuve.slug);
             </span>
           )
         }
-        <Button href={lienContact} variante="fantome" taille="lg">Poser une question</Button>
+        {epreuve.reglement && (
+          <Button href={epreuve.reglement} variante="clair" taille="lg" externe>
+            Règlement (PDF)
+          </Button>
+        )}
+        <Button href={instagram ?? lienContact} variante="fantome" taille="lg" externe={!!instagram}>Poser une question</Button>
       </div>
     </div>
 
@@ -222,6 +230,9 @@ const autre = epreuves.find((e) => e.slug !== epreuve.slug);
     <div class="flex flex-wrap gap-3">
       {epreuve.lien_inscription && (
         <Button href={epreuve.lien_inscription} variante="primaire" externe>S'inscrire</Button>
+      )}
+      {epreuve.reglement && (
+        <Button href={epreuve.reglement} variante="fantome" externe>Règlement</Button>
       )}
       <Button href={lienContact} variante={epreuve.lien_inscription ? 'fantome' : 'primaire'}>Nous écrire</Button>
     </div>
