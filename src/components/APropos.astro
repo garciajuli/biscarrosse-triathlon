@@ -14,9 +14,9 @@ const { apropos } = home;
         {apropos.paragraphes.map((p) => <p>{p}</p>)}
       </div>
 
-      <ul class="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
-        {
-          apropos.points.map((point) => (
+      {apropos.points && apropos.points.length > 0 && (
+        <ul class="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
+          {apropos.points.map((point) => (
             <li>
               <h3 class="flex items-center gap-2.5 text-lg text-navy-900">
                 <svg
@@ -35,9 +35,9 @@ const { apropos } = home;
               </h3>
               <p class="mt-1.5 text-navy-500">{point.texte}</p>
             </li>
-          ))
-        }
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
 
     <figure class="reveal relative lg:pt-4" style="transition-delay:120ms">
@@ -54,19 +54,21 @@ const { apropos } = home;
         class="relative aspect-[4/5] w-full rounded-card object-cover shadow-lift"
       />
 
-      <figcaption
-        class="relative z-10 mx-4 -mt-14 rounded-card border border-navy-100 bg-white p-6 shadow-soft sm:mx-8"
-      >
-        <svg viewBox="0 0 24 24" class="h-6 w-6 text-ocean-300" aria-hidden="true" fill="currentColor">
-          <path
-            d="M9.6 5.5c-3 1.6-4.9 4.3-4.9 7.6 0 3.3 1.8 5.4 4.4 5.4 2 0 3.5-1.4 3.5-3.3 0-1.8-1.3-3.1-3-3.1-.4 0-.8.1-1 .2.3-1.7 1.6-3.4 3.4-4.4l-2.4-2.4Zm9.1 0c-3 1.6-4.9 4.3-4.9 7.6 0 3.3 1.8 5.4 4.4 5.4 2 0 3.5-1.4 3.5-3.3 0-1.8-1.3-3.1-3-3.1-.4 0-.8.1-1 .2.3-1.7 1.6-3.4 3.4-4.4l-2.4-2.4Z"
-          ></path>
-        </svg>
-        <blockquote class="mt-2 font-display text-xl leading-snug font-medium text-navy-800 italic">
-          {apropos.citation.texte}
-        </blockquote>
-        <p class="mt-2.5 text-sm font-medium tracking-wide text-navy-400 uppercase">{apropos.citation.auteur}</p>
-      </figcaption>
+      {apropos.citation && (
+        <figcaption
+          class="relative z-10 mx-4 -mt-14 rounded-card border border-navy-100 bg-white p-6 shadow-soft sm:mx-8"
+        >
+          <svg viewBox="0 0 24 24" class="h-6 w-6 text-ocean-300" aria-hidden="true" fill="currentColor">
+            <path
+              d="M9.6 5.5c-3 1.6-4.9 4.3-4.9 7.6 0 3.3 1.8 5.4 4.4 5.4 2 0 3.5-1.4 3.5-3.3 0-1.8-1.3-3.1-3-3.1-.4 0-.8.1-1 .2.3-1.7 1.6-3.4 3.4-4.4l-2.4-2.4Zm9.1 0c-3 1.6-4.9 4.3-4.9 7.6 0 3.3 1.8 5.4 4.4 5.4 2 0 3.5-1.4 3.5-3.3 0-1.8-1.3-3.1-3-3.1-.4 0-.8.1-1 .2.3-1.7 1.6-3.4 3.4-4.4l-2.4-2.4Z"
+            ></path>
+          </svg>
+          <blockquote class="mt-2 font-display text-xl leading-snug font-medium text-navy-800 italic">
+            {apropos.citation.texte}
+          </blockquote>
+          <p class="mt-2.5 text-sm font-medium tracking-wide text-navy-400 uppercase">{apropos.citation.auteur}</p>
+        </figcaption>
+      )}
     </figure>
   </div>
 </section>

@@ -94,9 +94,9 @@ export interface Home {
     eyebrow: string;
     titre: string;
     paragraphes: string[];
-    points: { titre: string; texte: string }[];
+    points?: { titre: string; texte: string }[];
     image: string;
     image_alt: string;
-    citation: { texte: string; auteur: string };
+    citation?: { texte: string; auteur: string };
   };
 }

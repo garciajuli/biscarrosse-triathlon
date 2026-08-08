@@ -20,15 +20,15 @@
   "chiffres": [
     { "valeur": "70", "libelle": "licenciés", "detail": "dont 2 jeunes" },
     { "valeur": "5", "libelle": "séances / semaine", "detail": "3 disciplines encadrées" },
-    { "valeur": "4", "libelle": "entraîneurs diplômés", "detail": "BF5 & BNSSA" },
-    { "valeur": "1978", "libelle": "année de création", "detail": "au bord du lac" }
+    { "valeur": "5", "libelle": "entraîneurs diplômés", "detail": "Master Staps BF3 & BF2" },
+    { "valeur": "???", "libelle": "année de création", "detail": "" }
   ],
   "apropos": {
     "eyebrow": "Le club",
     "titre": "Le triathlon, version landaise",
     "paragraphes": [
-      "Biscarrosse Olympique Triathlon, c'est un terrain de jeu que peu de clubs peuvent offrir : le lac pour la natation en eau libre dès le printemps, 300 km de pistes cyclables sous les pins pour le vélo, et le sable de la dune pour les séances qui font mal aux mollets.",
-      "Ici, personne ne reste seul sur le bord de la route. Les groupes sont constitués par niveau, les séances sont écrites par nos entraîneurs, et le dimanche matin la sortie longue finit toujours par un café."
+      "Biscarrosse Olympique Triathlon, c'est un terrain de jeu que peu de clubs peuvent offrir : le lac pour la natation en eau libre dès le printemps, des pistes cyclables sous les pins pour le vélo, et le sable de notre belle forêt landaise pour les courageux.",
+      "Ici, personne ne reste seul sur le bord de la route."
     ],
 
     "image": "/uploads/photo-club.svg",
