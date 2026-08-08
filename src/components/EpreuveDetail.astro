@@ -3,7 +3,7 @@ import SectionHeader from './ui/SectionHeader.astro';
 import DisciplineIcon from './ui/DisciplineIcon.astro';
 import Button from './ui/Button.astro';
 import Countdown from './Countdown.astro';
-import { site, epreuves, dateLongue, estAVenir } from '../lib/content';
+import { site, epreuves, dateLongue, estAVenir, withBase } from '../lib/content';
 import type { Discipline, Epreuve } from '../types';
 
 interface Props {
@@ -242,7 +242,7 @@ const autre = epreuves.find((e) => e.slug !== epreuve.slug);
     autre && (
       <div class="shell mt-12 border-t border-white/10 pt-8">
         <a
-          href={`/${autre.slug}`}
+          href={withBase(`/${autre.slug}`)}
           class="group inline-flex items-center gap-3 font-display text-lg font-semibold tracking-wide text-ocean-200 uppercase transition-colors hover:text-white"
         >
           <span class="flex items-center gap-1.5 text-ocean-300" aria-hidden="true">

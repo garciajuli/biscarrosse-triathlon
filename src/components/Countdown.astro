@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/content';
+
 interface Props {
   libelle: string;
   date: string;
@@ -30,7 +32,7 @@ const initial = [
       <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <p class="font-display text-sm font-semibold uppercase tracking-[0.16em] text-ocean-600">Prochain rendez-vous</p>
         {lien && (
-          <a href={lien} class="text-sm font-medium text-navy-500 underline decoration-ocean-300 decoration-2 underline-offset-4 hover:text-navy-800">
+          <a href={withBase(lien)} class="text-sm font-medium text-navy-500 underline decoration-ocean-300 decoration-2 underline-offset-4 hover:text-navy-800">
             Voir l'épreuve
           </a>
         )}

@@ -1,7 +1,7 @@
 ---
 import SectionHeader from './ui/SectionHeader.astro';
 import DisciplineIcon from './ui/DisciplineIcon.astro';
-import { epreuves, dateLongue } from '../lib/content';
+import { epreuves, dateLongue, withBase } from '../lib/content';
 import type { Discipline, Epreuve } from '../types';
 
 const iconesParType: Record<Epreuve['discipline'], Discipline[]> = {
@@ -25,7 +25,7 @@ const iconesParType: Record<Epreuve['discipline'], Discipline[]> = {
           const dateFmt = e.date ? dateLongue(new Date(e.date)) : null;
           return (
             <a
-              href={`/${e.slug}`}
+              href={withBase(`/${e.slug}`)}
               class="group reveal flex flex-col rounded-card border border-navy-100 bg-foam-50 p-8 shadow-soft transition duration-200 hover:-translate-y-1 hover:border-ocean-200 hover:shadow-lift sm:p-10"
               style={`transition-delay:${i * 100}ms`}
             >

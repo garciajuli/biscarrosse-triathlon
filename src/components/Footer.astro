@@ -1,7 +1,7 @@
 ---
 import Logo from './ui/Logo.astro';
 import SocialIcon from './ui/SocialIcon.astro';
-import { site } from '../lib/content';
+import { site, withBase } from '../lib/content';
 
 const annee = new Date().getFullYear();
 ---
@@ -10,7 +10,7 @@ const annee = new Date().getFullYear();
   <div class="shell py-14 lg:py-16">
     <div class="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr]">
       <div>
-        <a href="/" class="inline-block text-white transition-opacity hover:opacity-80">
+        <a href={withBase('/')} class="inline-block text-white transition-opacity hover:opacity-80">
           <Logo />
         </a>
         <p class="mt-5 max-w-sm leading-relaxed">{site.baseline}</p>
@@ -41,7 +41,7 @@ const annee = new Date().getFullYear();
           {
             site.nav.map((item) => (
               <li>
-                <a href={item.lien} class="transition-colors hover:text-white">
+                <a href={withBase(item.lien)} class="transition-colors hover:text-white">
                   {item.libelle}
                 </a>
               </li>
@@ -67,7 +67,7 @@ const annee = new Date().getFullYear();
     >
       <p>© {annee} {site.nom}. Tous droits réservés.</p>
       <ul class="flex flex-wrap gap-x-6 gap-y-2">
-        <li><a href="/mentions-legales/" class="transition-colors hover:text-white">Mentions légales</a></li>
+        <li><a href={withBase('/mentions-legales/')} class="transition-colors hover:text-white">Mentions légales</a></li>
       </ul>
     </div>
   </div>

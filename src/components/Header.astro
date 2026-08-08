@@ -1,6 +1,6 @@
 ---
 import Logo from './ui/Logo.astro';
-import { site } from '../lib/content';
+import { site, withBase } from '../lib/content';
 
 const { annonce, nav, nom } = site;
 ---
@@ -11,7 +11,7 @@ const { annonce, nav, nom } = site;
       <div class="shell flex flex-wrap items-center justify-center gap-x-3 gap-y-1 py-2 text-center text-sm font-medium">
         <span>{annonce.texte}</span>
         {annonce.lien && (
-          <a class="font-display font-semibold uppercase tracking-wider underline decoration-2 underline-offset-4 hover:no-underline" href={annonce.lien}>
+          <a class="font-display font-semibold uppercase tracking-wider underline decoration-2 underline-offset-4 hover:no-underline" href={withBase(annonce.lien)}>
             {annonce.libelle_lien}
           </a>
         )}
@@ -22,7 +22,7 @@ const { annonce, nav, nom } = site;
 
 <nav id="nav" class="sticky top-0 z-40 h-18 text-white transition-colors duration-300" aria-label="Navigation principale">
   <div class="shell flex h-18 items-center justify-between gap-6">
-    <a href="/" class="shrink-0 rounded-sm py-1 transition-opacity hover:opacity-80" aria-label={`${nom} — accueil`}>
+    <a href={withBase('/')} class="shrink-0 rounded-sm py-1 transition-opacity hover:opacity-80" aria-label={`${nom} — accueil`}>
       <Logo />
     </a>
 
@@ -31,7 +31,7 @@ const { annonce, nav, nom } = site;
         nav.map((item) => (
           <li>
             <a
-              href={item.lien}
+              href={withBase(item.lien)}
               class="lien rounded-full px-3.5 py-2 font-display text-[0.95rem] font-medium uppercase tracking-wider transition-colors"
             >
               {item.libelle}
@@ -41,7 +41,7 @@ const { annonce, nav, nom } = site;
       }
       <li class="ml-2">
         <a
-          href="/#contact"
+          href={withBase('/#contact')}
           class="inline-flex items-center rounded-full bg-ocean-400 px-5 py-2.5 font-display text-sm font-semibold uppercase tracking-wider text-navy-900 transition hover:bg-ocean-300"
         >
           Nous rejoindre
@@ -71,7 +71,7 @@ const { annonce, nav, nom } = site;
         nav.map((item) => (
           <li>
             <a
-              href={item.lien}
+              href={withBase(item.lien)}
               class="block border-b border-navy-50 py-3.5 font-display text-lg font-medium uppercase tracking-wide text-navy-800 last:border-0"
             >
               {item.libelle}
@@ -81,7 +81,7 @@ const { annonce, nav, nom } = site;
       }
       <li class="pt-4 pb-2">
         <a
-          href="/#contact"
+          href={withBase('/#contact')}
           class="flex items-center justify-center rounded-full bg-navy-800 px-5 py-3 font-display font-semibold uppercase tracking-wider text-white"
         >
           Nous rejoindre

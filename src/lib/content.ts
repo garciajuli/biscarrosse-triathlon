@@ -19,6 +19,18 @@ export const swimrun = { slug: 'swimrun', discipline: 'swimrun', ...swimrunJson 
 /** Ordre d'affichage des épreuves sur la page d'accueil. */
 export const epreuves: Epreuve[] = [triathlon, swimrun];
 
+/**
+ * Préfixe un chemin interne par le `base` du site (utile quand le site est
+ * hébergé dans un sous-dossier, ex. GitHub Pages projet). Les liens externes
+ * (mailto:, http…, tel:) et les ancres pures sont laissés intacts.
+ * Marche avec base '/' (renvoie le chemin tel quel) comme avec un sous-dossier.
+ */
+export function withBase(path: string): string {
+  if (!path || !path.startsWith('/') || path.startsWith('//')) return path;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return base + path;
+}
+
 /* --------------------------------------------------------------
    Dates — formatage FR, figé en UTC pour que le rendu ne dépende
    pas du fuseau de la machine de build.

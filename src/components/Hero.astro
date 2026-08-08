@@ -2,7 +2,7 @@
 import Button from './ui/Button.astro';
 import Countdown from './Countdown.astro';
 import PinesBand from './ui/PinesBand.astro';
-import { home, site } from '../lib/content';
+import { home, site, withBase } from '../lib/content';
 
 const { hero } = home;
 ---
@@ -45,10 +45,10 @@ const { hero } = home;
       </p>
 
       <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
-        <Button href={hero.cta_principal.lien} variante="secondaire" taille="lg">
+        <Button href={withBase(hero.cta_principal.lien)} variante="secondaire" taille="lg">
           {hero.cta_principal.libelle}
         </Button>
-        <Button href={hero.cta_secondaire.lien} variante="clair" taille="lg">
+        <Button href={withBase(hero.cta_secondaire.lien)} variante="clair" taille="lg">
           {hero.cta_secondaire.libelle}
         </Button>
       </div>

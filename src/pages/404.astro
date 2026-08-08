@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/ui/Button.astro';
 import PinesBand from '../components/ui/PinesBand.astro';
-import { site } from '../lib/content';
+import { site, withBase } from '../lib/content';
 ---
 
 <BaseLayout titre={`Page introuvable — ${site.nom}`} noindex>
@@ -14,8 +14,8 @@ import { site } from '../lib/content';
         Le lien est peut-être ancien, ou la page a changé de nom. On te ramène au parc à vélos.
       </p>
       <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <Button href="/" variante="secondaire" taille="lg">Retour à l'accueil</Button>
-        <Button href="/#contact" variante="clair" taille="lg">Nous signaler le problème</Button>
+        <Button href={withBase('/')} variante="secondaire" taille="lg">Retour à l'accueil</Button>
+        <Button href={withBase('/#contact')} variante="clair" taille="lg">Nous signaler le problème</Button>
       </div>
     </div>
     <PinesBand class="absolute bottom-0 left-0 h-40 text-navy-800 sm:h-48" />

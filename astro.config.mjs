@@ -4,8 +4,10 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  // Domaine de production (sert au sitemap et aux URLs absolues Open Graph)
-  site: 'https://biscarrosse-olympique-triathlon.fr',
+  // Hébergement temporaire sur GitHub Pages en sous-dossier (avant l'achat du domaine).
+  // À l'achat du domaine : remettre `site` sur le domaine et `base` sur '/'.
+  site: 'https://garciajuli.github.io',
+  base: '/biscarrosse-triathlon',
   trailingSlash: 'ignore',
   integrations: [sitemap({ filter: (page) => !page.includes('/admin') })],
   vite: {

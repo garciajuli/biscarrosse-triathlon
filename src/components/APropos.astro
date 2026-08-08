@@ -1,6 +1,6 @@
 ---
 import SectionHeader from './ui/SectionHeader.astro';
-import { home } from '../lib/content';
+import { home, withBase } from '../lib/content';
 
 const { apropos } = home;
 ---
@@ -45,7 +45,7 @@ const { apropos } = home;
       <div class="absolute -top-3 -right-3 bottom-6 left-6 rounded-card bg-ocean-200/70" aria-hidden="true"></div>
 
       <img
-        src={apropos.image}
+        src={withBase(apropos.image)}
         alt={apropos.image_alt}
         width="1200"
         height="1500"

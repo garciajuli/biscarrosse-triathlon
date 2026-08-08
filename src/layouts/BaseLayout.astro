@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { site, home } from '../lib/content';
+import { site, home, withBase } from '../lib/content';
 
 interface Props {
   titre?: string;
@@ -21,7 +21,7 @@ const {
 } = Astro.props;
 
 const canonique = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com');
-const imageAbsolue = new URL(image, Astro.site ?? 'https://example.com');
+const imageAbsolue = new URL(withBase(image), Astro.site ?? 'https://example.com');
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -65,10 +65,10 @@ const jsonLd = {
     <meta property="og:locale" content="fr_FR" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={withBase('/favicon.svg')} />
     <meta name="theme-color" content="#16294b" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
 
     <script is:inline set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
 
