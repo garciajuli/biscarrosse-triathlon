@@ -3,38 +3,45 @@
   "edition": "Édition 2026",
   "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied au bord du lac. Plusieurs formats au programme, des courses jeunes au format olympique.",
   "date": "2026-09-20",
-  "lien_inscription": "https://www.tiptiptop.top/com/articles.php?Page=24",
-  "reglement": "https://www.tiptiptop.top/UserFiles/Site/File/reglement/reglement_triathlon_biscarrosse_2025.pdf",
   "formats": [
     {
       "nom": "Format M",
       "distances": [
-        { "discipline": "natation", "valeur": "1,5 km" },
-        { "discipline": "velo", "valeur": "40 km" },
-        { "discipline": "course", "valeur": "10 km" }
+        {
+          "discipline": "natation",
+          "valeur": "1,5 km"
+        },
+        {
+          "discipline": "velo",
+          "valeur": "40 km"
+        },
+        {
+          "discipline": "course",
+          "valeur": "10 km"
+        }
       ],
       "detail": "Distance olympique — nés en 2008 et avant.",
       "prix": "62,60 € (+5 € à partir du 15 août)"
     },
     {
       "nom": "Format XS",
-      "distances": [],
       "detail": "Format découverte — nés en 2014 et avant.",
       "prix": "31,60 € (+5 € à partir du 15 août)"
     },
     {
       "nom": "Triathlon 10-13 ans",
-      "distances": [],
       "detail": "École de triathlon — nés de 2013 à 2016.",
       "prix": "2,50 €"
     },
     {
       "nom": "Triathlon 6-9 ans",
-      "distances": [],
       "detail": "École de triathlon — nés de 2017 à 2020.",
       "prix": "2,50 €"
     }
   ],
+  "lien_inscription": "https://www.tiptiptop.top/com/articles.php?Page=24",
+  "reglement": "https://www.tiptiptop.top/UserFiles/Site/File/reglement/reglement_triathlon_biscarrosse_2025.pdf",
+  "retrait_dossards": "Samedi 6h00 - 8h15",
   "conditions": "Licenciés FFTRI : licence de la saison en cours. Non-licenciés : questionnaire de santé (un Pass Journée FFTRI est ajouté automatiquement à l'inscription). Mineurs : autorisation parentale. Étrangers : Pass Licencié ITU. Clôture des inscriptions en ligne le 17 septembre 2026 à 12h00.",
   "seo": {
     "titre": "Triathlon de Biscarrosse — 20 septembre 2026 | BO Triathlon",
