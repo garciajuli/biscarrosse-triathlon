@@ -7,21 +7,40 @@
   "email": "contact@biscarrosse-triathlon.fr",
   "telephone": "06 12 34 56 78",
   "adresse": {
-    "lignes": ["Complexe sportif de Biscarrosse", "Avenue du Pont Neuf", "40600 Biscarrosse"],
+    "lignes": [
+      "Complexe sportif de Biscarrosse",
+      "Avenue du Pont Neuf",
+      "40600 Biscarrosse"
+    ],
     "lien_maps": "https://www.openstreetmap.org/search?query=Biscarrosse"
   },
   "reseaux": [
-    { "nom": "Instagram", "url": "https://www.instagram.com/botri_bisca/" }
+    {
+      "nom": "Instagram",
+      "url": "https://www.instagram.com/botri_bisca/"
+    }
   ],
   "nav": [
-    { "libelle": "Le club", "lien": "/#le-club" },
-    { "libelle": "Triathlon", "lien": "/triathlon" },
-    { "libelle": "Swimrun", "lien": "/swimrun" },
-    { "libelle": "Contact", "lien": "/#contact" }
+    {
+      "libelle": "Le club",
+      "lien": "/#le-club"
+    },
+    {
+      "libelle": "Triathlon",
+      "lien": "/triathlon"
+    },
+    {
+      "libelle": "Swimrun",
+      "lien": "/swimrun"
+    },
+    {
+      "libelle": "Contact",
+      "lien": "/#contact"
+    }
   ],
   "annonce": {
     "actif": true,
-    "texte": "Triathlon de Biscarrosse — 20 septembre 2026.",
+    "texte": "Swimrun de Biscarrosse — 20 septembre 2026.",
     "libelle_lien": "Voir l'épreuve",
     "lien": "/triathlon"
   }
