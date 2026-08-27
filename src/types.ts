@@ -96,8 +96,11 @@ export interface Home {
     titre: string;
     paragraphes: string[];
     points?: { titre: string; texte: string }[];
-    image: string;
-    image_alt: string;
+    /** Ancien champ image unique (rétro-compat). */
+    image?: string;
+    image_alt?: string;
+    /** Photos du club : 1 = image fixe, plusieurs = carrousel. */
+    images?: { src: string; alt?: string }[];
     citation?: { texte: string; auteur: string };
   };
 }

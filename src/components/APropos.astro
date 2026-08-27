@@ -1,8 +1,16 @@
 ---
 import SectionHeader from './ui/SectionHeader.astro';
+import Carousel from './ui/Carousel.astro';
 import { home, withBase } from '../lib/content';
 
 const { apropos } = home;
+
+// 1 photo -> image fixe ; plusieurs -> carrousel. Rétro-compat avec l'ancien champ `image`.
+const photos = apropos.images?.length
+  ? apropos.images
+  : apropos.image
+    ? [{ src: apropos.image, alt: apropos.image_alt }]
+    : [];
 ---
 
 <section id="le-club" class="scroll-mt-24 bg-white py-20 sm:py-24 lg:py-28">
@@ -44,15 +52,19 @@ const { apropos } = home;
       <!-- cadre décalé bleu ciel : rappel du bandeau de la trifonction -->
       <div class="absolute -top-3 -right-3 bottom-6 left-6 rounded-card bg-ocean-200/70" aria-hidden="true"></div>
 
-      <img
-        src={withBase(apropos.image)}
-        alt={apropos.image_alt}
-        width="1200"
-        height="1500"
-        loading="lazy"
-        decoding="async"
-        class="relative aspect-[4/5] w-full rounded-card object-cover shadow-lift"
-      />
+      {photos.length > 1 ? (
+        <Carousel images={photos} class="relative" />
+      ) : photos.length === 1 ? (
+        <img
+          src={withBase(photos[0].src)}
+          alt={photos[0].alt ?? ''}
+          width="1200"
+          height="1500"
+          loading="lazy"
+          decoding="async"
+          class="relative aspect-[4/5] w-full rounded-card object-cover shadow-lift"
+        />
+      ) : null}
 
       {apropos.citation && (
         <figcaption

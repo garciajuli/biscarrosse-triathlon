@@ -77,8 +77,13 @@ content:
             fields:
               - { name: titre, label: Titre, type: string }
               - { name: texte, label: Texte, type: text }
-          - { name: image, label: Photo, type: image }
-          - { name: image_alt, label: Description de la photo (accessibilité), type: string }
+          - name: images
+            label: Photos du club (1 = image fixe, plusieurs = diaporama)
+            type: object
+            list: true
+            fields:
+              - { name: src, label: Photo, type: image }
+              - { name: alt, label: Description (accessibilité), type: string }
           - name: citation
             label: Citation
             type: object

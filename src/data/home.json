@@ -51,7 +51,10 @@
       "Biscarrosse Olympique Triathlon, c'est un terrain de jeu que peu de clubs peuvent offrir : le lac pour la natation en eau libre dès le printemps, des pistes cyclables sous les pins pour le vélo, et le sable de notre belle forêt landaise pour les courageux.",
       "Ici, personne ne reste seul sur le bord de la route."
     ],
-    "image": "/uploads/Screenshot 2026-08-08 at 21.36.33.png",
-    "image_alt": "Groupe de triathlètes du club à l'entraînement au bord du lac de Biscarrosse"
+    "images": [
+      { "src": "/uploads/Screenshot 2026-08-08 at 21.36.33.png", "alt": "Groupe de triathlètes du club à l'entraînement au bord du lac de Biscarrosse" },
+      { "src": "/uploads/galerie-1.svg", "alt": "Départ de natation dans le lac de Biscarrosse au lever du jour" },
+      { "src": "/uploads/galerie-2.svg", "alt": "Peloton du club sur une piste cyclable sous les pins" }
+    ]
   }
 }
