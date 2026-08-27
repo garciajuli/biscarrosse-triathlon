@@ -13,8 +13,8 @@ export type Discipline = 'natation' | 'velo' | 'course';
 
 export interface EpreuveFormat {
   nom: string;
-  /** Distances par discipline ; tableau vide = « à venir ». */
-  distances: { discipline: Discipline; valeur: string }[];
+  /** Distances par discipline ; absent ou vide = « à venir » (Pages CMS omet les listes vides). */
+  distances?: { discipline: Discipline; valeur: string }[];
   detail?: string | null;
   prix?: string | null;
 }
@@ -33,7 +33,8 @@ export interface Epreuve {
   date?: string | null;
   heure?: string | null;
   lieu?: string | null;
-  formats: EpreuveFormat[];
+  /** Absent quand aucun format n'est saisi (Pages CMS omet les listes vides). */
+  formats?: EpreuveFormat[];
   parcours?: string | null;
   /** Matériel obligatoire (surtout pour le swimrun). */
   materiel?: string | null;

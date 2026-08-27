@@ -44,6 +44,11 @@ const infosPratiques = [
   { titre: 'Conditions de participation', valeur: epreuve.conditions },
 ].filter((x): x is { titre: string; valeur: string | null } => x !== null);
 
+/* Pages CMS supprime les listes vides du JSON quand on enregistre une fiche :
+   `formats` ou `distances` peuvent donc arriver `undefined`. On normalise ici
+   pour ne jamais lire `.length` sur `undefined` (le build échouait sinon). */
+const formats = (epreuve.formats ?? []).map((f) => ({ ...f, distances: f.distances ?? [] }));
+
 /* Lien vers l'autre épreuve (renvoi en bas de page). */
 const autre = epreuves.find((e) => e.slug !== epreuve.slug);
 ---
@@ -144,11 +149,11 @@ const autre = epreuves.find((e) => e.slug !== epreuve.slug);
     />
 
     {
-      epreuve.formats.length === 0 ? (
+      formats.length === 0 ? (
         <p class="mt-12 text-lg text-navy-500">Les formats seront communiqués prochainement.</p>
       ) : (
         <div class="mt-14 grid gap-8 sm:grid-cols-2">
-          {epreuve.formats.map((f, i) => (
+          {formats.map((f, i) => (
             <article
               class="reveal flex flex-col rounded-card border border-navy-100 bg-foam-50 p-7 shadow-soft sm:p-8"
               style={`transition-delay:${i * 90}ms`}
