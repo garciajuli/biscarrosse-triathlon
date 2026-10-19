@@ -39,6 +39,18 @@
       "prix": "2,50 €"
     }
   ],
+  "traces": [
+    {
+      "nom": "Format M",
+      "fichier": "/uploads/parcours/triathlon-m.gpx",
+      "provisoire": true
+    },
+    {
+      "nom": "Format XS",
+      "fichier": "/uploads/parcours/triathlon-xs.gpx",
+      "provisoire": true
+    }
+  ],
   "lien_inscription": "https://www.tiptiptop.top/com/articles.php?Page=24",
   "reglement": "https://www.tiptiptop.top/UserFiles/Site/File/reglement/reglement_triathlon_biscarrosse_2025.pdf",
   "retrait_dossards": "Samedi 6h00 - 8h15",

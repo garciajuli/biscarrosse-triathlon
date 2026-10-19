@@ -44,6 +44,7 @@ src/
 │   ├── groupes/             ·  disciplines + créneaux hebdomadaires
 │   └── partenaires/         ·  sponsors, classés par niveau
 ├── components/              ← une section = un composant
+│   ├── ParcoursCarte.astro  ·  carte Leaflet + téléchargement des GPX
 │   └── ui/                  ·  Logo, Button, SectionHeader, PinesBand, icônes
 ├── layouts/BaseLayout.astro ← <head>, SEO, JSON-LD, header/footer, animations
 ├── pages/
@@ -137,7 +138,38 @@ OAuth **pour l'usage en production** :
 
 Textes de toutes les sections, chiffres clés, tarifs, étapes d'adhésion, bandeau d'annonce,
 compte à rebours, photos, actualités, agenda, créneaux d'entraînement, partenaires, menu,
-coordonnées et réseaux sociaux.
+coordonnées et réseaux sociaux, ainsi que les traces GPX des parcours (voir ci-dessous).
+
+---
+
+## 4 bis. Les parcours (GPX)
+
+Chaque épreuve peut porter une liste de parcours (champ **Parcours (traces GPX)** au CMS) :
+un nom (« Format M »), un fichier GPX, et une case « tracé provisoire » qui affiche un
+avertissement au-dessus de la carte.
+
+Le GPX est la **seule source de vérité** : la page calcule les distances à partir de ses
+points, il n'y a donc rien à ressaisir. Chaque `<trk>` du fichier porte un `<type>` —
+`natation`, `velo` ou `course` — qui donne sa couleur au tracé et sa ligne à la légende.
+Un swimrun se décrit ainsi en alternant les `<trk>` nage et course.
+
+Remplacer un parcours = déposer un nouveau GPX au CMS, rien d'autre.
+
+### Les traces actuelles sont provisoires
+
+`npm run parcours` les régénère depuis `scripts/generer-parcours.mjs`, qui dessine des boucles
+plausibles autour du port de Navarrosse à partir d'un relevé de la rive est du lac. Elles
+donnent l'esprit du parcours et les bonnes distances pour le triathlon ; **ce ne sont pas les
+tracés officiels**. Le jour où le club a les vrais relevés, on dépose les GPX au CMS et le
+script ne sert plus à rien (il peut être supprimé).
+
+### Vie privée : le fond de carte
+
+La carte charge ses tuiles depuis `tile.openstreetmap.org` — c'est la seule entorse à la règle
+« aucune ressource tierce » du site. Elles ne partent qu'à l'approche de la section (pas au
+chargement de la page), et Leaflet lui-même est servi depuis le site. Si le bureau préfère zéro
+requête tierce, il faut remplacer la carte par un bouton « Afficher la carte », ou héberger ses
+propres tuiles.
 
 ---
 
@@ -185,12 +217,16 @@ Le contenu livré est **crédible mais fictif** : il sert à montrer le rendu.
 ## 7. Choix techniques, en bref
 
 - **Astro** : zéro JavaScript envoyé par défaut. Les seuls scripts sont le menu mobile,
-  le compte à rebours et l'apparition au scroll — une quinzaine de lignes chacun.
+  le compte à rebours et l'apparition au scroll — une quinzaine de lignes chacun. Leaflet
+  (~44 Ko compressés) fait exception, mais n'est téléchargé qu'à l'approche de la carte, et
+  seulement sur les pages d'épreuve.
 - **Schémas Zod** (`content.config.ts`) : une saisie CMS invalide échoue au build, pas en prod.
   Les champs à choix utilisent `.catch()` : une valeur inattendue retombe sur un défaut plutôt
   que de casser le site du club un dimanche soir.
 - **Accessibilité** : lien d'évitement, `aria-*` sur le menu, focus visibles, textes alternatifs
   éditables au CMS, respect de `prefers-reduced-motion`.
-- **Vie privée** : aucune police, aucun script, aucune image servis depuis un domaine tiers.
+- **Vie privée** : aucune police, aucun script, aucune image servis depuis un domaine tiers —
+  à l'exception des tuiles OpenStreetMap de la carte des parcours, chargées seulement quand on
+  descend jusqu'à elle (cf. § 4 bis).
 - **Pages d'articles** : générées automatiquement pour chaque actualité, afin qu'un texte long
   rédigé dans le CMS ait bien une page où être lu.

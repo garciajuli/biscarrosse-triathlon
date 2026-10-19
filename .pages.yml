@@ -5,7 +5,7 @@
 media:
   input: public/uploads
   output: /uploads
-  extensions: [jpg, jpeg, png, webp, avif, svg, pdf]
+  extensions: [jpg, jpeg, png, webp, avif, svg, pdf, gpx]
 
 content:
   # ---------------------------------------------------------------- ACCUEIL
@@ -123,6 +123,19 @@ content:
           - { name: detail, label: Détail du format, type: text }
           - { name: prix, label: Tarif (ex. 35 €), type: string }
       - { name: parcours, label: Parcours, type: text }
+      - name: traces
+        label: Parcours (traces GPX)
+        type: object
+        list: true
+        fields:
+          - { name: nom, label: Nom du parcours (ex. Format M), type: string }
+          - name: fichier
+            label: Fichier GPX
+            type: file
+            options:
+              path: public/uploads/parcours
+              extensions: [gpx]
+          - { name: provisoire, label: Tracé provisoire (affiche un avertissement), type: boolean }
       - { name: tarifs, label: Tarifs d'inscription, type: text }
       - { name: lien_inscription, label: Lien d'inscription, type: string }
       - { name: reglement, label: "Règlement (lien PDF)", type: string }
@@ -170,6 +183,19 @@ content:
           - { name: detail, label: Détail du format, type: text }
           - { name: prix, label: Tarif (ex. 35 €), type: string }
       - { name: parcours, label: Parcours, type: text }
+      - name: traces
+        label: Parcours (traces GPX)
+        type: object
+        list: true
+        fields:
+          - { name: nom, label: Nom du parcours (ex. Format M), type: string }
+          - name: fichier
+            label: Fichier GPX
+            type: file
+            options:
+              path: public/uploads/parcours
+              extensions: [gpx]
+          - { name: provisoire, label: Tracé provisoire (affiche un avertissement), type: boolean }
       - { name: materiel, label: Matériel obligatoire, type: text }
       - { name: tarifs, label: Tarifs d'inscription, type: text }
       - { name: lien_inscription, label: Lien d'inscription, type: string }
