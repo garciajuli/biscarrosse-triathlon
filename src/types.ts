@@ -21,8 +21,12 @@ export interface Trace {
   nom: string;
   /** Chemin public du GPX, ex. `/uploads/parcours/triathlon-m.gpx`. */
   fichier: string;
-  /** Vrai tant que le tracé n'est pas celui du jour J. */
-  provisoire?: boolean | null;
+}
+
+/** Encart affiché au-dessus de la carte (ex. « tracés provisoires »). */
+export interface AvertissementParcours {
+  actif: boolean;
+  texte?: string | null;
 }
 
 export interface EpreuveFormat {
@@ -52,6 +56,8 @@ export interface Epreuve {
   parcours?: string | null;
   /** Traces GPX des parcours (absent = pas encore de carte). */
   traces?: Trace[];
+  /** Encart au-dessus de la carte ; masqué si `actif` est faux ou le texte vide. */
+  avertissement_parcours?: AvertissementParcours | null;
   /** Matériel obligatoire (surtout pour le swimrun). */
   materiel?: string | null;
   tarifs?: string | null;

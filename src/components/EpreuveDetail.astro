@@ -53,6 +53,11 @@ const formats = (epreuve.formats ?? []).map((f) => ({ ...f, distances: f.distanc
 /* Pas de trace GPX saisie : la section carte disparaît entièrement. */
 const traces = epreuve.traces ?? [];
 
+/* Encart au-dessus de la carte : décocher « Afficher » au CMS le retire. */
+const avertissementParcours = epreuve.avertissement_parcours?.actif
+  ? epreuve.avertissement_parcours.texte
+  : null;
+
 /* Lien vers l'autre épreuve (renvoi en bas de page). */
 const autre = epreuves.find((e) => e.slug !== epreuve.slug);
 ---
@@ -200,6 +205,7 @@ const autre = epreuves.find((e) => e.slug !== epreuve.slug);
   traces.length > 0 && (
     <ParcoursCarte
       traces={traces}
+      avertissement={avertissementParcours}
       intro={
         epreuve.discipline === 'swimrun'
           ? 'Nage et course s’enchaînent sans transition : les portions à la nage sont en pointillés.'

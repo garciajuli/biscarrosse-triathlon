@@ -135,7 +135,12 @@ content:
             options:
               path: public/uploads/parcours
               extensions: [gpx]
-          - { name: provisoire, label: Tracé provisoire (affiche un avertissement), type: boolean }
+      - name: avertissement_parcours
+        label: Encart au-dessus de la carte
+        type: object
+        fields:
+          - { name: actif, label: Afficher l'encart, type: boolean }
+          - { name: texte, label: Texte de l'encart, type: text }
       - { name: tarifs, label: Tarifs d'inscription, type: text }
       - { name: lien_inscription, label: Lien d'inscription, type: string }
       - { name: reglement, label: "Règlement (lien PDF)", type: string }
@@ -195,7 +200,12 @@ content:
             options:
               path: public/uploads/parcours
               extensions: [gpx]
-          - { name: provisoire, label: Tracé provisoire (affiche un avertissement), type: boolean }
+      - name: avertissement_parcours
+        label: Encart au-dessus de la carte
+        type: object
+        fields:
+          - { name: actif, label: Afficher l'encart, type: boolean }
+          - { name: texte, label: Texte de l'encart, type: text }
       - { name: materiel, label: Matériel obligatoire, type: text }
       - { name: tarifs, label: Tarifs d'inscription, type: text }
       - { name: lien_inscription, label: Lien d'inscription, type: string }

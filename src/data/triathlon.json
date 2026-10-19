@@ -42,15 +42,17 @@
   "traces": [
     {
       "nom": "Format M",
-      "fichier": "/uploads/parcours/triathlon-m.gpx",
-      "provisoire": true
+      "fichier": "/uploads/parcours/triathlon-m.gpx"
     },
     {
       "nom": "Format XS",
-      "fichier": "/uploads/parcours/triathlon-xs.gpx",
-      "provisoire": true
+      "fichier": "/uploads/parcours/triathlon-xs.gpx"
     }
   ],
+  "avertissement_parcours": {
+    "actif": true,
+    "texte": "Tracés provisoires. Ils donnent l’esprit du parcours et l’ordre de grandeur des distances."
+  },
   "lien_inscription": "https://www.tiptiptop.top/com/articles.php?Page=24",
   "reglement": "https://www.tiptiptop.top/UserFiles/Site/File/reglement/reglement_triathlon_biscarrosse_2025.pdf",
   "retrait_dossards": "Samedi 6h00 - 8h15",

@@ -145,8 +145,12 @@ coordonnées et réseaux sociaux, ainsi que les traces GPX des parcours (voir ci
 ## 4 bis. Les parcours (GPX)
 
 Chaque épreuve peut porter une liste de parcours (champ **Parcours (traces GPX)** au CMS) :
-un nom (« Format M »), un fichier GPX, et une case « tracé provisoire » qui affiche un
-avertissement au-dessus de la carte.
+un nom (« Format M ») et un fichier GPX.
+
+Le champ **Encart au-dessus de la carte** pilote le bandeau d'avertissement : une case
+« Afficher l'encart » et un texte libre. Décocher la case le retire ; vider le texte aussi.
+C'est là qu'on écrit « tracés provisoires… », et c'est là qu'on l'enlève le jour où les
+parcours sont définitifs — sans toucher au code.
 
 Le GPX est la **seule source de vérité** : la page calcule les distances à partir de ses
 points, il n'y a donc rien à ressaisir. Chaque `<trk>` du fichier porte un `<type>` —

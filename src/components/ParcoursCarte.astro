@@ -21,11 +21,13 @@ interface Props {
   traces: Trace[];
   /** Phrase d'intro sous le titre de section. */
   intro?: string;
+  /** Encart d'avertissement au-dessus de la carte ; absent ou vide = pas d'encart. */
+  avertissement?: string | null;
 }
-const { traces, intro } = Astro.props;
+const { traces, intro, avertissement } = Astro.props;
 
 const parcours = traces.map((t, i) => ({ ...t, id: `parcours-${i}`, url: withBase(t.fichier) }));
-const provisoire = parcours.some((p) => p.provisoire);
+const texteAvertissement = avertissement?.trim();
 
 const legende = [
   { discipline: 'natation' as const, libelle: 'Natation' },
@@ -44,13 +46,10 @@ const legende = [
     />
 
     {
-      provisoire && (
-        <p class="reveal mt-8 flex items-start gap-3 rounded-card border border-sand-300 bg-sand-200/40 px-5 py-4 text-sm leading-relaxed text-navy-700">
+      texteAvertissement && (
+        <p class="reveal mt-8 flex items-start gap-3 rounded-card border border-sand-300 bg-sand-200/40 px-5 py-4 text-sm leading-relaxed font-medium text-navy-700">
           <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-sand-500" aria-hidden="true" />
-          <span>
-            <strong class="font-semibold">Tracés provisoires.</strong> Ils donnent l’esprit du parcours et l’ordre de
-            grandeur des distances.
-          </span>
+          <span>{texteAvertissement}</span>
         </p>
       )
     }
