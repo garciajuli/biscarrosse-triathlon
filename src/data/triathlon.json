@@ -42,11 +42,15 @@
   "traces": [
     {
       "nom": "Format M",
-      "fichier": "/uploads/parcours/triathlon-m.gpx"
+      "natation": "/uploads/parcours/triathlon-m-natation.gpx",
+      "velo": "/uploads/parcours/triathlon-m-velo.gpx",
+      "course": "/uploads/parcours/triathlon-m-course.gpx"
     },
     {
       "nom": "Format XS",
-      "fichier": "/uploads/parcours/triathlon-xs.gpx"
+      "natation": "/uploads/parcours/triathlon-xs-natation.gpx",
+      "velo": "/uploads/parcours/triathlon-xs-velo.gpx",
+      "course": "/uploads/parcours/triathlon-xs-course.gpx"
     }
   ],
   "avertissement_parcours": {

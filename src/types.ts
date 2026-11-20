@@ -12,15 +12,17 @@ export interface Lien {
 export type Discipline = 'natation' | 'velo' | 'course';
 
 /**
- * Un parcours téléchargeable. Le fichier GPX est la source de vérité :
- * les distances affichées sur la carte sont calculées à partir de ses points,
- * et chaque `<trk>` y porte un `<type>` (natation / velo / course) qui donne
- * sa couleur au tracé.
+ * Un parcours (un format) : un GPX par discipline, chacun facultatif.
+ * Les GPX sont la source de vérité : les distances affichées sur la carte sont
+ * calculées à partir de leurs points, et le champ où le fichier est déposé
+ * donne sa discipline (donc sa couleur) au tracé.
  */
 export interface Trace {
   nom: string;
-  /** Chemin public du GPX, ex. `/uploads/parcours/triathlon-m.gpx`. */
-  fichier: string;
+  /** Chemins publics des GPX, ex. `/uploads/parcours/triathlon-m-velo.gpx`. */
+  natation?: string | null;
+  velo?: string | null;
+  course?: string | null;
 }
 
 /** Encart affiché au-dessus de la carte (ex. « tracés provisoires »). */

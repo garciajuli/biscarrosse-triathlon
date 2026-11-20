@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Biscarrosse Olympique Triathlon" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>Triathlon de Biscarrosse — Format M — Natation — 1,5 km</name>
+    <desc>Tracé PROVISOIRE.</desc>
+  </metadata>
+    <trk>
+      <name>Natation — 1,5 km</name>
+      <type>natation</type>
+      <trkseg>
+        <trkpt lat="44.433005" lon="-1.167172"><ele>8.0</ele></trkpt>
+        <trkpt lat="44.435854" lon="-1.171740"><ele>8.0</ele></trkpt>
+        <trkpt lat="44.434399" lon="-1.175498"><ele>8.0</ele></trkpt>
+        <trkpt lat="44.433020" lon="-1.167179"><ele>8.0</ele></trkpt>
+      </trkseg>
+    </trk>
+</gpx>

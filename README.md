@@ -145,23 +145,25 @@ coordonnées et réseaux sociaux, ainsi que les traces GPX des parcours (voir ci
 ## 4 bis. Les parcours (GPX)
 
 Chaque épreuve peut porter une liste de parcours (champ **Parcours (traces GPX)** au CMS) :
-un nom (« Format M ») et un fichier GPX.
+un nom (« Format M ») et **un GPX par discipline** (natation, vélo, course à pied), chacun
+facultatif. Ce sont ces fichiers que les visiteurs téléchargent, un bouton par discipline.
 
 Le champ **Encart au-dessus de la carte** pilote le bandeau d'avertissement : une case
 « Afficher l'encart » et un texte libre. Décocher la case le retire ; vider le texte aussi.
 C'est là qu'on écrit « tracés provisoires… », et c'est là qu'on l'enlève le jour où les
 parcours sont définitifs — sans toucher au code.
 
-Le GPX est la **seule source de vérité** : la page calcule les distances à partir de ses
-points, il n'y a donc rien à ressaisir. Chaque `<trk>` du fichier porte un `<type>` —
-`natation`, `velo` ou `course` — qui donne sa couleur au tracé et sa ligne à la légende.
+Les GPX sont la **seule source de vérité** : la page calcule les distances à partir de leurs
+points, il n'y a donc rien à ressaisir. Le champ où le fichier est déposé (natation, vélo ou
+course) donne sa couleur au tracé et sa ligne à la légende : un export Garmin ou Strava brut
+convient.
 
 Remplacer un parcours = déposer un nouveau GPX au CMS, rien d'autre.
 
 ### Les traces actuelles sont provisoires
 
 `npm run parcours` les régénère depuis `scripts/generer-parcours.mjs`, qui dessine des boucles
-plausibles autour du port de Navarrosse. Elles
+plausibles autour du port de Navarrosse (un fichier par format et par discipline). Elles
 donnent l'esprit du parcours et les bonnes distances pour le triathlon ; **ce ne sont pas les
 tracés officiels**. Le jour où le club a les vrais relevés, on dépose les GPX au CMS et le
 script ne sert plus à rien (il peut être supprimé).

@@ -129,8 +129,20 @@ content:
         list: true
         fields:
           - { name: nom, label: Nom du parcours (ex. Format M), type: string }
-          - name: fichier
-            label: Fichier GPX
+          - name: natation
+            label: GPX natation
+            type: file
+            options:
+              path: public/uploads/parcours
+              extensions: [gpx]
+          - name: velo
+            label: GPX vélo
+            type: file
+            options:
+              path: public/uploads/parcours
+              extensions: [gpx]
+          - name: course
+            label: GPX course à pied
             type: file
             options:
               path: public/uploads/parcours

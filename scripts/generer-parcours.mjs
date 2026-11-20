@@ -87,44 +87,42 @@ const E = [44.433, -1.1672];
 const TOUR_COURSE = [T, [44.428, -1.163], [44.422, -1.161], [44.416, -1.158], [44.4105, -1.155],
                      [44.416, -1.158], [44.422, -1.161], [44.428, -1.163], T];
 
-const triathlonM = gpx(
-  'Triathlon de Biscarrosse — Format M',
-  'Tracé PROVISOIRE — 1,5 km natation / 40 km vélo / 10 km course à pied.',
-  [
-    segment({ nom: 'Natation — 1,5 km', discipline: 'natation', km: 1.5,
-      points: [E, [44.436, -1.172], [44.4345, -1.176], E] }),
-    /* Grande boucle Navarrosse — Biscarrosse — Parentis — Sanguinet, par l'est du lac. */
-    segment({ nom: 'Vélo — 40 km', discipline: 'velo', km: 40,
-      points: [T, [44.4285, -1.159], [44.41, -1.1555], [44.3907, -1.1609], [44.37, -1.15],
-               [44.354, -1.076], [44.39, -1.035], [44.44, -1.04], [44.485, -1.076], [44.46, -1.112],
-               [44.445, -1.138], [44.4378, -1.1538], [44.4345, -1.1592], [44.4328, -1.1632], T] }),
-    segment({ nom: 'Course à pied — 10 km', discipline: 'course', km: 10,
-      points: [...TOUR_COURSE, ...TOUR_COURSE.slice(1)] }),
-  ],
-);
+const triathlonM = [
+  segment({ nom: 'Natation — 1,5 km', discipline: 'natation', km: 1.5,
+    points: [E, [44.436, -1.172], [44.4345, -1.176], E] }),
+  /* Grande boucle Navarrosse — Biscarrosse — Parentis — Sanguinet, par l'est du lac. */
+  segment({ nom: 'Vélo — 40 km', discipline: 'velo', km: 40,
+    points: [T, [44.4285, -1.159], [44.41, -1.1555], [44.3907, -1.1609], [44.37, -1.15],
+             [44.354, -1.076], [44.39, -1.035], [44.44, -1.04], [44.485, -1.076], [44.46, -1.112],
+             [44.445, -1.138], [44.4378, -1.1538], [44.4345, -1.1592], [44.4328, -1.1632], T] }),
+  segment({ nom: 'Course à pied — 10 km', discipline: 'course', km: 10,
+    points: [...TOUR_COURSE, ...TOUR_COURSE.slice(1)] }),
+];
 
-const triathlonXS = gpx(
-  'Triathlon de Biscarrosse — Format XS',
-  'Tracé PROVISOIRE — 400 m natation / 10 km vélo / 2,5 km course à pied.',
-  [
-    segment({ nom: 'Natation — 400 m', discipline: 'natation', km: 0.4,
-      points: [E, [44.434, -1.1685], [44.4334, -1.1697], E] }),
-    /* La boucle reste à l'est de la route du lac : sans ce garde-fou, le lissage
-       fait mordre la courbe de fermeture sur l'eau. */
-    segment({ nom: 'Vélo — 10 km', discipline: 'velo', km: 10,
-      points: [T, [44.4285, -1.159], [44.4215, -1.1505], [44.418, -1.1335], [44.4315, -1.1305],
-               [44.4385, -1.1445], [44.4378, -1.1538], [44.4345, -1.1592], [44.4328, -1.1632], T] }),
-    segment({ nom: 'Course à pied — 2,5 km', discipline: 'course', km: 2.5,
-      points: [T, [44.428, -1.163], [44.4235, -1.1613], [44.42, -1.1595], [44.4235, -1.1613],
-               [44.428, -1.163], T] }),
-  ],
-);
+const triathlonXS = [
+  segment({ nom: 'Natation — 400 m', discipline: 'natation', km: 0.4,
+    points: [E, [44.434, -1.1685], [44.4334, -1.1697], E] }),
+  /* La boucle reste à l'est de la route du lac : sans ce garde-fou, le lissage
+     fait mordre la courbe de fermeture sur l'eau. */
+  segment({ nom: 'Vélo — 10 km', discipline: 'velo', km: 10,
+    points: [T, [44.4285, -1.159], [44.4215, -1.1505], [44.418, -1.1335], [44.4315, -1.1305],
+             [44.4385, -1.1445], [44.4378, -1.1538], [44.4345, -1.1592], [44.4328, -1.1632], T] }),
+  segment({ nom: 'Course à pied — 2,5 km', discipline: 'course', km: 2.5,
+    points: [T, [44.428, -1.163], [44.4235, -1.1613], [44.42, -1.1595], [44.4235, -1.1613],
+             [44.428, -1.163], T] }),
+];
 
 mkdirSync('public/uploads/parcours', { recursive: true });
-for (const [nom, contenu] of Object.entries({
-  'triathlon-m.gpx': triathlonM,
-  'triathlon-xs.gpx': triathlonXS,
-})) {
+const fichiers = {};
+for (const [prefixe, format, segments] of [
+  ['triathlon-m', 'Format M', triathlonM],
+  ['triathlon-xs', 'Format XS', triathlonXS],
+]) {
+  for (const s of segments) {
+    fichiers[`${prefixe}-${s.discipline}.gpx`] = gpx(`Triathlon de Biscarrosse — ${format} — ${s.nom}`, 'Tracé PROVISOIRE.', [s]);
+  }
+}
+for (const [nom, contenu] of Object.entries(fichiers)) {
   writeFileSync(`public/uploads/parcours/${nom}`, contenu);
-  console.log(nom.padEnd(18), (contenu.match(/<trkpt/g) || []).length, 'points,', (contenu.length / 1024).toFixed(0), 'Ko');
+  console.log(nom.padEnd(26), (contenu.match(/<trkpt/g) || []).length, 'points,', (contenu.length / 1024).toFixed(0), 'Ko');
 }
