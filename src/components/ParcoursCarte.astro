@@ -1,12 +1,12 @@
 ---
 /**
- * Carte des parcours : lit les GPX de `public/uploads/parcours`, trace chaque
- * portion dans la couleur de sa discipline et calcule les distances à partir
- * des points. Les GPX sont donc la seule source de vérité — remplacer un fichier
- * suffit à mettre la page à jour.
+ * Cartes des parcours : une carte par discipline (natation, vélo, course à pied),
+ * chacune avec sa distance et son GPX à télécharger. Les onglets au-dessus
+ * changent de format (M, XS…) pour les trois cartes à la fois.
  *
- * Chaque format a un GPX par discipline (natation, vélo, course) : c'est le
- * champ du CMS où le fichier est déposé qui donne sa discipline au tracé.
+ * Les distances sont calculées à partir des points des GPX : les fichiers sont
+ * la seule source de vérité, remplacer un GPX suffit à mettre la page à jour.
+ * C'est le champ du CMS où le fichier est déposé qui donne sa discipline.
  *
  * Leaflet et les tuiles ne sont chargés qu'à l'approche de la section (voir
  * l'IntersectionObserver plus bas) : une page qu'on ne descend pas ne paie rien.
@@ -22,26 +22,30 @@ interface Props {
   traces: Trace[];
   /** Phrase d'intro sous le titre de section. */
   intro?: string;
-  /** Encart d'avertissement au-dessus de la carte ; absent ou vide = pas d'encart. */
+  /** Encart d'avertissement au-dessus des cartes ; absent ou vide = pas d'encart. */
   avertissement?: string | null;
 }
 const { traces, intro, avertissement } = Astro.props;
 
-const legende: { discipline: Discipline; libelle: string }[] = [
+const disciplines: { discipline: Discipline; libelle: string }[] = [
   { discipline: 'natation', libelle: 'Natation' },
   { discipline: 'velo', libelle: 'Vélo' },
   { discipline: 'course', libelle: 'Course à pied' },
 ];
 
-/* Un format sans aucun GPX n'a rien à montrer : on l'écarte. */
+/* Par format : l'URL du GPX de chaque discipline renseignée. Un format sans
+   aucun GPX n'a rien à montrer : on l'écarte. */
 const parcours = traces
   .map((t) => ({
     nom: t.nom,
-    fichiers: legende
-      .filter((l) => t[l.discipline])
-      .map((l) => ({ discipline: l.discipline, libelle: l.libelle, url: withBase(t[l.discipline]!) })),
+    fichiers: Object.fromEntries(
+      disciplines.filter((d) => t[d.discipline]).map((d) => [d.discipline, withBase(t[d.discipline]!)]),
+    ) as Partial<Record<Discipline, string>>,
   }))
-  .filter((p) => p.fichiers.length > 0);
+  .filter((p) => Object.keys(p.fichiers).length > 0);
+
+/* Une carte pour chaque discipline présente dans au moins un format. */
+const cartes = disciplines.filter((d) => parcours.some((p) => p.fichiers[d.discipline]));
 
 const texteAvertissement = avertissement?.trim();
 ---
@@ -53,7 +57,7 @@ const texteAvertissement = avertissement?.trim();
         <SectionHeader
           eyebrow="Les parcours"
           titre="Reconnaître le terrain"
-          intro={intro ?? 'Visualise le tracé, puis télécharge les GPX pour les charger dans ta montre ou ton compteur.'}
+          intro={intro ?? 'Visualise le tracé de chaque discipline, puis télécharge les GPX pour les charger dans ta montre ou ton compteur.'}
           class="reveal"
         />
 
@@ -64,19 +68,15 @@ const texteAvertissement = avertissement?.trim();
           </p>
         )}
 
-        <div
-          class="reveal mt-12 overflow-hidden rounded-card border border-navy-100 bg-foam-50 shadow-soft"
-          data-carte-parcours
-          data-parcours={JSON.stringify(parcours.map((p) => p.fichiers))}
-        >
+        <div class="reveal mt-12" data-carte-parcours data-parcours={JSON.stringify(parcours.map((p) => p.fichiers))}>
           {parcours.length > 1 && (
-            <div class="flex flex-wrap gap-2 border-b border-navy-100 bg-white p-3" role="group" aria-label="Choisir un parcours">
+            <div class="mb-6 flex flex-wrap gap-2" role="group" aria-label="Choisir un format">
               {parcours.map((p, i) => (
                 <button
                   type="button"
                   aria-pressed={i === 0 ? 'true' : 'false'}
                   data-onglet={i}
-                  class="rounded-full px-4 py-2 font-display text-sm font-semibold tracking-wider uppercase transition aria-pressed:bg-navy-800 aria-pressed:text-white aria-[pressed=false]:text-navy-500 aria-[pressed=false]:hover:bg-foam-100"
+                  class="rounded-full px-4 py-2 font-display text-sm font-semibold tracking-wider uppercase ring-1 ring-navy-100 transition aria-pressed:bg-navy-800 aria-pressed:text-white aria-pressed:ring-navy-800 aria-[pressed=false]:text-navy-500 aria-[pressed=false]:hover:bg-foam-100"
                 >
                   {p.nom}
                 </button>
@@ -84,62 +84,71 @@ const texteAvertissement = avertissement?.trim();
             </div>
           )}
 
-          <div class="relative">
-            <div data-carte class="h-[22rem] w-full bg-foam-100 sm:h-[28rem] lg:h-[32rem]" />
+          <div class="grid gap-6 lg:grid-cols-3">
+            {cartes.map((c) => {
+              const url = parcours[0].fichiers[c.discipline];
+              return (
+                <article
+                  class:list={[
+                    'flex-col overflow-hidden rounded-card border border-navy-100 bg-foam-50 shadow-soft',
+                    url ? 'flex' : 'hidden',
+                  ]}
+                  data-discipline={c.discipline}
+                >
+                  <header class="flex items-center justify-between gap-3 border-b border-navy-100 bg-white px-5 py-4">
+                    <h3 class="flex items-center gap-2.5 text-xl text-navy-900">
+                      <span class="flex h-9 w-9 items-center justify-center rounded-full bg-foam-50 text-ocean-500 ring-1 ring-navy-100">
+                        <DisciplineIcon discipline={c.discipline} class="h-4.5 w-4.5" />
+                      </span>
+                      {c.libelle}
+                    </h3>
+                    <span class="font-display text-lg font-semibold tabular-nums text-navy-900" data-distance />
+                  </header>
 
-            {/* Repli tant que la carte n'est pas prête (ou si le JS échoue). */}
-            <p
-              data-carte-attente
-              class="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-navy-400"
-            >
-              Chargement de la carte…
-            </p>
-          </div>
+                  <div class="relative">
+                    <div data-carte class="h-72 w-full bg-foam-100 sm:h-80" />
+                    {/* Repli tant que la carte n'est pas prête (ou si le JS échoue). */}
+                    <p
+                      data-carte-attente
+                      class="pointer-events-none absolute inset-0 flex items-center justify-center px-6 text-center text-sm text-navy-400"
+                    >
+                      Chargement de la carte…
+                    </p>
+                  </div>
 
-          <div class="flex flex-wrap items-center justify-between gap-4 border-t border-navy-100 bg-white px-5 py-4">
-            <ul class="flex flex-wrap items-center gap-x-6 gap-y-2" data-legende>
-              {legende.map((l) => (
-                <li class="hidden items-center gap-2 text-sm" data-legende-item={l.discipline}>
-                  <span class="h-1 w-7 rounded-full" data-legende-trait />
-                  <DisciplineIcon discipline={l.discipline} class="h-4 w-4 text-navy-400" />
-                  <span class="text-navy-600">{l.libelle}</span>
-                  <span class="font-display font-semibold tabular-nums text-navy-900" data-legende-distance />
-                </li>
-              ))}
-            </ul>
-
-            {/* Un groupe de téléchargements par format ; seul celui de l'onglet actif est visible. */}
-            {parcours.map((p, i) => (
-              <div class:list={['flex-wrap items-center gap-2', i === 0 ? 'flex' : 'hidden']} data-telechargements={i}>
-                {p.fichiers.map((f) => (
-                  <a
-                    href={f.url}
-                    download
-                    class="inline-flex items-center gap-2 rounded-full bg-ocean-400 px-4 py-2 font-display text-sm font-semibold tracking-wider text-navy-900 uppercase shadow-soft transition hover:bg-ocean-300 hover:shadow-lift focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean-400"
-                  >
-                    <svg viewBox="0 0 16 16" class="h-4 w-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M8 2v8M4.5 7 8 10.5 11.5 7M2.5 13h11" />
-                    </svg>
-                    GPX {f.libelle}
-                    <span class="sr-only">&nbsp;— {p.nom}</span>
-                  </a>
-                ))}
-              </div>
-            ))}
+                  <div class="border-t border-navy-100 bg-white px-5 py-4">
+                    <a
+                      href={url}
+                      download
+                      data-telechargement
+                      class="inline-flex items-center gap-2 rounded-full bg-ocean-400 px-4 py-2 font-display text-sm font-semibold tracking-wider text-navy-900 uppercase shadow-soft transition hover:bg-ocean-300 hover:shadow-lift focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ocean-400"
+                    >
+                      <svg viewBox="0 0 16 16" class="h-4 w-4" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 2v8M4.5 7 8 10.5 11.5 7M2.5 13h11" />
+                      </svg>
+                      Télécharger le GPX
+                      <span class="sr-only">&nbsp;— {c.libelle}</span>
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
           {/* Sans JS, les onglets ne font rien : on redonne tous les fichiers. */}
           {parcours.length > 1 && (
             <noscript>
-              <ul class="flex flex-wrap gap-x-5 gap-y-2 border-t border-navy-100 bg-white px-5 py-4 text-sm">
+              <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
                 {parcours.flatMap((p) =>
-                  p.fichiers.map((f) => (
-                    <li>
-                      <a href={f.url} download class="font-semibold text-ocean-600 underline underline-offset-4">
-                        GPX {f.libelle} — {p.nom}
-                      </a>
-                    </li>
-                  )),
+                  disciplines
+                    .filter((d) => p.fichiers[d.discipline])
+                    .map((d) => (
+                      <li>
+                        <a href={p.fichiers[d.discipline]} download class="font-semibold text-ocean-600 underline underline-offset-4">
+                          GPX {d.libelle} — {p.nom}
+                        </a>
+                      </li>
+                    )),
                 )}
               </ul>
             </noscript>
@@ -178,11 +187,10 @@ const texteAvertissement = avertissement?.trim();
 
   const km = (m: number) => (m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1).replace('.', ',')} km`);
 
-  type Fichier = { discipline: string; url: string };
-  type Portion = { discipline: string; points: Leaflet.LatLng[]; longueur: number };
+  type Portion = { points: Leaflet.LatLng[]; longueur: number };
 
-  /** Un GPX = une discipline ; chaque `<trk>` (ou à défaut `<rte>`) devient une portion. */
-  function lireGpx(xml: string, discipline: string): Portion[] {
+  /** Chaque `<trk>` (ou à défaut `<rte>`) du GPX devient une portion du tracé. */
+  function lireGpx(xml: string): Portion[] {
     const doc = new DOMParser().parseFromString(xml, 'application/xml');
     if (doc.querySelector('parsererror')) throw new Error('GPX illisible');
 
@@ -193,7 +201,7 @@ const texteAvertissement = avertissement?.trim();
         L.latLng(Number(pt.getAttribute('lat')), Number(pt.getAttribute('lon'))),
       );
       const longueur = points.slice(1).reduce((s, p, i) => s + distance(points[i], p), 0);
-      return { discipline, points, longueur };
+      return { points, longueur };
     });
   }
 
@@ -201,16 +209,29 @@ const texteAvertissement = avertissement?.trim();
   const depart = (p: Leaflet.LatLng) =>
     L.circleMarker(p, { radius: 7, color: '#ffffff', weight: 3, fillColor: '#16294b', fillOpacity: 1 });
 
-  async function initialiser(bloc: HTMLElement) {
-    L = (await import('leaflet')).default;
+  const cache = new Map<string, Promise<Portion[]>>();
 
-    const parcours: Fichier[][] = JSON.parse(bloc.dataset.parcours ?? '[]');
-    const conteneur = bloc.querySelector<HTMLElement>('[data-carte]')!;
-    const attente = bloc.querySelector<HTMLElement>('[data-carte-attente]');
-    const onglets = [...bloc.querySelectorAll<HTMLButtonElement>('[data-onglet]')];
-    const telechargements = [...bloc.querySelectorAll<HTMLElement>('[data-telechargements]')];
+  function charger(url: string): Promise<Portion[]> {
+    let portions = cache.get(url);
+    if (!portions) {
+      portions = fetch(url).then((reponse) => {
+        if (!reponse.ok) throw new Error(`GPX introuvable (${reponse.status})`);
+        return reponse.text().then(lireGpx);
+      });
+      cache.set(url, portions);
+    }
+    return portions;
+  }
 
-    const carte = L.map(conteneur, { scrollWheelZoom: false, attributionControl: true });
+  /** Une carte Leaflet par discipline ; `afficher` y dessine le GPX demandé. */
+  function creerCarte(article: HTMLElement) {
+    const discipline = article.dataset.discipline!;
+    const couleur = COULEURS[discipline] ?? '#16294b';
+    const attente = article.querySelector<HTMLElement>('[data-carte-attente]');
+    const distanceEl = article.querySelector<HTMLElement>('[data-distance]')!;
+    const telechargement = article.querySelector<HTMLAnchorElement>('[data-telechargement]')!;
+
+    const carte = L.map(article.querySelector<HTMLElement>('[data-carte]')!, { scrollWheelZoom: false });
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -221,90 +242,75 @@ const texteAvertissement = avertissement?.trim();
     carte.on('mouseout', () => carte.scrollWheelZoom.disable());
 
     const couche = L.layerGroup().addTo(carte);
-    const cache = new Map<string, Portion[]>();
 
-    async function charger(f: Fichier): Promise<Portion[]> {
-      let portions = cache.get(f.url);
-      if (!portions) {
-        const reponse = await fetch(f.url);
-        if (!reponse.ok) throw new Error(`GPX introuvable (${reponse.status})`);
-        portions = lireGpx(await reponse.text(), f.discipline);
-        cache.set(f.url, portions);
+    return async function afficher(url: string | undefined) {
+      /* Discipline absente de ce format : on masque sa carte. */
+      article.classList.toggle('hidden', !url);
+      article.classList.toggle('flex', !!url);
+      if (!url) return;
+
+      telechargement.href = url;
+      /* La carte a pu être masquée : Leaflet doit remesurer son conteneur. */
+      carte.invalidateSize();
+
+      try {
+        const portions = await charger(url);
+        couche.clearLayers();
+        const bornes = L.latLngBounds([]);
+
+        for (const portion of portions) {
+          if (portion.points.length < 2) continue;
+          /* Liseré blanc dessous : garde le tracé lisible sur une carte chargée. */
+          L.polyline(portion.points, { color: '#ffffff', weight: 7, opacity: 0.9 }).addTo(couche);
+          L.polyline(portion.points, {
+            color: couleur,
+            weight: 4,
+            opacity: 1,
+            /* Natation : pointillés, comme sur les plans de course. */
+            dashArray: discipline === 'natation' ? '1 7' : undefined,
+            lineCap: 'round',
+          }).addTo(couche);
+          bornes.extend(L.latLngBounds(portion.points));
+        }
+
+        if (portions[0]?.points.length) depart(portions[0].points[0]).addTo(couche);
+        if (bornes.isValid()) carte.fitBounds(bornes, { padding: [24, 24] });
+
+        const total = portions.reduce((s, p) => s + p.longueur, 0);
+        distanceEl.textContent = total ? km(total) : '';
+        attente?.classList.add('hidden');
+      } catch (e) {
+        console.error(e);
+        distanceEl.textContent = '';
+        if (attente) {
+          attente.textContent = 'Carte indisponible — le GPX reste téléchargeable ci-dessous.';
+          attente.classList.remove('hidden');
+        }
       }
-      return portions;
-    }
+    };
+  }
 
-    function majLegende(portions: Portion[]) {
-      const total = new Map<string, number>();
-      for (const p of portions) total.set(p.discipline, (total.get(p.discipline) ?? 0) + p.longueur);
+  async function initialiser(bloc: HTMLElement) {
+    L = (await import('leaflet')).default;
 
-      bloc.querySelectorAll<HTMLElement>('[data-legende-item]').forEach((item) => {
-        const d = item.dataset.legendeItem!;
-        const m = total.get(d);
-        item.classList.toggle('hidden', !m);
-        item.classList.toggle('flex', !!m);
-        if (!m) return;
-        item.querySelector<HTMLElement>('[data-legende-trait]')!.style.backgroundColor = COULEURS[d] ?? '#16294b';
-        item.querySelector<HTMLElement>('[data-legende-distance]')!.textContent = km(m);
-      });
-    }
+    const parcours: Record<string, string>[] = JSON.parse(bloc.dataset.parcours ?? '[]');
+    const onglets = [...bloc.querySelectorAll<HTMLButtonElement>('[data-onglet]')];
+    const cartes = [...bloc.querySelectorAll<HTMLElement>('[data-discipline]')].map((article) => ({
+      discipline: article.dataset.discipline!,
+      afficher: creerCarte(article),
+    }));
 
-    async function afficher(index: number) {
-      /* Un fichier manquant ou illisible ne doit pas masquer les autres disciplines. */
-      const resultats = await Promise.allSettled(parcours[index].map(charger));
-      resultats.forEach((r) => r.status === 'rejected' && console.error(r.reason));
-      const portions = resultats.flatMap((r) => (r.status === 'fulfilled' ? r.value : []));
-      if (!portions.length) throw new Error('Aucun GPX lisible pour ce parcours');
-
-      couche.clearLayers();
-      const bornes = L.latLngBounds([]);
-
-      for (const portion of portions) {
-        if (portion.points.length < 2) continue;
-        const couleur = COULEURS[portion.discipline] ?? '#16294b';
-        /* Liseré blanc dessous : garde le tracé lisible sur une carte chargée. */
-        L.polyline(portion.points, { color: '#ffffff', weight: 7, opacity: 0.9 }).addTo(couche);
-        L.polyline(portion.points, {
-          color: couleur,
-          weight: 4,
-          opacity: 1,
-          /* Natation : pointillés, comme sur les plans de course. */
-          dashArray: portion.discipline === 'natation' ? '1 7' : undefined,
-          lineCap: 'round',
-        }).addTo(couche);
-        bornes.extend(L.latLngBounds(portion.points));
-      }
-
-      if (portions[0]?.points.length) depart(portions[0].points[0]).addTo(couche);
-      if (bornes.isValid()) carte.fitBounds(bornes, { padding: [28, 28] });
-
-      majLegende(portions);
+    const afficher = (index: number) => {
       onglets.forEach((o) => o.setAttribute('aria-pressed', String(Number(o.dataset.onglet) === index)));
-      telechargements.forEach((t) => {
-        const actif = Number(t.dataset.telechargements) === index;
-        t.classList.toggle('hidden', !actif);
-        t.classList.toggle('flex', actif);
-      });
-    }
-
-    const echec = (e: unknown) => {
-      console.error(e);
-      if (attente) attente.textContent = 'Carte indisponible — les GPX restent téléchargeables ci-dessous.';
+      return Promise.all(cartes.map((c) => c.afficher(parcours[index]?.[c.discipline])));
     };
 
-    afficher(0)
-      .then(() => attente?.remove())
-      .catch(echec);
-
-    onglets.forEach((onglet) => {
-      onglet.addEventListener('click', () => {
-        afficher(Number(onglet.dataset.onglet)).catch(echec);
-      });
-    });
+    await afficher(0);
+    onglets.forEach((onglet) => onglet.addEventListener('click', () => afficher(Number(onglet.dataset.onglet))));
   }
 
   /* On n'initialise qu'à l'approche de la section : Leaflet et les tuiles
-     ne sont téléchargés que si la carte est vraiment regardée. */
+     ne sont téléchargés que si les cartes sont vraiment regardées. */
   document.querySelectorAll<HTMLElement>('[data-carte-parcours]').forEach((bloc) => {
     const observateur = new IntersectionObserver(
       (entrees) => {
@@ -312,8 +318,9 @@ const texteAvertissement = avertissement?.trim();
         observateur.disconnect();
         initialiser(bloc).catch((e) => {
           console.error(e);
-          const attente = bloc.querySelector('[data-carte-attente]');
-          if (attente) attente.textContent = 'Carte indisponible — les GPX restent téléchargeables ci-dessous.';
+          bloc.querySelectorAll('[data-carte-attente]').forEach((attente) => {
+            attente.textContent = 'Carte indisponible — le GPX reste téléchargeable ci-dessous.';
+          });
         });
       },
       { rootMargin: '300px' },
