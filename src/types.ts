@@ -11,6 +11,24 @@ export interface Lien {
 /** Disciplines représentées par une icône (cf. DisciplineIcon). */
 export type Discipline = 'natation' | 'velo' | 'course';
 
+/**
+ * Un parcours téléchargeable. Le fichier GPX est la source de vérité :
+ * les distances affichées sur la carte sont calculées à partir de ses points,
+ * et chaque `<trk>` y porte un `<type>` (natation / velo / course) qui donne
+ * sa couleur au tracé.
+ */
+export interface Trace {
+  nom: string;
+  /** Chemin public du GPX, ex. `/uploads/parcours/triathlon-m.gpx`. */
+  fichier: string;
+}
+
+/** Encart affiché au-dessus de la carte (ex. « tracés provisoires »). */
+export interface AvertissementParcours {
+  actif: boolean;
+  texte?: string | null;
+}
+
 export interface EpreuveFormat {
   nom: string;
   /** Distances par discipline ; absent ou vide = « à venir » (Pages CMS omet les listes vides). */
@@ -36,6 +54,10 @@ export interface Epreuve {
   /** Absent quand aucun format n'est saisi (Pages CMS omet les listes vides). */
   formats?: EpreuveFormat[];
   parcours?: string | null;
+  /** Traces GPX des parcours (absent = pas encore de carte). */
+  traces?: Trace[];
+  /** Encart au-dessus de la carte ; masqué si `actif` est faux ou le texte vide. */
+  avertissement_parcours?: AvertissementParcours | null;
   tarifs?: string | null;
   lien_inscription?: string | null;
   /** Lien vers le règlement (PDF). */

@@ -3,6 +3,7 @@ import SectionHeader from './ui/SectionHeader.astro';
 import DisciplineIcon from './ui/DisciplineIcon.astro';
 import Button from './ui/Button.astro';
 import Countdown from './Countdown.astro';
+import ParcoursCarte from './ParcoursCarte.astro';
 import { site, epreuves, dateLongue, estAVenir, withBase } from '../lib/content';
 import type { Discipline, Epreuve } from '../types';
 
@@ -46,6 +47,14 @@ const infosPratiques = [
    `formats` ou `distances` peuvent donc arriver `undefined`. On normalise ici
    pour ne jamais lire `.length` sur `undefined` (le build échouait sinon). */
 const formats = (epreuve.formats ?? []).map((f) => ({ ...f, distances: f.distances ?? [] }));
+
+/* Pas de trace GPX saisie : la section carte disparaît entièrement. */
+const traces = epreuve.traces ?? [];
+
+/* Encart au-dessus de la carte : décocher « Afficher » au CMS le retire. */
+const avertissementParcours = epreuve.avertissement_parcours?.actif
+  ? epreuve.avertissement_parcours.texte
+  : null;
 
 /* Lien vers l'autre épreuve (renvoi en bas de page). */
 const autre = epreuves.find((e) => e.slug !== epreuve.slug);
@@ -187,6 +196,16 @@ const autre = epreuves.find((e) => e.slug !== epreuve.slug);
     }
   </div>
 </section>
+
+{
+  traces.length > 0 && (
+    <ParcoursCarte
+      traces={traces}
+      avertissement={avertissementParcours}
+      intro={'Visualise le tracé de chaque format, puis télécharge le GPX pour le charger dans ta montre ou ton compteur.'}
+    />
+  )
+}
 
 <!-- ===== Infos pratiques ===== -->
 <section class="scroll-mt-24 bg-foam-100 py-20 sm:py-24 lg:py-28">
