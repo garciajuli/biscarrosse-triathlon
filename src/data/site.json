@@ -4,8 +4,8 @@
   "baseline": "Club de triathlon — Biscarrosse, Landes",
   "ville": "Biscarrosse (40)",
   "affiliation": "Club affilié à la Fédération Française de Triathlon",
-  "email": "contact@biscarrosse-triathlon.fr",
-  "telephone": "06 12 34 56 78",
+  "email": "triathlonbisca@gmail.com",
+  "telephone": "06 80 76 35 55",
   "adresse": {
     "lignes": [
       "Complexe sportif de Biscarrosse",
@@ -30,17 +30,13 @@
       "lien": "/triathlon"
     },
     {
-      "libelle": "Swimrun",
-      "lien": "/swimrun"
-    },
-    {
       "libelle": "Contact",
       "lien": "/#contact"
     }
   ],
   "annonce": {
     "actif": true,
-    "texte": "Swimrun de Biscarrosse — 20 septembre 2026.",
+    "texte": "Triathlon de Biscarrosse — dimanche 19 septembre 2027.",
     "libelle_lien": "Voir l'épreuve",
     "lien": "/triathlon"
   }

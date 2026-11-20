@@ -6,20 +6,19 @@ import type { Discipline, Epreuve } from '../types';
 
 const iconesParType: Record<Epreuve['discipline'], Discipline[]> = {
   triathlon: ['natation', 'velo', 'course'],
-  swimrun: ['natation', 'course'],
 };
 ---
 
 <section id="epreuves" class="scroll-mt-24 bg-white py-20 sm:py-24 lg:py-28">
   <div class="shell">
     <SectionHeader
-      eyebrow="Nos épreuves"
-      titre="Deux rendez-vous à Biscarrosse"
-      intro="Le club n’organise pas que des entraînements : chaque saison, on trace deux parcours entre lac et pins et on vous attend au départ."
+      eyebrow="Notre épreuve"
+      titre="Le rendez-vous de Biscarrosse"
+      intro="Le club n’organise pas que des entraînements : chaque saison, on trace le parcours du triathlon entre lac et pins et on vous attend au départ."
       class="reveal"
     />
 
-    <div class="mt-14 grid gap-8 lg:grid-cols-2">
+    <div class="mt-14 grid max-w-3xl gap-8">
       {
         epreuves.map((e, i) => {
           const dateFmt = e.date ? dateLongue(new Date(e.date)) : null;

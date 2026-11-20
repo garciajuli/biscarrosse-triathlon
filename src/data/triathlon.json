@@ -1,8 +1,8 @@
 {
-  "nom": "test de Biscarrosse",
-  "edition": "Édition 2026",
+  "nom": "Triathlon de Biscarrosse",
+  "edition": "Édition 2027",
   "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied au bord du lac. Plusieurs formats au programme, des courses jeunes au format olympique.",
-  "date": "2026-09-20",
+  "date": "2027-09-19",
   "formats": [
     {
       "nom": "Format M",
@@ -42,10 +42,10 @@
   "lien_inscription": "https://www.tiptiptop.top/com/articles.php?Page=24",
   "reglement": "https://www.tiptiptop.top/UserFiles/Site/File/reglement/reglement_triathlon_biscarrosse_2025.pdf",
   "retrait_dossards": "Samedi 6h00 - 8h15",
-  "conditions": "Licenciés FFTRI : licence de la saison en cours. Non-licenciés : questionnaire de santé (un Pass Journée FFTRI est ajouté automatiquement à l'inscription). Mineurs : autorisation parentale. Étrangers : Pass Licencié ITU. Clôture des inscriptions en ligne le 17 septembre 2026 à 12h00.",
+  "conditions": "Licenciés FFTRI : licence de la saison en cours. Non-licenciés : questionnaire de santé (un Pass Journée FFTRI est ajouté automatiquement à l'inscription). Mineurs : autorisation parentale. Étrangers : Pass Licencié ITU.",
   "seo": {
-    "titre": "Triathlon de Biscarrosse — 20 septembre 2026 | BO Triathlon",
-    "description": "Le Triathlon de Biscarrosse, le 20 septembre 2026 : formats XS et M plus courses jeunes, entre lac et forêt de pins. Inscriptions en ligne.",
+    "titre": "Triathlon de Biscarrosse — 19 septembre 2027 | BO Triathlon",
+    "description": "Le Triathlon de Biscarrosse, le dimanche 19 septembre 2027 : formats XS et M plus courses jeunes, entre lac et forêt de pins. Inscriptions en ligne.",
     "image": "/uploads/og-biscarrosse-triathlon.svg"
   }
 }

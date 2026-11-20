@@ -20,12 +20,12 @@ export interface EpreuveFormat {
 }
 
 /**
- * Une épreuve organisée par le club (triathlon, swimrun…), éditable
+ * Une épreuve organisée par le club (le triathlon), éditable
  * depuis src/data/<slug>.json. Les champs `null` s'affichent « À venir ».
  */
 export interface Epreuve {
   slug: string;
-  discipline: 'triathlon' | 'swimrun';
+  discipline: 'triathlon';
   nom: string;
   edition?: string | null;
   accroche: string;
@@ -36,8 +36,6 @@ export interface Epreuve {
   /** Absent quand aucun format n'est saisi (Pages CMS omet les listes vides). */
   formats?: EpreuveFormat[];
   parcours?: string | null;
-  /** Matériel obligatoire (surtout pour le swimrun). */
-  materiel?: string | null;
   tarifs?: string | null;
   lien_inscription?: string | null;
   /** Lien vers le règlement (PDF). */

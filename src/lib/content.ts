@@ -1,7 +1,6 @@
 import homeJson from '../data/home.json';
 import siteJson from '../data/site.json';
 import triathlonJson from '../data/triathlon.json';
-import swimrunJson from '../data/swimrun.json';
 import type { Epreuve, Home, Site } from '../types';
 
 /** Contenus « singleton » éditables depuis le CMS. */
@@ -14,10 +13,9 @@ export const home = homeJson as Home;
    Le passage par `unknown` évite un faux positif de `astro check` (unions
    littérales + `null` dans le JSON). */
 export const triathlon = { slug: 'triathlon', discipline: 'triathlon', ...triathlonJson } as unknown as Epreuve;
-export const swimrun = { slug: 'swimrun', discipline: 'swimrun', ...swimrunJson } as unknown as Epreuve;
 
 /** Ordre d'affichage des épreuves sur la page d'accueil. */
-export const epreuves: Epreuve[] = [triathlon, swimrun];
+export const epreuves: Epreuve[] = [triathlon];
 
 /**
  * Préfixe un chemin interne par le `base` du site (utile quand le site est

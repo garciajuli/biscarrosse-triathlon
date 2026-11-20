@@ -13,19 +13,19 @@
       "lien": "/triathlon"
     },
     "cta_secondaire": {
-      "libelle": "Le swimrun",
-      "lien": "/swimrun"
+      "libelle": "Nous contacter",
+      "lien": "/#contact"
     },
     "compte_a_rebours": {
       "actif": true,
       "libelle": "Triathlon de Biscarrosse",
-      "date": "2026-09-20T07:00:00+00:00",
+      "date": "2027-09-19T07:00:00+00:00",
       "lien": "/triathlon"
     }
   },
   "chiffres": [
     {
-      "valeur": "70",
+      "valeur": "52",
       "libelle": "licenciés",
       "detail": "dont 2 jeunes"
     },
@@ -40,7 +40,7 @@
       "detail": "Master Staps BF3 & BF2"
     },
     {
-      "valeur": "???",
+      "valeur": "2002",
       "libelle": "année de création"
     }
   ],

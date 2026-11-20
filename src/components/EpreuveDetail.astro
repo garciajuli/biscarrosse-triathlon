@@ -14,10 +14,9 @@ const { epreuve } = Astro.props;
 /* Icônes de discipline selon le type d'épreuve. */
 const iconesParType: Record<Epreuve['discipline'], Discipline[]> = {
   triathlon: ['natation', 'velo', 'course'],
-  swimrun: ['natation', 'course'],
 };
 const icones = iconesParType[epreuve.discipline];
-const labelDiscipline = epreuve.discipline === 'swimrun' ? 'Swimrun' : 'Triathlon';
+const labelDiscipline = 'Triathlon';
 
 /* Dates : format long FR + compte à rebours si l'épreuve est à venir. */
 const dateObj = epreuve.date ? new Date(epreuve.date) : null;
@@ -37,12 +36,11 @@ const infosPratiques = [
   { titre: 'Date', valeur: dateFmt },
   { titre: 'Lieu de départ', valeur: epreuve.lieu },
   { titre: 'Parcours', valeur: epreuve.parcours },
-  epreuve.discipline === 'swimrun' ? { titre: 'Matériel obligatoire', valeur: epreuve.materiel } : null,
   { titre: 'Tarifs', valeur: epreuve.tarifs },
   { titre: 'Retrait des dossards', valeur: epreuve.retrait_dossards },
   { titre: 'Ravitaillements', valeur: epreuve.ravitaillements },
   { titre: 'Conditions de participation', valeur: epreuve.conditions },
-].filter((x): x is { titre: string; valeur: string | null } => x !== null);
+];
 
 /* Pages CMS supprime les listes vides du JSON quand on enregistre une fiche :
    `formats` ou `distances` peuvent donc arriver `undefined`. On normalise ici
@@ -142,9 +140,7 @@ const autre = epreuves.find((e) => e.slug !== epreuve.slug);
     <SectionHeader
       eyebrow="Au programme"
       titre="Formats & distances"
-      intro={epreuve.discipline === 'triathlon'
-        ? 'Deux formats pour tous les niveaux : on peut viser le chrono ou simplement vivre l’expérience.'
-        : 'Deux formats de swimrun, à parcourir en enchaînant nage et course.'}
+      intro='Deux formats pour tous les niveaux : on peut viser le chrono ou simplement vivre l’expérience.'
       class="reveal"
     />
 
