@@ -3,6 +3,7 @@
   "edition": "Édition 2027",
   "accroche": "Une matinée de triathlon entre le lac et la forêt de pins : natation en eau libre, vélo roulant sous les pins et course à pied au bord du lac. Plusieurs formats au programme, des courses jeunes au format olympique.",
   "date": "2027-09-19",
+  "lieu": "Plage Maguide - Biscarrosse",
   "formats": [
     {
       "nom": "Format M",
@@ -21,33 +22,25 @@
         }
       ],
       "detail": "Distance olympique — nés en 2008 et avant.",
-      "prix": "62,60 € (+5 € à partir du 15 août)"
+      "prix": "Non fixé"
     },
     {
-      "nom": "Format XS",
-      "detail": "Format découverte — nés en 2014 et avant.",
-      "prix": "31,60 € (+5 € à partir du 15 août)"
+      "nom": "Format X"
     },
     {
       "nom": "Triathlon 10-13 ans",
       "detail": "École de triathlon — nés de 2013 à 2016.",
-      "prix": "2,50 €"
+      "prix": "Non fixé"
     },
     {
       "nom": "Triathlon 6-9 ans",
       "detail": "École de triathlon — nés de 2017 à 2020.",
-      "prix": "2,50 €"
+      "prix": "Non fixé"
     }
   ],
   "traces": [
     {
       "nom": "Format M",
-      "natation": "/uploads/parcours/481896910160953544_0a83300ba3.gpx",
-      "velo": "/uploads/parcours/481896853252636673_e300da7e0f.gpx",
-      "course": "/uploads/parcours/481896929494597632_977108fcd7.gpx"
-    },
-    {
-      "nom": "Format XS",
       "natation": "/uploads/parcours/481896910160953544_0a83300ba3.gpx",
       "velo": "/uploads/parcours/481896853252636673_e300da7e0f.gpx",
       "course": "/uploads/parcours/481896929494597632_977108fcd7.gpx"
@@ -57,13 +50,14 @@
     "actif": true,
     "texte": "Tracés provisoires. Ils donnent l’esprit du parcours et l’ordre de grandeur des distances."
   },
-  "lien_inscription": "https://www.tiptiptop.top/com/articles.php?Page=24",
-  "reglement": "https://www.tiptiptop.top/UserFiles/Site/File/reglement/reglement_triathlon_biscarrosse_2025.pdf",
-  "retrait_dossards": "Samedi 6h00 - 8h15",
-  "conditions": "Licenciés FFTRI : licence de la saison en cours. Non-licenciés : questionnaire de santé (un Pass Journée FFTRI est ajouté automatiquement à l'inscription). Mineurs : autorisation parentale. Étrangers : Pass Licencié ITU.",
+  "lien_inscription": "https://www.tiptiptop.top/",
+  "reglement": "https://www.tiptiptop.top/",
+  "retrait_dossards": "...",
+  "ravitaillements": "...",
+  "conditions": "Licenciés FFTRI : licence de la saison en cours. Non-licenciés : \"Licence expérience\" avec questionnaire de santé. Mineurs : autorisation parentale. Étrangers : Pass Licencié ITU.",
   "seo": {
     "titre": "Triathlon de Biscarrosse — 19 septembre 2027 | BO Triathlon",
-    "description": "Le Triathlon de Biscarrosse, le dimanche 19 septembre 2027 : formats XS et M plus courses jeunes, entre lac et forêt de pins. Inscriptions en ligne.",
+    "description": "Le Triathlon de Biscarrosse, le dimanche 19 septembre 2027 : format M et courses jeunes, entre lac et forêt de pins. Inscriptions en ligne.",
     "image": "/uploads/og-biscarrosse-triathlon.svg"
   }
 }
