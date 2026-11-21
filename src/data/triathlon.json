@@ -22,20 +22,20 @@
         }
       ],
       "detail": "Distance olympique — nés en 2008 et avant.",
-      "prix": "Non fixé"
+      "prix": "Tarif"
     },
     {
-      "nom": "Format X"
+      "nom": "Format  ?"
     },
     {
       "nom": "Triathlon 10-13 ans",
-      "detail": "École de triathlon — nés de 2013 à 2016.",
-      "prix": "Non fixé"
+      "detail": "Nés de 2014 à 2017.",
+      "prix": "Tarif"
     },
     {
       "nom": "Triathlon 6-9 ans",
-      "detail": "École de triathlon — nés de 2017 à 2020.",
-      "prix": "Non fixé"
+      "detail": "Nés de 2018 à 2020.",
+      "prix": "Tarif"
     }
   ],
   "traces": [
